@@ -11,9 +11,6 @@
     <Filter Include="common">
       <UniqueIdentifier>{8025591e-7c0d-4b96-ace5-1c428241c0b6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="core">
-      <UniqueIdentifier>{68b96497-c3ea-4c20-aef8-949d422c4c21}</UniqueIdentifier>
-    </Filter>
     <Filter Include="http_server">
       <UniqueIdentifier>{60955ad1-6484-46c5-93c8-00334c2c8ad2}</UniqueIdentifier>
     </Filter>
@@ -42,24 +39,6 @@
   <ItemGroup>
     <ClCompile Include="..\..\center_server\CenterServer.cpp">
       <Filter>center_server</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\core\cache_queue.cpp">
-      <Filter>core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\core\message_queue.cpp">
-      <Filter>core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\core\nanomsg_socket.cpp">
-      <Filter>core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\core\NetHead.cpp">
-      <Filter>core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\core\NetPackage.cpp">
-      <Filter>core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\core\socket_core.cpp">
-      <Filter>core</Filter>
     </ClCompile>
     <ClCompile Include="..\..\http_server\http_server_business.cpp">
       <Filter>http_server</Filter>
@@ -146,24 +125,6 @@
     </ClInclude>
     <ClInclude Include="..\..\common\common_type.h">
       <Filter>common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\core\cache_queue.h">
-      <Filter>core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\core\message_queue.h">
-      <Filter>core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\core\nanomsg_socket.h">
-      <Filter>core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\core\NetHead.h">
-      <Filter>core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\core\NetPackage.h">
-      <Filter>core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\core\socket_core.h">
-      <Filter>core</Filter>
     </ClInclude>
     <ClInclude Include="..\..\http_server\http_server_business.h">
       <Filter>http_server</Filter>

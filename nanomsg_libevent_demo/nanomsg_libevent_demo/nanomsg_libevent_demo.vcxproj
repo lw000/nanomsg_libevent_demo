@@ -12,12 +12,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\center_server\CenterServer.cpp" />
-    <ClCompile Include="..\..\core\cache_queue.cpp" />
-    <ClCompile Include="..\..\core\message_queue.cpp" />
-    <ClCompile Include="..\..\core\nanomsg_socket.cpp" />
-    <ClCompile Include="..\..\core\NetHead.cpp" />
-    <ClCompile Include="..\..\core\NetPackage.cpp" />
-    <ClCompile Include="..\..\core\socket_core.cpp" />
     <ClCompile Include="..\..\http_server\http_server_business.cpp" />
     <ClCompile Include="..\..\libnet\http_server.cpp" />
     <ClCompile Include="..\..\libnet\net.cpp" />
@@ -48,12 +42,6 @@
     <ClInclude Include="..\..\common\common_marco.h" />
     <ClInclude Include="..\..\common\common_struct.h" />
     <ClInclude Include="..\..\common\common_type.h" />
-    <ClInclude Include="..\..\core\cache_queue.h" />
-    <ClInclude Include="..\..\core\message_queue.h" />
-    <ClInclude Include="..\..\core\nanomsg_socket.h" />
-    <ClInclude Include="..\..\core\NetHead.h" />
-    <ClInclude Include="..\..\core\NetPackage.h" />
-    <ClInclude Include="..\..\core\socket_core.h" />
     <ClInclude Include="..\..\http_server\http_server_business.h" />
     <ClInclude Include="..\..\json\rapidjson\document.h" />
     <ClInclude Include="..\..\json\rapidjson\filestream.h" />
