@@ -20,6 +20,7 @@
 #include "client_http.h"
 
 #include "GameServer.h"
+
 #include "net.h"
 
 using namespace LW;

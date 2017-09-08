@@ -12,6 +12,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\center_server\CenterServer.cpp" />
+    <ClCompile Include="..\..\GameServer\client_http.cpp" />
+    <ClCompile Include="..\..\GameServer\GameServer.cpp" />
     <ClCompile Include="..\..\http_server\http_server_business.cpp" />
     <ClCompile Include="..\..\libnet\http_server.cpp" />
     <ClCompile Include="..\..\libnet\net.cpp" />
@@ -32,6 +34,7 @@
     <ClCompile Include="..\..\protocol\game.pb.cc" />
     <ClCompile Include="..\..\protocol\platform.pb.cc" />
     <ClCompile Include="..\..\src\center_server_main.cpp" />
+    <ClCompile Include="..\..\src\game_server_main.cpp" />
     <ClCompile Include="..\..\src\http_server_main.cpp" />
     <ClCompile Include="..\..\src\main.cpp" />
     <ClCompile Include="..\..\src\platform_server_main.cpp" />
@@ -42,6 +45,8 @@
     <ClInclude Include="..\..\common\common_marco.h" />
     <ClInclude Include="..\..\common\common_struct.h" />
     <ClInclude Include="..\..\common\common_type.h" />
+    <ClInclude Include="..\..\GameServer\client_http.h" />
+    <ClInclude Include="..\..\GameServer\GameServer.h" />
     <ClInclude Include="..\..\http_server\http_server_business.h" />
     <ClInclude Include="..\..\json\rapidjson\document.h" />
     <ClInclude Include="..\..\json\rapidjson\filestream.h" />
@@ -127,7 +132,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\src;..\..\libnet;..\..\libutils;..\..\protocol;..\..\http_server;..\..\platform_server;..\..\center_server;..\..\core;..\..\json;..\..\common;..\..\..\libevent\;..\..\..\libevent\include;..\..\..\libevent\build\vs2013\include;..\..\..\libevent\WIN32-Code;..\..\..\protobuf\protobuf\include;..\..\..\protobuf\include;..\..\..\nanomsg\src;..\..\..\log4z</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\src;..\..\libnet;..\..\libutils;..\..\protocol;..\..\http_server;..\..\platform_server;..\..\center_server;..\..\core;..\..\json;..\..\gameserver;..\..\common;..\..\..\libevent\;..\..\..\libevent\include;..\..\..\libevent\build\vs2013\include;..\..\..\libevent\WIN32-Code;..\..\..\protobuf\protobuf\include;..\..\..\protobuf\include;..\..\..\nanomsg\src;..\..\..\log4z</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -145,7 +150,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\src;..\..\libnet;..\..\libutils;..\..\protocol;..\..\http_server;..\..\platform_server;..\..\center_server;..\..\core;..\..\json;..\..\common;..\..\..\libevent\;..\..\..\libevent\include;..\..\..\libevent\build\vs2013\include;..\..\..\libevent\WIN32-Code;..\..\..\protobuf\protobuf\include;..\..\..\protobuf\include;..\..\..\nanomsg\src;..\..\..\log4z</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\src;..\..\libnet;..\..\libutils;..\..\protocol;..\..\http_server;..\..\platform_server;..\..\center_server;..\..\core;..\..\json;..\..\gameserver;..\..\common;..\..\..\libevent\;..\..\..\libevent\include;..\..\..\libevent\build\vs2013\include;..\..\..\libevent\WIN32-Code;..\..\..\protobuf\protobuf\include;..\..\..\protobuf\include;..\..\..\nanomsg\src;..\..\..\log4z</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

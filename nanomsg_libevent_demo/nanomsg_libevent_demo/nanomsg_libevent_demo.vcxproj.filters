@@ -35,6 +35,9 @@
     <Filter Include="json\rapidjson\internal">
       <UniqueIdentifier>{c2f35f7b-2b1c-44c9-8a94-329459bb4d1a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="game_server">
+      <UniqueIdentifier>{65e0eed9-65a0-47ef-904a-583ba1a29bd3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\center_server\CenterServer.cpp">
@@ -110,6 +113,15 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\pubsub_main.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\GameServer\client_http.cpp">
+      <Filter>game_server</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\GameServer\GameServer.cpp">
+      <Filter>game_server</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\game_server_main.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
@@ -221,6 +233,12 @@
     </ClInclude>
     <ClInclude Include="..\..\json\rapidjson\internal\strfunc.h">
       <Filter>json\rapidjson\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\GameServer\client_http.h">
+      <Filter>game_server</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\GameServer\GameServer.h">
+      <Filter>game_server</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
