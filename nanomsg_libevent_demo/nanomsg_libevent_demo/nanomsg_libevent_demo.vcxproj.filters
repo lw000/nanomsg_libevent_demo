@@ -23,9 +23,6 @@
     <Filter Include="libnet">
       <UniqueIdentifier>{ddef12d2-e361-49be-bcb3-b9d6b3293164}</UniqueIdentifier>
     </Filter>
-    <Filter Include="libutils">
-      <UniqueIdentifier>{d213a79d-e52a-4d39-9b78-2f6948ab01b3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="protocol">
       <UniqueIdentifier>{288f5460-f473-4650-be5d-bbd9a7963a6d}</UniqueIdentifier>
     </Filter>
@@ -96,36 +93,6 @@
     </ClCompile>
     <ClCompile Include="..\..\libnet\socket_timer.cpp">
       <Filter>libnet</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\libutils\base64.c">
-      <Filter>libutils</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\libutils\Data.cpp">
-      <Filter>libutils</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\libutils\FileUtils.cpp">
-      <Filter>libutils</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\libutils\lw_base64.cpp">
-      <Filter>libutils</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\libutils\lw_util.cpp">
-      <Filter>libutils</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\libutils\lw_xxtea.cpp">
-      <Filter>libutils</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\libutils\md5.c">
-      <Filter>libutils</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\libutils\md5hl.c">
-      <Filter>libutils</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\libutils\Threadable.cpp">
-      <Filter>libutils</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\libutils\xxtea.c">
-      <Filter>libutils</Filter>
     </ClCompile>
     <ClCompile Include="..\..\platform_server\client_main.cpp">
       <Filter>platform_server</Filter>
@@ -233,36 +200,6 @@
     </ClInclude>
     <ClInclude Include="..\..\libnet\socket_timer.h">
       <Filter>libnet</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\libutils\base64.h">
-      <Filter>libutils</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\libutils\cmdline.h">
-      <Filter>libutils</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\libutils\Data.h">
-      <Filter>libutils</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\libutils\FileUtils.h">
-      <Filter>libutils</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\libutils\lw_base64.h">
-      <Filter>libutils</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\libutils\lw_util.h">
-      <Filter>libutils</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\libutils\lw_xxtea.h">
-      <Filter>libutils</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\libutils\md5.h">
-      <Filter>libutils</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\libutils\Threadable.h">
-      <Filter>libutils</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\libutils\xxtea.h">
-      <Filter>libutils</Filter>
     </ClInclude>
     <ClInclude Include="..\..\platform_server\client_main.h">
       <Filter>platform_server</Filter>
