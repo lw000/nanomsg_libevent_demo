@@ -25,7 +25,7 @@ static SocketServer		__g_serv;
 static void start_cb(lw_int32 what)
 {
 	char s[512];
-	sprintf(s, "中心服务器服务启动完成 [port: %d]", __g_serv.getPort());
+	sprintf(s, "center server running. [port: %d]", __g_serv.getPort());
 	LOGD(s);
 }
 
