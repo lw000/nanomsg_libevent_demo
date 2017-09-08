@@ -19,7 +19,13 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="cache_queue.cpp" />
+    <ClCompile Include="message_queue.cpp" />
+    <ClCompile Include="nanomsg_socket.cpp" />
     <ClCompile Include="net.cpp" />
+    <ClCompile Include="NetHead.cpp" />
+    <ClCompile Include="NetPackage.cpp" />
+    <ClCompile Include="socket_core.cpp" />
     <ClCompile Include="socket_listener.cpp" />
     <ClCompile Include="socket_processor.cpp" />
     <ClCompile Include="http_server.cpp" />
@@ -31,6 +37,12 @@
     <ClCompile Include="socket_timer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="cache_queue.h" />
+    <ClInclude Include="message_queue.h" />
+    <ClInclude Include="nanomsg_socket.h" />
+    <ClInclude Include="NetHead.h" />
+    <ClInclude Include="NetPackage.h" />
+    <ClInclude Include="socket_core.h" />
     <ClInclude Include="socket_listener.h" />
     <ClInclude Include="socket_processor.h" />
     <ClInclude Include="http_server.h" />
