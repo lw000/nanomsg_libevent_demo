@@ -1,0 +1,33 @@
+//============================================================================
+// Name        : main.cpp
+// Author      : lw
+// Version     :
+// Copyright   : Your copyright notice
+// Description : Hello World in C++, Ansi-style
+//============================================================================
+
+#include "main.h"
+
+#include <string.h>
+#include <stdio.h>
+
+int main(int argc, char** argv) {
+	if (argc < 2) return 0;
+
+	if (strcmp(argv[1], "pubsub") == 0) {
+		pubsub_servr_main(argc, argv);
+	}
+	else if (strcmp(argv[1], "center") == 0) {
+		center_server_main(argc, argv);
+
+	} if (strcmp(argv[1], "platform") == 0) {
+		platform_server_main(argc, argv);
+	}
+	else if (strcmp(argv[1], "http") == 0) {
+		http_server_main(argc, argv);
+	} else {
+		fprintf(stderr, "usage: %s <url> [-s]\n", argv[0]);
+	}
+
+	return 0;
+}
