@@ -205,7 +205,7 @@ int pubsub_servr_main(int argc, char** argv) {
 		a.detach();
 	}
 	else if (strcmp(argv[3], "-c") == 0) {
-		std::thread a(sub_thread_server, argv[1]);
+		std::thread a(sub_thread_server, argv[2]);
 		a.detach();
 	} else {
 		fprintf(stderr, "usage: %s <url> [-s]\n", argv[0]);
