@@ -11,7 +11,7 @@ void SocketProcessor::processorUseThreads()
 #ifdef WIN32
 	evthread_use_windows_threads();
 #else
-	//evthread_use_pthreads();
+	evthread_use_pthreads();
 #endif	
 }
 
@@ -31,8 +31,6 @@ bool SocketProcessor::create(bool enableServer, SocketCore* core)
 
 	if (this->_base == nullptr)
 	{
-// 		if (enableServer)
-// 		{
 #ifdef WIN32
 			struct event_config *cfg = event_config_new();
 			event_config_set_flag(cfg, EVENT_BASE_FLAG_STARTUP_IOCP);
@@ -44,11 +42,6 @@ bool SocketProcessor::create(bool enableServer, SocketCore* core)
 #else
 			this->_base = event_base_new();
 #endif	
-// 		}
-// 		else
-// 		{
-// 			this->_base = event_base_new();
-// 		}
 	}
 
 	return true;

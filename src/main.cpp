@@ -15,6 +15,7 @@ int main(int argc, char** argv) {
 	if (argc < 2) return 0;
 
 	if (strcmp(argv[1], "pubsub") == 0) {
+		//pubsub tcp://127.0.0.1:5555 -s
 		pubsub_servr_main(argc, argv);
 	}
 	else if (strcmp(argv[1], "center") == 0) {
@@ -25,6 +26,8 @@ int main(int argc, char** argv) {
 	}
 	else if (strcmp(argv[1], "http") == 0) {
 		http_server_main(argc, argv);
+	} else if (strcmp(argv[1], "game") == 0) {
+		game_server_main(argc, argv);
 	} else {
 		fprintf(stderr, "usage: %s <url> [-s]\n", argv[0]);
 	}

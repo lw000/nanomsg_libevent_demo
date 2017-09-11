@@ -20,7 +20,7 @@
 							<targetPlatform id="cdt.managedbuild.target.gnu.platform.exe.debug.1725205748" name="Debug Platform" superClass="cdt.managedbuild.target.gnu.platform.exe.debug"/>
 							<builder buildPath="${workspace_loc:/nanomsg_libevent_demo}/Debug" id="cdt.managedbuild.target.gnu.builder.exe.debug.529594520" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="Gnu Make Builder" superClass="cdt.managedbuild.target.gnu.builder.exe.debug"/>
 							<tool id="cdt.managedbuild.tool.gnu.archiver.base.2016679025" name="GCC Archiver" superClass="cdt.managedbuild.tool.gnu.archiver.base"/>
-							<tool command="g++ -std=c++11" id="cdt.managedbuild.tool.gnu.cpp.compiler.exe.debug.391535423" name="GCC C++ Compiler" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.exe.debug">
+							<tool command="g++" id="cdt.managedbuild.tool.gnu.cpp.compiler.exe.debug.391535423" name="GCC C++ Compiler" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.exe.debug">
 								<option id="gnu.cpp.compiler.exe.debug.option.optimization.level.1841530582" name="Optimization Level" superClass="gnu.cpp.compiler.exe.debug.option.optimization.level" useByScannerDiscovery="false" value="gnu.cpp.compiler.optimization.level.none" valueType="enumerated"/>
 								<option id="gnu.cpp.compiler.exe.debug.option.debugging.level.1758300790" name="Debug Level" superClass="gnu.cpp.compiler.exe.debug.option.debugging.level" useByScannerDiscovery="false" value="gnu.cpp.compiler.debugging.level.max" valueType="enumerated"/>
 								<option id="gnu.cpp.compiler.option.include.paths.300897390" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" useByScannerDiscovery="false" valueType="includePath">
@@ -37,7 +37,11 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nanomsg_libevent_demo/libutils}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nanomsg_libevent_demo/protocol}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nanomsg_libevent_demo/platform_server}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nanomsg_libevent_demo/GameServer}&quot;"/>
 								</option>
+								<option id="gnu.cpp.compiler.option.preprocessor.def.366959710" name="Defined symbols (-D)" superClass="gnu.cpp.compiler.option.preprocessor.def" useByScannerDiscovery="false" valueType="definedSymbols"/>
+								<option id="gnu.cpp.compiler.option.dialect.std.575288051" name="Language standard" superClass="gnu.cpp.compiler.option.dialect.std" useByScannerDiscovery="true" value="gnu.cpp.compiler.dialect.default" valueType="enumerated"/>
+								<option id="gnu.cpp.compiler.option.other.other.1354064380" name="Other flags" superClass="gnu.cpp.compiler.option.other.other" useByScannerDiscovery="false" value="-c -fmessage-length=0  -std=c++11" valueType="string"/>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.100397341" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
 							</tool>
 							<tool id="cdt.managedbuild.tool.gnu.c.compiler.exe.debug.810756007" name="GCC C Compiler" superClass="cdt.managedbuild.tool.gnu.c.compiler.exe.debug">
@@ -55,6 +59,7 @@
 							<tool id="cdt.managedbuild.tool.gnu.cpp.linker.exe.debug.1704468558" name="GCC C++ Linker" superClass="cdt.managedbuild.tool.gnu.cpp.linker.exe.debug">
 								<option id="gnu.cpp.link.option.userobjs.1886072678" name="Other objects" superClass="gnu.cpp.link.option.userobjs" useByScannerDiscovery="false" valueType="userObjs">
 									<listOptionValue builtIn="false" value="/usr/local/lib/libprotobuf.a"/>
+									<listOptionValue builtIn="false" value="/usr/local/lib/libevent_pthreads.a"/>
 									<listOptionValue builtIn="false" value="/usr/local/lib64/libnanomsg.so"/>
 									<listOptionValue builtIn="false" value="/usr/local/lib/libevent.a"/>
 									<listOptionValue builtIn="false" value="/usr/local/lib/liblog4z.a"/>
@@ -85,6 +90,7 @@
 								<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nanomsg_libevent_demo/libutils}&quot;"/>
 								<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nanomsg_libevent_demo/protocol}&quot;"/>
 								<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nanomsg_libevent_demo/platform_server}&quot;"/>
+								<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nanomsg_libevent_demo/GameServer}&quot;"/>
 							</option>
 							<inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.1002370243" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
 						</tool>
@@ -120,7 +126,7 @@
 							<tool id="cdt.managedbuild.tool.gnu.c.compiler.exe.release.49554953" name="GCC C Compiler" superClass="cdt.managedbuild.tool.gnu.c.compiler.exe.release">
 								<option defaultValue="gnu.c.optimization.level.most" id="gnu.c.compiler.exe.release.option.optimization.level.1812056610" name="Optimization Level" superClass="gnu.c.compiler.exe.release.option.optimization.level" useByScannerDiscovery="false" valueType="enumerated"/>
 								<option id="gnu.c.compiler.exe.release.option.debugging.level.379525110" name="Debug Level" superClass="gnu.c.compiler.exe.release.option.debugging.level" useByScannerDiscovery="false" value="gnu.c.debugging.level.none" valueType="enumerated"/>
-								<option id="gnu.c.compiler.option.include.paths.849915370" superClass="gnu.c.compiler.option.include.paths" valueType="includePath">
+								<option id="gnu.c.compiler.option.include.paths.849915370" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" useByScannerDiscovery="false" valueType="includePath">
 									<listOptionValue builtIn="false" value="/usr/include/c++/4.8.5"/>
 									<listOptionValue builtIn="false" value="/usr/include"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nanomsg_libevent_demo/common}&quot;"/>

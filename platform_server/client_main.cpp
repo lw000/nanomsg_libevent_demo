@@ -102,9 +102,8 @@ static SocketProcessor __g_processor;
 static SocketClient __g_client;
 static Timer __g_timer;
 
-int __connect_center_server(const lw_char8* addr, const lw_char8* sport)
+int __connect_center_server(const lw_char8* addr, lw_short16 port)
 {
-	lw_short16 port = std::atoi(sport);
 	if (__g_client.create(&__g_processor, new ClientHandler()))
 	{
 		__g_timer.create(&__g_processor);

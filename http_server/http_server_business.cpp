@@ -32,7 +32,7 @@ static void sub_get_cb(struct evhttp_request *req);
 
 static void default_cb(struct evhttp_request *req)
 {
-	evhttp_send_error(req, HTTP_BADREQUEST, "sorry，你走错地方了！");
+	evhttp_send_error(req, HTTP_BADREQUEST, "sorry！");
 	return;
 }
 

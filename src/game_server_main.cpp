@@ -43,6 +43,8 @@ void signal_handler(int sig)
 	}
 }
 
+GameServer* __g_server[1024];
+
 int game_server_main(int argc, char** argv)
 {
 	signal(SIGINT, signal_handler);
@@ -52,17 +54,15 @@ int game_server_main(int argc, char** argv)
 
 	SocketInit s;
 
-	lw_int32 port = 0;
-	lw_int32 rpc_times = 1;
-	lw_int32 http_times = 1;
-
-	GameServer* gServer[1024];
+	lw_int32 port;
+	lw_int32 rpc_times;
+	lw_int32 http_times;
 
 	port = 19801;
 	rpc_times = 1;
 	http_times = 1;
 
-	for (size_t i = 0; i < rpc_times; i++) {
+	for (lw_int32 i = 0; i < rpc_times; i++) {
 		DESK_INFO desk_info;
 		desk_info.did = i;
 		desk_info.max_usercount = 6;
@@ -78,7 +78,7 @@ int game_server_main(int argc, char** argv)
 			serv->start("127.0.0.1", port);
 		}
 
-		gServer[i] = serv;
+		__g_server[i] = serv;
 
 		lw_sleep(0.1);
 	}
