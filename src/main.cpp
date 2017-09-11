@@ -19,14 +19,18 @@ int main(int argc, char** argv) {
 		pubsub_servr_main(argc, argv);
 	}
 	else if (strcmp(argv[1], "center") == 0) {
+		//center
 		center_server_main(argc, argv);
 
 	} if (strcmp(argv[1], "platform") == 0) {
+		//platform
 		platform_server_main(argc, argv);
 	}
 	else if (strcmp(argv[1], "http") == 0) {
+		//http
 		http_server_main(argc, argv);
 	} else if (strcmp(argv[1], "game") == 0) {
+		//game
 		game_server_main(argc, argv);
 	} else {
 		fprintf(stderr, "usage: %s <url> [-s]\n", argv[0]);
