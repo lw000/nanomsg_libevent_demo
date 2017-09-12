@@ -132,7 +132,9 @@ void SocketSession::setSendTimeout(int s) {
 }
 
 void SocketSession::setHost(const std::string& host) {
-	this->_host = host;
+	if (this->_host.compare(host) != 0) {
+		this->_host = host;
+	}
 }
 
 std::string SocketSession::getHost() const {

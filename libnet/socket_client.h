@@ -20,6 +20,10 @@ public:
 	void destroy();
 
 public:
+	void setAddr(const std::string& addr);
+	void setPort(int port);
+
+public:
 	int run(const std::string& addr, int port);
 
 public:

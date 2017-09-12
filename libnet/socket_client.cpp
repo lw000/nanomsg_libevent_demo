@@ -60,6 +60,14 @@ std::string SocketClient::debug()
 	return std::string(buf);
 }
 
+void SocketClient::setAddr(const std::string& addr) {
+	this->_session->setHost(addr);
+}
+
+void SocketClient::setPort(int port) {
+	this->_session->setPort(port);
+}
+
 int SocketClient::run(const std::string& addr, int port)
 {
 	this->_session->setHost(addr);
