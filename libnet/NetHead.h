@@ -6,7 +6,6 @@
 
 namespace lwstar 
 {
-	
 
 #pragma  pack(1)
 	typedef struct tagNetHead
@@ -24,9 +23,6 @@ namespace lwstar
 
 	public:
 		std::string debug();
-
-	private:
-		
 
 	}  NetHead;
 
