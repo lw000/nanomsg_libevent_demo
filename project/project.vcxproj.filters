@@ -1,0 +1,153 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="center_server">
+      <UniqueIdentifier>{c3150226-70a7-4102-9ac7-71f571b13802}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="common">
+      <UniqueIdentifier>{8025591e-7c0d-4b96-ace5-1c428241c0b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="http_server">
+      <UniqueIdentifier>{60955ad1-6484-46c5-93c8-00334c2c8ad2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="protocol">
+      <UniqueIdentifier>{288f5460-f473-4650-be5d-bbd9a7963a6d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{c86df804-b027-4fa3-8472-6cd3d498cf5c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="platform_server">
+      <UniqueIdentifier>{3b7c7af6-8c3c-4a75-b519-c43bda1d8ebc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="game_server">
+      <UniqueIdentifier>{65e0eed9-65a0-47ef-904a-583ba1a29bd3}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\center_server\CenterServer.cpp">
+      <Filter>center_server</Filter>
+    </ClCompile>
+    <ClCompile Include="..\http_server\http_server_business.cpp">
+      <Filter>http_server</Filter>
+    </ClCompile>
+    <ClCompile Include="..\platform_server\client_main.cpp">
+      <Filter>platform_server</Filter>
+    </ClCompile>
+    <ClCompile Include="..\platform_server\Desk.cpp">
+      <Filter>platform_server</Filter>
+    </ClCompile>
+    <ClCompile Include="..\platform_server\PlatformServer.cpp">
+      <Filter>platform_server</Filter>
+    </ClCompile>
+    <ClCompile Include="..\platform_server\room.cpp">
+      <Filter>platform_server</Filter>
+    </ClCompile>
+    <ClCompile Include="..\platform_server\RoomManager.cpp">
+      <Filter>platform_server</Filter>
+    </ClCompile>
+    <ClCompile Include="..\platform_server\Users.cpp">
+      <Filter>platform_server</Filter>
+    </ClCompile>
+    <ClCompile Include="..\protocol\game.pb.cc">
+      <Filter>protocol</Filter>
+    </ClCompile>
+    <ClCompile Include="..\protocol\platform.pb.cc">
+      <Filter>protocol</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\center_server_main.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\http_server_main.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\main.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\platform_server_main.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\pubsub_main.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GameServer\client_http.cpp">
+      <Filter>game_server</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GameServer\GameServer.cpp">
+      <Filter>game_server</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\game_server_main.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\center_server\CenterServer.h">
+      <Filter>center_server</Filter>
+    </ClInclude>
+    <ClInclude Include="..\common\common_struct.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\http_server\http_server_business.h">
+      <Filter>http_server</Filter>
+    </ClInclude>
+    <ClInclude Include="..\platform_server\client_main.h">
+      <Filter>platform_server</Filter>
+    </ClInclude>
+    <ClInclude Include="..\platform_server\Desk.h">
+      <Filter>platform_server</Filter>
+    </ClInclude>
+    <ClInclude Include="..\platform_server\PlatformServer.h">
+      <Filter>platform_server</Filter>
+    </ClInclude>
+    <ClInclude Include="..\platform_server\room.h">
+      <Filter>platform_server</Filter>
+    </ClInclude>
+    <ClInclude Include="..\platform_server\RoomManager.h">
+      <Filter>platform_server</Filter>
+    </ClInclude>
+    <ClInclude Include="..\platform_server\Users.h">
+      <Filter>platform_server</Filter>
+    </ClInclude>
+    <ClInclude Include="..\protocol\command.h">
+      <Filter>protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\protocol\game.pb.h">
+      <Filter>protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\protocol\platform.pb.h">
+      <Filter>protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\main.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GameServer\client_http.h">
+      <Filter>game_server</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GameServer\GameServer.h">
+      <Filter>game_server</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\protocol\build.bat">
+      <Filter>protocol</Filter>
+    </None>
+    <None Include="..\protocol\game.proto">
+      <Filter>protocol</Filter>
+    </None>
+    <None Include="..\protocol\platform.proto">
+      <Filter>protocol</Filter>
+    </None>
+    <None Include="..\protocol\protoc">
+      <Filter>protocol</Filter>
+    </None>
+    <None Include="..\protocol\protoc.exe">
+      <Filter>protocol</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="protocol\命令.txt" />
+  </ItemGroup>
+</Project>

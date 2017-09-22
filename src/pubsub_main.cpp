@@ -13,7 +13,7 @@ using namespace std;
 
 #include <nn.h>
 #include <pubsub.h>
-#include <log4z.h>
+#include "log4z.h"
 #include <thread>
 
 #include "common_type.h"
