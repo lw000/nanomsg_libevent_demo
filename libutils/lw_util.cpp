@@ -1,6 +1,6 @@
 #include <string.h>
 #include <stdlib.h>
-#include <utils.h>
+#include <lw_util.h>
 
 #if defined(WIN32) || defined(_WIN32)
 #include <windows.h>
