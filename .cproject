@@ -28,18 +28,18 @@
 									<listOptionValue builtIn="false" value="/usr/include"/>
 									<listOptionValue builtIn="false" value="/usr/local/include/log4z"/>
 									<listOptionValue builtIn="false" value="/usr/local/include/nanomsg"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nanomsg_libevent_demo/center_server}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nanomsg_libevent_demo/common}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nanomsg_libevent_demo/core}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nanomsg_libevent_demo/http_server}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nanomsg_libevent_demo/json}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nanomsg_libevent_demo/libnet}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nanomsg_libevent_demo/libutils}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nanomsg_libevent_demo/protocol}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nanomsg_libevent_demo/center_server}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nanomsg_libevent_demo/http_server}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nanomsg_libevent_demo/platform_server}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nanomsg_libevent_demo/GameServer}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/lw_net/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/lw_common/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/lw_common/json}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/lw_core/include}&quot;"/>
 								</option>
-								<option id="gnu.cpp.compiler.option.preprocessor.def.366959710" name="Defined symbols (-D)" superClass="gnu.cpp.compiler.option.preprocessor.def" useByScannerDiscovery="false" valueType="definedSymbols"/>
+								<option id="gnu.cpp.compiler.option.preprocessor.def.366959710" name="Defined symbols (-D)" superClass="gnu.cpp.compiler.option.preprocessor.def" useByScannerDiscovery="false"/>
 								<option id="gnu.cpp.compiler.option.dialect.std.575288051" name="Language standard" superClass="gnu.cpp.compiler.option.dialect.std" useByScannerDiscovery="true" value="gnu.cpp.compiler.dialect.default" valueType="enumerated"/>
 								<option id="gnu.cpp.compiler.option.other.other.1354064380" name="Other flags" superClass="gnu.cpp.compiler.option.other.other" useByScannerDiscovery="false" value="-c -fmessage-length=0  -std=c++11" valueType="string"/>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.100397341" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
@@ -59,6 +59,10 @@
 							<tool id="cdt.managedbuild.tool.gnu.cpp.linker.exe.debug.1704468558" name="GCC C++ Linker" superClass="cdt.managedbuild.tool.gnu.cpp.linker.exe.debug">
 								<option id="gnu.cpp.link.option.userobjs.1886072678" name="Other objects" superClass="gnu.cpp.link.option.userobjs" useByScannerDiscovery="false" valueType="userObjs">
 									<listOptionValue builtIn="false" value="/usr/local/lib/libprotobuf.a"/>
+									<listOptionValue builtIn="false" value="/usr/lib64/libuuid.so"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/lw_common/Debug/liblw_common.a}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/lw_net/Debug/liblw_net.a}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/lw_core/Debug/liblw_core.a}&quot;"/>
 									<listOptionValue builtIn="false" value="/usr/local/lib/libevent_pthreads.a"/>
 									<listOptionValue builtIn="false" value="/usr/local/lib64/libnanomsg.so"/>
 									<listOptionValue builtIn="false" value="/usr/local/lib/libevent.a"/>
@@ -81,16 +85,16 @@
 								<listOptionValue builtIn="false" value="/usr/include"/>
 								<listOptionValue builtIn="false" value="/usr/local/include/log4z"/>
 								<listOptionValue builtIn="false" value="/usr/local/include/nanomsg"/>
-								<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nanomsg_libevent_demo/center_server}&quot;"/>
 								<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nanomsg_libevent_demo/common}&quot;"/>
-								<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nanomsg_libevent_demo/core}&quot;"/>
-								<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nanomsg_libevent_demo/http_server}&quot;"/>
-								<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nanomsg_libevent_demo/json}&quot;"/>
-								<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nanomsg_libevent_demo/libnet}&quot;"/>
-								<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nanomsg_libevent_demo/libutils}&quot;"/>
 								<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nanomsg_libevent_demo/protocol}&quot;"/>
+								<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nanomsg_libevent_demo/center_server}&quot;"/>
+								<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nanomsg_libevent_demo/http_server}&quot;"/>
 								<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nanomsg_libevent_demo/platform_server}&quot;"/>
 								<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nanomsg_libevent_demo/GameServer}&quot;"/>
+								<listOptionValue builtIn="false" value="&quot;${workspace_loc:/lw_net/include}&quot;"/>
+								<listOptionValue builtIn="false" value="&quot;${workspace_loc:/lw_common/include}&quot;"/>
+								<listOptionValue builtIn="false" value="&quot;${workspace_loc:/lw_common/json}&quot;"/>
+								<listOptionValue builtIn="false" value="&quot;${workspace_loc:/lw_core/include}&quot;"/>
 							</option>
 							<inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.1002370243" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
 						</tool>
@@ -178,4 +182,5 @@
 		</configuration>
 	</storageModule>
 	<storageModule moduleId="org.eclipse.cdt.internal.ui.text.commentOwnerProjectMappings"/>
+	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets"/>
 </cproject>

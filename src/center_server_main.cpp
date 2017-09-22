@@ -12,7 +12,7 @@
 #include "socket_server.h"
 #include "socket_processor.h"
 
-#include "lw_util.h"
+#include "utils.h"
 #include "net.h"
 
 #include <log4z.h>

@@ -15,7 +15,7 @@
 #include "command.h"
 #include "platform.pb.h"
 
-#include "lw_util.h"
+#include "utils.h"
 
 #include "client_http.h"
 

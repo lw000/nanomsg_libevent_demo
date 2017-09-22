@@ -19,7 +19,7 @@
 
 #include "client_main.h"
 
-#include "lw_util.h"
+#include "utils.h"
 #include "Users.h"
 
 #include "NetPackage.h"

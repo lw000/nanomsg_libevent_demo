@@ -17,7 +17,7 @@ using namespace std;
 #include <thread>
 
 #include "common_type.h"
-#include "nanomsg_socket.h"
+#include "nanomsgcpp_socket.h"
 #include "message_queue.h"
 
 using namespace zsummer::log4z;
@@ -34,7 +34,7 @@ struct push_pthread_args {
 
 SimpleMessageQueue __g_msg_queue;
 
-class PushServer : public NanomsgSocket
+class PushServer : public NanomsgcppSocket
 {
 public:
 	PushServer() {
@@ -50,7 +50,7 @@ public:
 };
 
 
-class SubClient : public NanomsgSocket
+class SubClient : public NanomsgcppSocket
 {
 public:
 	SubClient() {

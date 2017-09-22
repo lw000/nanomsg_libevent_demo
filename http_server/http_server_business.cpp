@@ -12,7 +12,7 @@
 #include "rapidjson/writer.h"
 #include "rapidjson/stringbuffer.h"
 
-#include "lw_util.h"
+#include "utils.h"
 
 #include <stdio.h>
 #include <signal.h>
@@ -73,9 +73,9 @@ static void login_post_cb(struct evhttp_request *req)
 		doc.SetObject();
 		rapidjson::Document::AllocatorType& allocator = doc.GetAllocator();
 		doc.AddMember("host", host, allocator);
-		KVQueryUrlValue kv;
+		KVQueryUrlArgsValue kv;
 		kv.parse(buff);
-		kv.each([&doc, &allocator](KV* pkv)
+		kv.each([&doc, &allocator](KV_T* pkv)
 		{
 			const char* k = pkv->k;
 			const char* v = pkv->v;
