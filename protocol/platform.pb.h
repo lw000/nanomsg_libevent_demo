@@ -26,6 +26,7 @@
 #include <google/protobuf/message.h>
 #include <google/protobuf/repeated_field.h>
 #include <google/protobuf/extension_set.h>
+#include <google/protobuf/service.h>
 #include <google/protobuf/unknown_field_set.h>
 // @@protoc_insertion_point(includes)
 
@@ -37,6 +38,8 @@ void protobuf_InitDefaults_platform_2eproto();
 void protobuf_AssignDesc_platform_2eproto();
 void protobuf_ShutdownFile_platform_2eproto();
 
+class EchoReqMsg;
+class EchoRespMsg;
 class msg_chat_reponse;
 class msg_chat_request;
 class msg_connected;
@@ -1070,6 +1073,256 @@ class msg_userinfo_reponse : public ::google::protobuf::Message /* @@protoc_inse
 };
 extern ::google::protobuf::internal::ExplicitlyConstructed<msg_userinfo_reponse> msg_userinfo_reponse_default_instance_;
 
+// -------------------------------------------------------------------
+
+class EchoReqMsg : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:platform.EchoReqMsg) */ {
+ public:
+  EchoReqMsg();
+  virtual ~EchoReqMsg();
+
+  EchoReqMsg(const EchoReqMsg& from);
+
+  inline EchoReqMsg& operator=(const EchoReqMsg& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const EchoReqMsg& default_instance();
+
+  static const EchoReqMsg* internal_default_instance();
+
+  void Swap(EchoReqMsg* other);
+
+  // implements Message ----------------------------------------------
+
+  inline EchoReqMsg* New() const { return New(NULL); }
+
+  EchoReqMsg* New(::google::protobuf::Arena* arena) const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const EchoReqMsg& from);
+  void MergeFrom(const EchoReqMsg& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  size_t ByteSizeLong() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const {
+    return InternalSerializeWithCachedSizesToArray(false, output);
+  }
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(EchoReqMsg* other);
+  void UnsafeMergeFrom(const EchoReqMsg& from);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return _internal_metadata_.arena();
+  }
+  inline void* MaybeArenaPtr() const {
+    return _internal_metadata_.raw_arena_ptr();
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional int32 a = 1;
+  void clear_a();
+  static const int kAFieldNumber = 1;
+  ::google::protobuf::int32 a() const;
+  void set_a(::google::protobuf::int32 value);
+
+  // optional int32 b = 2;
+  void clear_b();
+  static const int kBFieldNumber = 2;
+  ::google::protobuf::int32 b() const;
+  void set_b(::google::protobuf::int32 value);
+
+  // @@protoc_insertion_point(class_scope:platform.EchoReqMsg)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::int32 a_;
+  ::google::protobuf::int32 b_;
+  mutable int _cached_size_;
+  friend void  protobuf_InitDefaults_platform_2eproto_impl();
+  friend void  protobuf_AddDesc_platform_2eproto_impl();
+  friend void protobuf_AssignDesc_platform_2eproto();
+  friend void protobuf_ShutdownFile_platform_2eproto();
+
+  void InitAsDefaultInstance();
+};
+extern ::google::protobuf::internal::ExplicitlyConstructed<EchoReqMsg> EchoReqMsg_default_instance_;
+
+// -------------------------------------------------------------------
+
+class EchoRespMsg : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:platform.EchoRespMsg) */ {
+ public:
+  EchoRespMsg();
+  virtual ~EchoRespMsg();
+
+  EchoRespMsg(const EchoRespMsg& from);
+
+  inline EchoRespMsg& operator=(const EchoRespMsg& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const EchoRespMsg& default_instance();
+
+  static const EchoRespMsg* internal_default_instance();
+
+  void Swap(EchoRespMsg* other);
+
+  // implements Message ----------------------------------------------
+
+  inline EchoRespMsg* New() const { return New(NULL); }
+
+  EchoRespMsg* New(::google::protobuf::Arena* arena) const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const EchoRespMsg& from);
+  void MergeFrom(const EchoRespMsg& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  size_t ByteSizeLong() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const {
+    return InternalSerializeWithCachedSizesToArray(false, output);
+  }
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(EchoRespMsg* other);
+  void UnsafeMergeFrom(const EchoRespMsg& from);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return _internal_metadata_.arena();
+  }
+  inline void* MaybeArenaPtr() const {
+    return _internal_metadata_.raw_arena_ptr();
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional int32 c = 1;
+  void clear_c();
+  static const int kCFieldNumber = 1;
+  ::google::protobuf::int32 c() const;
+  void set_c(::google::protobuf::int32 value);
+
+  // optional string msg = 2;
+  void clear_msg();
+  static const int kMsgFieldNumber = 2;
+  const ::std::string& msg() const;
+  void set_msg(const ::std::string& value);
+  void set_msg(const char* value);
+  void set_msg(const char* value, size_t size);
+  ::std::string* mutable_msg();
+  ::std::string* release_msg();
+  void set_allocated_msg(::std::string* msg);
+
+  // @@protoc_insertion_point(class_scope:platform.EchoRespMsg)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::internal::ArenaStringPtr msg_;
+  ::google::protobuf::int32 c_;
+  mutable int _cached_size_;
+  friend void  protobuf_InitDefaults_platform_2eproto_impl();
+  friend void  protobuf_AddDesc_platform_2eproto_impl();
+  friend void protobuf_AssignDesc_platform_2eproto();
+  friend void protobuf_ShutdownFile_platform_2eproto();
+
+  void InitAsDefaultInstance();
+};
+extern ::google::protobuf::internal::ExplicitlyConstructed<EchoRespMsg> EchoRespMsg_default_instance_;
+
+// ===================================================================
+
+class MyService_Stub;
+
+class MyService : public ::google::protobuf::Service {
+ protected:
+  // This class should be treated as an abstract interface.
+  inline MyService() {};
+ public:
+  virtual ~MyService();
+
+  typedef MyService_Stub Stub;
+
+  static const ::google::protobuf::ServiceDescriptor* descriptor();
+
+  virtual void Echo(::google::protobuf::RpcController* controller,
+                       const ::platform::EchoReqMsg* request,
+                       ::platform::EchoRespMsg* response,
+                       ::google::protobuf::Closure* done);
+
+  // implements Service ----------------------------------------------
+
+  const ::google::protobuf::ServiceDescriptor* GetDescriptor();
+  void CallMethod(const ::google::protobuf::MethodDescriptor* method,
+                  ::google::protobuf::RpcController* controller,
+                  const ::google::protobuf::Message* request,
+                  ::google::protobuf::Message* response,
+                  ::google::protobuf::Closure* done);
+  const ::google::protobuf::Message& GetRequestPrototype(
+    const ::google::protobuf::MethodDescriptor* method) const;
+  const ::google::protobuf::Message& GetResponsePrototype(
+    const ::google::protobuf::MethodDescriptor* method) const;
+
+ private:
+  GOOGLE_DISALLOW_EVIL_CONSTRUCTORS(MyService);
+};
+
+class MyService_Stub : public MyService {
+ public:
+  MyService_Stub(::google::protobuf::RpcChannel* channel);
+  MyService_Stub(::google::protobuf::RpcChannel* channel,
+                   ::google::protobuf::Service::ChannelOwnership ownership);
+  ~MyService_Stub();
+
+  inline ::google::protobuf::RpcChannel* channel() { return channel_; }
+
+  // implements MyService ------------------------------------------
+
+  void Echo(::google::protobuf::RpcController* controller,
+                       const ::platform::EchoReqMsg* request,
+                       ::platform::EchoRespMsg* response,
+                       ::google::protobuf::Closure* done);
+ private:
+  ::google::protobuf::RpcChannel* channel_;
+  bool owns_channel_;
+  GOOGLE_DISALLOW_EVIL_CONSTRUCTORS(MyService_Stub);
+};
+
+
 // ===================================================================
 
 
@@ -1808,7 +2061,111 @@ inline void msg_userinfo_reponse::set_allocated_ext(::std::string* ext) {
 inline const msg_userinfo_reponse* msg_userinfo_reponse::internal_default_instance() {
   return &msg_userinfo_reponse_default_instance_.get();
 }
+// -------------------------------------------------------------------
+
+// EchoReqMsg
+
+// optional int32 a = 1;
+inline void EchoReqMsg::clear_a() {
+  a_ = 0;
+}
+inline ::google::protobuf::int32 EchoReqMsg::a() const {
+  // @@protoc_insertion_point(field_get:platform.EchoReqMsg.a)
+  return a_;
+}
+inline void EchoReqMsg::set_a(::google::protobuf::int32 value) {
+  
+  a_ = value;
+  // @@protoc_insertion_point(field_set:platform.EchoReqMsg.a)
+}
+
+// optional int32 b = 2;
+inline void EchoReqMsg::clear_b() {
+  b_ = 0;
+}
+inline ::google::protobuf::int32 EchoReqMsg::b() const {
+  // @@protoc_insertion_point(field_get:platform.EchoReqMsg.b)
+  return b_;
+}
+inline void EchoReqMsg::set_b(::google::protobuf::int32 value) {
+  
+  b_ = value;
+  // @@protoc_insertion_point(field_set:platform.EchoReqMsg.b)
+}
+
+inline const EchoReqMsg* EchoReqMsg::internal_default_instance() {
+  return &EchoReqMsg_default_instance_.get();
+}
+// -------------------------------------------------------------------
+
+// EchoRespMsg
+
+// optional int32 c = 1;
+inline void EchoRespMsg::clear_c() {
+  c_ = 0;
+}
+inline ::google::protobuf::int32 EchoRespMsg::c() const {
+  // @@protoc_insertion_point(field_get:platform.EchoRespMsg.c)
+  return c_;
+}
+inline void EchoRespMsg::set_c(::google::protobuf::int32 value) {
+  
+  c_ = value;
+  // @@protoc_insertion_point(field_set:platform.EchoRespMsg.c)
+}
+
+// optional string msg = 2;
+inline void EchoRespMsg::clear_msg() {
+  msg_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& EchoRespMsg::msg() const {
+  // @@protoc_insertion_point(field_get:platform.EchoRespMsg.msg)
+  return msg_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void EchoRespMsg::set_msg(const ::std::string& value) {
+  
+  msg_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:platform.EchoRespMsg.msg)
+}
+inline void EchoRespMsg::set_msg(const char* value) {
+  
+  msg_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:platform.EchoRespMsg.msg)
+}
+inline void EchoRespMsg::set_msg(const char* value, size_t size) {
+  
+  msg_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:platform.EchoRespMsg.msg)
+}
+inline ::std::string* EchoRespMsg::mutable_msg() {
+  
+  // @@protoc_insertion_point(field_mutable:platform.EchoRespMsg.msg)
+  return msg_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* EchoRespMsg::release_msg() {
+  // @@protoc_insertion_point(field_release:platform.EchoRespMsg.msg)
+  
+  return msg_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void EchoRespMsg::set_allocated_msg(::std::string* msg) {
+  if (msg != NULL) {
+    
+  } else {
+    
+  }
+  msg_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), msg);
+  // @@protoc_insertion_point(field_set_allocated:platform.EchoRespMsg.msg)
+}
+
+inline const EchoRespMsg* EchoRespMsg::internal_default_instance() {
+  return &EchoRespMsg_default_instance_.get();
+}
 #endif  // !PROTOBUF_INLINE_NOT_IN_HEADERS
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

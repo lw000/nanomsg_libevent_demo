@@ -22,6 +22,7 @@
 #include "GameServer.h"
 
 #include "net.h"
+#include "socket_processor.h"
 
 using namespace LW;
 
@@ -30,27 +31,26 @@ void run_rpc_client(lw_int32 port)
 
 }
 
-void signal_handler(int sig)
-{
-	switch (sig)
-	{
-	case SIGTERM:
-	case SIGINT:
-	//case SIGBREAK:
-	case SIGABRT:	
-		//event_base_loopbreak(__http_base);
-		break;
-	}
-}
+// void signal_handler(int sig)
+// {
+// 	switch (sig)
+// 	{
+// 	case SIGTERM:
+// 	case SIGINT:
+// 	//case SIGBREAK:
+// 	case SIGABRT:	
+// 		//event_base_loopbreak(__http_base);
+// 		break;
+// 	}
+// }
 
 GameServer* __g_server[1024];
 
 int game_server_main(int argc, char** argv)
 {
-	signal(SIGINT, signal_handler);
-	signal(SIGABRT, signal_handler);
-	//signal(SIGBREAK, signal_handler);
-	signal(SIGTERM, signal_handler);
+// 	signal(SIGINT, signal_handler);
+// 	signal(SIGABRT, signal_handler);
+// 	signal(SIGTERM, signal_handler);
 
 	SocketInit s;
 
@@ -61,6 +61,8 @@ int game_server_main(int argc, char** argv)
 	port = 19801;
 	rpc_times = 1;
 	http_times = 1;
+	
+	SocketProcessor::processorUseThreads();
 
 	for (lw_int32 i = 0; i < rpc_times; i++) {
 		DESK_INFO desk_info;

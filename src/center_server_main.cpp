@@ -28,7 +28,7 @@ static void start_cb(lw_int32 what)
 }
 
 int center_server_main(int argc, char** argv) {
-	if (argc < 2) return 0;
+// 	if (argc < 2) return 0;
 
 	SocketInit sinit;
 

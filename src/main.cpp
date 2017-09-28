@@ -32,7 +32,12 @@ int main(int argc, char** argv) {
 	} else if (strcmp(argv[1], "game") == 0) {
 		//game
 		game_server_main(argc, argv);
-	} else {
+	}
+	else if (strcmp(argv[1], "survey") == 0) {
+		//survey
+		nanomsg_survey_main(argc, argv);
+	}
+	else {
 		fprintf(stderr, "usage: %s <url> [-s]\n", argv[0]);
 	}
 

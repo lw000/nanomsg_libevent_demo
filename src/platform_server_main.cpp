@@ -69,7 +69,7 @@ static void _remove_user_thread()
 
 int platform_server_main(int argc, char** argv)
 {
-	if (argc < 2) return 0;
+// 	if (argc < 2) return 0;
 
 	{
 		// 	std::thread a(_add_user_thread);

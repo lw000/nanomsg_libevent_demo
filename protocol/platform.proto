@@ -1,5 +1,7 @@
 syntax = "proto3";
 
+option cc_generic_services = true;
+
 package platform;
 
 // ÐÄÌøÏûÏ¢
@@ -74,3 +76,18 @@ message msg_userinfo_reponse
 	string    ext = 6;			// ext
 }
 
+message EchoReqMsg
+{
+	int32     a = 1;			// a
+	int32     b = 2;			// b
+}
+
+message EchoRespMsg
+{
+	int32     c = 1;			// c
+	string    msg = 2;			// msg
+}
+
+service MyService {
+	rpc Echo(EchoReqMsg) returns(EchoRespMsg);
+}

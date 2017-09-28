@@ -27,8 +27,10 @@
     <ClCompile Include="..\src\game_server_main.cpp" />
     <ClCompile Include="..\src\http_server_main.cpp" />
     <ClCompile Include="..\src\main.cpp" />
+    <ClCompile Include="..\src\nanomsg_survey_main.cpp" />
     <ClCompile Include="..\src\platform_server_main.cpp" />
     <ClCompile Include="..\src\pubsub_main.cpp" />
+    <ClCompile Include="protobufrpc_main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\center_server\CenterServer.h" />
@@ -53,9 +55,6 @@
     <None Include="..\protocol\platform.proto" />
     <None Include="..\protocol\protoc" />
     <None Include="..\protocol\protoc.exe" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="protocol\命令.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{AB2D92D1-39F3-4565-AB09-59C1CB23B024}</ProjectGuid>
@@ -99,13 +98,13 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\src;..\protocol;..\http_server;..\platform_server;..\center_server;..\gameserver;..\common;..\..\lw_core\include;..\..\lw_net\include;..\..\lw_common\include;..\..\lw_common\json;..\..\protobuf_lib\include;..\..\..\cross-common\libevent;..\..\..\cross-common\libevent\include;..\..\..\cross-common\libevent\build\vs2013\include;..\..\..\cross-common\libevent\WIN32-Code;..\..\..\cross-common\nanomsg\src;..\..\..\cross-common\protobuf\protobuf-cpp-3.1.0\protobuf-3.1.0\src;E:\boost\boost_1_65_1</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\src;..\protocol;..\http_server;..\platform_server;..\center_server;..\gameserver;..\common;..\..\lw_core\include;..\..\lw_net\include;..\..\lw_net\nanorpc;..\..\lw_common\include;..\..\lw_common\json;..\..\libcityhash;..\..\libnanorpc;..\..\..\cross-common\libevent;..\..\..\cross-common\libevent\include;..\..\..\cross-common\libevent\build\vs2013\include;..\..\..\cross-common\libevent\WIN32-Code;..\..\..\cross-common\nanomsg\src;..\..\..\cross-common\protobuf\protobuf-cpp-3.1.0\protobuf-3.1.0\src;..\..\..\cross-common\prebuilt-dll-2-9-1-release\include;E:\boost\boost_1_65_1</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>..\debug;..\..\..\cross-common\libevent\build\vs2013\lib\Debug;..\..\..\cross-common\nanomsg\build\vs2013\Debug;..\..\..\cross-common\protobuf\protobuf-cpp-3.1.0\protobuf-3.1.0\cmake\vs2013\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>ws2_32.lib;wsock32.lib;event.lib;nanomsg.lib;libprotobufd.lib;libprotocd.lib;libcommon.lib;libcore.lib;libnet.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\debug;..\..\..\cross-common\libevent\build\vs2013\lib\Debug;..\..\..\cross-common\nanomsg\build\vs2013\Debug;..\..\..\cross-common\protobuf\protobuf-cpp-3.1.0\protobuf-3.1.0\cmake\vs2013\Debug;..\..\..\cross-common\prebuilt-dll-2-9-1-release\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>ws2_32.lib;wsock32.lib;event.lib;nanomsg.lib;libprotobufd.lib;libprotocd.lib;libcommon.lib;libcore.lib;libnet.lib;libcityhash.lib;libnanorpc.lib;pthreadVC2.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -117,15 +116,15 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\src;..\protocol;..\http_server;..\platform_server;..\center_server;..\gameserver;..\common;..\..\lw_core\include;..\..\lw_net\include;..\..\lw_common\include;..\..\lw_common\json;..\..\protobuf_lib\include;..\..\..\cross-common\libevent;..\..\..\cross-common\libevent\include;..\..\..\cross-common\libevent\build\vs2013\include;..\..\..\cross-common\libevent\WIN32-Code;..\..\..\cross-common\nanomsg\src;..\..\..\cross-common\protobuf\protobuf-cpp-3.1.0\protobuf-3.1.0\src;E:\boost\boost_1_65_1</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\src;..\protocol;..\http_server;..\platform_server;..\center_server;..\gameserver;..\common;..\..\lw_core\include;..\..\lw_net\include;..\..\lw_net\nanorpc;..\..\lw_common\include;..\..\lw_common\json;..\..\libcityhash;..\..\libnanorpc;..\..\..\cross-common\libevent;..\..\..\cross-common\libevent\include;..\..\..\cross-common\libevent\build\vs2013\include;..\..\..\cross-common\libevent\WIN32-Code;..\..\..\cross-common\nanomsg\src;..\..\..\cross-common\protobuf\protobuf-cpp-3.1.0\protobuf-3.1.0\src;..\..\..\cross-common\prebuilt-dll-2-9-1-release\include;E:\boost\boost_1_65_1</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>..\release;..\..\..\cross-common\libevent\build\vs2013\lib\Release;..\..\..\cross-common\nanomsg\build\vs2013\Release;..\..\..\cross-common\protobuf\protobuf-cpp-3.1.0\protobuf-3.1.0\cmake\vs2013\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>ws2_32.lib;wsock32.lib;event.lib;nanomsg.lib;libprotobuf.lib;libprotoc.lib;log4z_win32.lib;libutils.lib;libnet.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\release;..\..\..\cross-common\libevent\build\vs2013\lib\Release;..\..\..\cross-common\nanomsg\build\vs2013\Release;..\..\..\cross-common\protobuf\protobuf-cpp-3.1.0\protobuf-3.1.0\cmake\vs2013\Release;..\..\..\cross-common\prebuilt-dll-2-9-1-release\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>ws2_32.lib;wsock32.lib;event.lib;nanomsg.lib;libprotobuf.lib;libprotoc.lib;libutils.lib;libnet.lib;libcityhash.lib;libnanorpc.lib;pthreadVC2.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
