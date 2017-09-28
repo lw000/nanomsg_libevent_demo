@@ -10,7 +10,6 @@
 #include "socket_client.h"
 
 class SocketProcessor;
-class Timer;
 
 class AbstractGameServer
 {
@@ -41,6 +40,12 @@ private:
 	std::vector<USER_INFO> users;
 
 public:
+	SocketEventHandler connectedHandler;
+	SocketEventHandler disConnectHandler;
+	SocketEventHandler timeoutHandler;
+	SocketEventHandler errorHandler;
+
+public:
 	GameServer(AbstractGameServer* idesk);
 	virtual ~GameServer();
 
@@ -51,12 +56,8 @@ public:
 	void sendSitup();
 	void sendSitdown();
 
-private:
+public:
 	void sendData(lw_int32 cmd, void* object, lw_int32 objectSize);
-
-protected:
-	virtual int onStart() override;
-	virtual int onEnd() override;
 
 protected:
 	virtual int onSocketConnected(SocketSession* session) override;
@@ -82,10 +83,12 @@ public:
 public:
 	virtual int onGameMessage(int cmd, void* data, int datasize) override;
 
-private:
+
+public:
 	SocketClient* client;
+
+private:
 	SocketProcessor* _processor;
-	Timer* timer;
 };
 
 #endif	//__GameLogic_H__

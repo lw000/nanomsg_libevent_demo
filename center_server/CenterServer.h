@@ -17,10 +17,6 @@ protected:
 	virtual void onListener(SocketSession* session) override;
 
 protected:
-	virtual int onStart() override;
-	virtual int onEnd() override;
-
-protected:
 	virtual int onSocketConnected(SocketSession* session) override;
 	virtual int onSocketDisConnect(SocketSession* session) override;
 	virtual int onSocketTimeout(SocketSession* session) override;

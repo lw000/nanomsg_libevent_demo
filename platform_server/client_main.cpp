@@ -3,14 +3,6 @@
 #include <stdio.h>
 #include <iostream>
 #include <signal.h>
-// #include <thread>
-// 
-// #include <event2/event.h>
-// #include <event2/event_struct.h>
-// #include <event2/event_compat.h>
-// #include <event2/bufferevent.h>
-// #include <event2/buffer.h>
-// #include <event2/util.h>
 
 #include "command.h"
 #include "platform.pb.h"
@@ -22,8 +14,60 @@
 
 using namespace LW;
 
+class AITestTimer;
+class ClientHandler;
+
+static SocketClient __g_client;
+
+class AITestTimer : public Threadable
+{
+	SocketProcessor _processor;
+	Timer _timer;
+
+public:
+	AITestTimer() {
+
+	}
+
+	~AITestTimer() {
+
+	}
+
+protected:
+	virtual int onStart() {
+		_processor.create(true, NULL);
+		_timer.create(&_processor);
+		_timer.start(100, 15000, [](int tid, unsigned int tms) -> bool
+		{
+			platform::msg_heartbeat msg;
+			msg.set_time(time(NULL));
+			lw_int32 c = (lw_int32)msg.ByteSizeLong();
+			std::unique_ptr<char[]> s(new char[c]());
+			lw_bool ret = msg.SerializeToArray(s.get(), c);
+			if (ret)
+			{
+				__g_client.getSession()->sendData(cmd_heart_beat, s.get(), c);
+			}
+			return true;
+		});
+		return 0;
+	}
+
+	virtual int onRun() {
+		_processor.dispatch();
+		return 0;
+	}
+
+	virtual int onEnd() {
+		return 0;
+	}
+};
+
+
 class ClientHandler : public AbstractSocketClientHandler
 {
+	AITestTimer __g_timer_test;
+
 public:
 	ClientHandler()
 	{
@@ -34,19 +78,9 @@ public:
 	}
 
 protected:
-	virtual int onStart() override
-	{
-		return 0;
-	}
-
-	virtual int onEnd() override
-	{
-		return 0;
-	}
-
-protected:
 	virtual int onSocketConnected(SocketSession* session) override
 	{
+		__g_timer_test.start();
 		return 0;
 	}
 
@@ -98,32 +132,12 @@ protected:
 
 //////////////////////////////////////////////////////////////////////////////////////////
 
-static SocketProcessor __g_processor;
-static SocketClient __g_client;
-static Timer __g_timer;
-
 int __connect_center_server(const lw_char8* addr, lw_short16 port)
 {
-	if (__g_client.create(&__g_processor, new ClientHandler()))
+	if (__g_client.create(new ClientHandler()))
 	{
-		__g_timer.create(&__g_processor);
-		__g_timer.start(100, 15000, [](int tid, unsigned int tms) -> bool
-		{
-			platform::msg_heartbeat msg;
-			msg.set_time(time(NULL));
-			lw_int32 c = (lw_int32)msg.ByteSizeLong();
-			std::unique_ptr<char[]> s(new char[c]()); 
-			lw_bool ret = msg.SerializeToArray(s.get(), c);
-			if (ret)
-			{
-				__g_client.getSession()->sendData(cmd_heart_beat, s.get(), c);
-			}
-			return true;
-		});
-
 		int ret = __g_client.run("127.0.0.1", port);
 	}
-
 	return 0;
 }
 

@@ -52,16 +52,6 @@ void PlatformServerHandler::onListener(SocketSession* session)
 	std::cout << *session << std::endl;
 }
 
-int PlatformServerHandler::onStart()
-{
-	return 0;
-}
-
-int PlatformServerHandler::onEnd()
-{
-	return 0;
-}
-
 int PlatformServerHandler::onSocketConnected(SocketSession* session)
 {
 	return 0;

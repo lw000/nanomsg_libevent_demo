@@ -104,11 +104,11 @@ int platform_server_main(int argc, char** argv)
 
 	__s_center_server_port = 19800;
 
-	lw_int32 port = 19801;
+	lw_int32 local_port = 19801;
 
 	if (__g_serv.create(new PlatformServerHandler()))
 	{
-		__g_serv.run(port, [](int what)
+		__g_serv.listen(local_port, [](int what)
 		{
 			printf("platform server running. [%d]\n", __g_serv.getPort());
 

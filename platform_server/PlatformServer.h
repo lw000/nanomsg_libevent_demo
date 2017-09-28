@@ -17,10 +17,6 @@ public:
 	AbstractUser* getUsers();
 
 protected:
-	virtual int onStart() override;
-	virtual int onEnd() override;
-
-protected:
 	virtual void onListener(SocketSession* session) override;
 
 protected:

@@ -41,7 +41,7 @@ public:
 		return 0;
 	}
 
-	virtual int run() {
+	virtual int onRun() {
 
 		const char *url = "tcp://127.0.0.1:8888";
 		int sock = this->create(AF_SP, NN_SURVEYOR);
@@ -119,7 +119,7 @@ public:
 		return 0;
 	}
 
-	virtual int run() {
+	virtual int onRun() {
 
 		const char *url = "tcp://127.0.0.1:8888";
 

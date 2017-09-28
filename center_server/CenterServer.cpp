@@ -32,16 +32,6 @@ void CenterServerHandler::sendHeartbeat(SocketSession* session)
 	}
 }
 
-int CenterServerHandler::onStart()
-{
-	return 0;
-}
-
-int CenterServerHandler::onEnd()
-{
-	return 0;
-}
-
 void CenterServerHandler::onListener(SocketSession* session)
 {
 	Sessions.add(session);
