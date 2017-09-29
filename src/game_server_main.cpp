@@ -26,6 +26,8 @@
 #include "socket_processor.h"
 #include "socket_session.h"
 #include "Threadable.h"
+#include "socket_hanlder.h"
+#include "socket_config.h"
 
 using namespace LW;
 
@@ -40,7 +42,7 @@ static bool is_init = false;
 
 SocketClient* __g_game_clients[1024] = { 0 };
 
-#define RPC_TIMES 10
+#define RPC_TIMES 1
 
 class GameAITestTimer : public Threadable
 {
@@ -59,7 +61,7 @@ protected:
 	virtual int onStart() {
 		_processor.create(false);
 		_timer.create(&_processor);
-		_timer.start(100, 100, [this](int tid, unsigned int tms) -> bool {
+		_timer.start(100, 500, [this](int tid, unsigned int tms) -> bool {
 			for (int i = 0; i < RPC_TIMES; i++) {
 				if (__g_game_clients[i] != NULL) {
 					if (__g_game_clients[i]->getSession()->connected()) {
@@ -191,6 +193,38 @@ protected:
 // 	}
 // }
 
+class Test {
+public:
+	Test() {
+
+	}
+
+	~Test() {
+
+	}
+
+public:
+	int onSocketConnected(SocketSession* session)
+	{
+		return 0;
+	}
+
+	int onSocketDisConnect(SocketSession* session)
+	{
+		return 0;
+	}
+
+	int onSocketTimeout(SocketSession* session)
+	{
+		return 0;
+	}
+
+	int onSocketError(SocketSession* session)
+	{
+		return 0;
+	}
+
+};
 int game_server_main(int argc, char** argv)
 {
 // 	signal(SIGINT, signal_handler);
@@ -200,29 +234,17 @@ int game_server_main(int argc, char** argv)
 	SocketInit s;
 
 	{
+		Test t;
 		for (int i = 0; i < RPC_TIMES; i++) {
 		 	SocketClient *cli = new SocketClient;
-			cli->connectedHandler = [](SocketSession* session) -> int {
+			cli->connectedHandler = SOCKET_EVENT_SELECTOR(Test::onSocketConnected, &t); 
+			cli->disConnectHandler = SOCKET_EVENT_SELECTOR(Test::onSocketDisConnect, &t);
+			cli->timeoutHandler = SOCKET_EVENT_SELECTOR(Test::onSocketTimeout, &t);
+			cli->errorHandler = SOCKET_EVENT_SELECTOR(Test::onSocketError, &t);
 
-				return 0;
-			};
-
-			cli->disConnectHandler = [](SocketSession* session) -> int {
-				return 0;
-			};
-
-			cli->timeoutHandler = [](SocketSession* session) -> int  {
-				return 0;
-			};
-
-			cli->errorHandler = [](SocketSession* session) -> int  {
-
-				return 0;
-			};
-
-			bool r = cli->create(new GameTestClientHandler());
+			bool r = cli->create(new GameTestClientHandler(), new SocketConfig("127.0.0.1", 19801));
 			if (r) {
-				cli->run("127.0.0.1", 19801);
+				cli->run();
 				__g_game_clients[i] = cli;
 			}
 			else {

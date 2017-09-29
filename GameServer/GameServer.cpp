@@ -9,6 +9,7 @@
 #include "game.pb.h"
 
 #include <iostream>
+#include "socket_config.h"
 
 using namespace LW;
 
@@ -37,7 +38,9 @@ bool GameServer::create(const DESK_INFO& info)
 	bool ret = false;
 	do 
 	{
-		if (!client->create(this)) break;
+		if (!client->create(this, new SocketConfig("127.0.0.1", 19801))) {
+			break;
+		}
 
 		ret = true;
 
@@ -51,11 +54,11 @@ void GameServer::destroy()
 	client->destroy();
 }
 
-void GameServer::start(const std::string& host, int port)
+void GameServer::start()
 {
 	do 
 	{			
-		int ret = client->run(host, port);
+		int ret = client->run();
 	} while (0);
 }
 
@@ -107,7 +110,7 @@ void GameServer::onSocketParse(SocketSession* session, lw_int32 cmd, lw_char8* b
 	{
 	case cmd_connected:
 	{
-		printf("[port:%d]\n", session->getPort());
+		printf("cmd_connected\n");
 	} break;
 	case cmd_game_frame_cs_game_start:
 	case cmd_game_frame_sc_game_end:

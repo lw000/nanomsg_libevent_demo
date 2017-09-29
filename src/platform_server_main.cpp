@@ -27,12 +27,14 @@
 #include "net.h"
 
 #include <log4z.h>
+#include "socket_config.h"
 using namespace zsummer::log4z;
 
 using namespace LW;
 
 static Users			__g_umgr;
 static SocketServer		__g_serv;
+static lw_int32			__g_platform_server_port = 19801;
 
 static void _add_user_thread()
 {
@@ -80,9 +82,9 @@ int platform_server_main(int argc, char** argv)
 
 	if (__g_serv.create(new PlatformServerHandler()))
 	{
-		__g_serv.listen(19801, [](int what)
+		__g_serv.listen(new SocketConfig("0.0.0.0", __g_platform_server_port), [](int what)
 		{
-			printf("platform server running. [%d]\n", __g_serv.getPort());
+			printf("platform server running. [%d]\n", __g_platform_server_port);
 		});
 
 		while (1) { lw_sleep(1); }

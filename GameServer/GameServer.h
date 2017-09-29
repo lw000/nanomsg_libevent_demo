@@ -50,7 +50,7 @@ public:
 	virtual ~GameServer();
 
 public:
-	void start(const std::string& host, int port);
+	void start();
 
 public:
 	void sendSitup();
