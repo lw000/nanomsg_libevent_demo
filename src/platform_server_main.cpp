@@ -22,7 +22,7 @@
 #include "utils.h"
 #include "Users.h"
 
-#include "NetPackage.h"
+#include "net_core.h"
 #include "socket_processor.h"
 #include "net.h"
 

@@ -9,6 +9,8 @@
 
 #include <iostream>
 
+#include "log4z.h"
+
 using namespace LW;
 
 PlatformServerHandler::PlatformServerHandler()
@@ -49,7 +51,7 @@ void PlatformServerHandler::onListener(SocketSession* session)
 		delete s;
 	}
 
-	std::cout << *session << std::endl;
+	LOGD(session->debug());
 }
 
 int PlatformServerHandler::onSocketConnected(SocketSession* session)
