@@ -31,10 +31,6 @@ using namespace zsummer::log4z;
 
 using namespace LW;
 
-
-std::string __s_center_server_addr;
-lw_ushort16 __s_center_server_port;
-
 static Users			__g_umgr;
 static SocketServer		__g_serv;
 
@@ -78,41 +74,15 @@ int platform_server_main(int argc, char** argv)
 		// 	b.detach();
 	}
 
-	{
-		// 	int create_times = 10000000;
-		// 	{
-		// 		clock_t t = clock();
-		// 		for (size_t i = 0; i < create_times; i++)
-		// 		{
-		// 			NetHead head;
-		// 			NetMessage* msg = NetMessage::create(&head);
-		// 			if (nullptr != msg)
-		// 			{
-		// 				NetMessage::release(msg);
-		// 			}
-		// 		}
-		// 		clock_t t1 = clock();
-		// 		printf("NetMessage create[%d] : %f, %f\n", create_times, ((double)t1 - t) / CLOCKS_PER_SEC, (((double)t1 - t) / CLOCKS_PER_SEC) / create_times);
-		// 	}
-	}
-
 	SocketInit s;
-
-	SocketProcessor::processorUseThreads();
 
 	ILog4zManager::getInstance()->start();
 
-	__s_center_server_port = 19800;
-
-	lw_int32 local_port = 19801;
-
 	if (__g_serv.create(new PlatformServerHandler()))
 	{
-		__g_serv.listen(local_port, [](int what)
+		__g_serv.listen(19801, [](int what)
 		{
 			printf("platform server running. [%d]\n", __g_serv.getPort());
-
-			__connect_center_server(__s_center_server_addr.c_str(), __s_center_server_port);
 		});
 
 		while (1) { lw_sleep(1); }

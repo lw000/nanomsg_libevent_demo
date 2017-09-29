@@ -15,7 +15,6 @@
     <ClCompile Include="..\GameServer\client_http.cpp" />
     <ClCompile Include="..\GameServer\GameServer.cpp" />
     <ClCompile Include="..\http_server\http_server_business.cpp" />
-    <ClCompile Include="..\platform_server\client_main.cpp" />
     <ClCompile Include="..\platform_server\Desk.cpp" />
     <ClCompile Include="..\platform_server\PlatformServer.cpp" />
     <ClCompile Include="..\platform_server\room.cpp" />
@@ -38,7 +37,6 @@
     <ClInclude Include="..\GameServer\client_http.h" />
     <ClInclude Include="..\GameServer\GameServer.h" />
     <ClInclude Include="..\http_server\http_server_business.h" />
-    <ClInclude Include="..\platform_server\client_main.h" />
     <ClInclude Include="..\platform_server\Desk.h" />
     <ClInclude Include="..\platform_server\PlatformServer.h" />
     <ClInclude Include="..\platform_server\room.h" />
@@ -55,6 +53,29 @@
     <None Include="..\protocol\platform.proto" />
     <None Include="..\protocol\protoc" />
     <None Include="..\protocol\protoc.exe" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\libcityhash\libcityhash.vcxproj">
+      <Project>{4c3775e2-0371-4c0c-9f9e-1aaee43592ab}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\libnanorpc\libnanorpc.vcxproj">
+      <Project>{c3d3a979-995c-415a-83f6-e29967499423}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\lw_common\libcommon.vcxproj">
+      <Project>{d9b850b4-bd96-4eb7-9281-a42d0c6aaa5c}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\lw_core\libcore.vcxproj">
+      <Project>{f7e4e090-0bbb-4722-8c19-b106e21048cd}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\lw_httpclient_curl\libhttpclient.vcxproj">
+      <Project>{042bf736-fac2-4340-afb7-e7499b22a52a}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\lw_net\libnet.vcxproj">
+      <Project>{006686e3-6160-4984-827e-b9200e5b3338}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\mysqlwarpper\libmysqlwarpper.vcxproj">
+      <Project>{cccc131a-85fa-45d1-88b0-a66d9e75c53a}</Project>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{AB2D92D1-39F3-4565-AB09-59C1CB23B024}</ProjectGuid>
@@ -87,9 +108,13 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)$(Configuration)\vs2013</OutDir>
+    <IntDir>$(Configuration)\vs2013</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)$(Configuration)\vs2013</OutDir>
+    <IntDir>$(Configuration)\vs2013</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -103,7 +128,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>..\debug;..\..\..\cross-common\libevent\build\vs2013\lib\Debug;..\..\..\cross-common\nanomsg\build\vs2013\Debug;..\..\..\cross-common\protobuf\protobuf-cpp-3.1.0\protobuf-3.1.0\cmake\vs2013\Debug;..\..\..\cross-common\prebuilt-dll-2-9-1-release\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\Debug\vs2013;..\..\..\cross-common\libevent\build\vs2013\lib\Debug;..\..\..\cross-common\nanomsg\build\vs2013\Debug;..\..\..\cross-common\protobuf\protobuf-cpp-3.1.0\protobuf-3.1.0\cmake\vs2013\Debug;..\..\..\cross-common\prebuilt-dll-2-9-1-release\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>ws2_32.lib;wsock32.lib;event.lib;nanomsg.lib;libprotobufd.lib;libprotocd.lib;libcommon.lib;libcore.lib;libnet.lib;libcityhash.lib;libnanorpc.lib;pthreadVC2.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -123,8 +148,8 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>..\release;..\..\..\cross-common\libevent\build\vs2013\lib\Release;..\..\..\cross-common\nanomsg\build\vs2013\Release;..\..\..\cross-common\protobuf\protobuf-cpp-3.1.0\protobuf-3.1.0\cmake\vs2013\Release;..\..\..\cross-common\prebuilt-dll-2-9-1-release\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>ws2_32.lib;wsock32.lib;event.lib;nanomsg.lib;libprotobuf.lib;libprotoc.lib;libutils.lib;libnet.lib;libcityhash.lib;libnanorpc.lib;pthreadVC2.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\Release\vs2013;..\..\..\cross-common\libevent\build\vs2013\lib\Release;..\..\..\cross-common\nanomsg\build\vs2013\Release;..\..\..\cross-common\protobuf\protobuf-cpp-3.1.0\protobuf-3.1.0\cmake\vs2013\Release;..\..\..\cross-common\prebuilt-dll-2-9-1-release\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>ws2_32.lib;wsock32.lib;event.lib;nanomsg.lib;libprotobuf.lib;libprotoc.lib;libcommon.lib;libcore.lib;libnet.lib;libcityhash.lib;libnanorpc.lib;pthreadVC2.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

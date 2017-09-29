@@ -30,9 +30,6 @@
     <ClCompile Include="..\http_server\http_server_business.cpp">
       <Filter>http_server</Filter>
     </ClCompile>
-    <ClCompile Include="..\platform_server\client_main.cpp">
-      <Filter>platform_server</Filter>
-    </ClCompile>
     <ClCompile Include="..\platform_server\Desk.cpp">
       <Filter>platform_server</Filter>
     </ClCompile>
@@ -94,9 +91,6 @@
     </ClInclude>
     <ClInclude Include="..\http_server\http_server_business.h">
       <Filter>http_server</Filter>
-    </ClInclude>
-    <ClInclude Include="..\platform_server\client_main.h">
-      <Filter>platform_server</Filter>
     </ClInclude>
     <ClInclude Include="..\platform_server\Desk.h">
       <Filter>platform_server</Filter>

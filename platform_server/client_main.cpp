@@ -15,9 +15,9 @@
 using namespace LW;
 
 class AITestTimer;
-class ClientHandler;
+class PlatformClientHandler;
 
-static SocketClient __g_client;
+static SocketClient __g_platform_client;
 
 class AITestTimer : public Threadable
 {
@@ -35,7 +35,7 @@ public:
 
 protected:
 	virtual int onStart() {
-		_processor.create(true, NULL);
+		_processor.create(false);
 		_timer.create(&_processor);
 		_timer.start(100, 15000, [](int tid, unsigned int tms) -> bool
 		{
@@ -46,7 +46,7 @@ protected:
 			lw_bool ret = msg.SerializeToArray(s.get(), c);
 			if (ret)
 			{
-				__g_client.getSession()->sendData(cmd_heart_beat, s.get(), c);
+				__g_platform_client.getSession()->sendData(cmd_heart_beat, s.get(), c);
 			}
 			return true;
 		});
@@ -64,16 +64,16 @@ protected:
 };
 
 
-class ClientHandler : public AbstractSocketClientHandler
+class PlatformClientHandler : public AbstractSocketClientHandler
 {
 	AITestTimer __g_timer_test;
 
 public:
-	ClientHandler()
+	PlatformClientHandler()
 	{
 	}
 
-	virtual ~ClientHandler()
+	virtual ~PlatformClientHandler()
 	{
 	}
 
@@ -134,9 +134,9 @@ protected:
 
 int __connect_center_server(const lw_char8* addr, lw_short16 port)
 {
-	if (__g_client.create(new ClientHandler()))
+	if (__g_platform_client.create(new PlatformClientHandler()))
 	{
-		int ret = __g_client.run("127.0.0.1", port);
+		int ret = __g_platform_client.run(addr, port);
 	}
 	return 0;
 }

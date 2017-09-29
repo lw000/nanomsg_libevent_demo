@@ -34,8 +34,6 @@ int center_server_main(int argc, char** argv) {
 
 	ILog4zManager::getInstance()->start();
 
-	SocketProcessor::processorUseThreads();
-
 	lw_int32 port = 19800;
 	if (__g_serv.create(new CenterServerHandler())) {
 		__g_serv.listen(port, start_cb);

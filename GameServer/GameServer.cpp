@@ -7,6 +7,7 @@
 #include "command.h"
 #include "platform.pb.h"
 #include "game.pb.h"
+
 #include <iostream>
 
 using namespace LW;
@@ -15,7 +16,6 @@ using namespace LW;
 
 GameServer::GameServer(AbstractGameServer* idesk) : iDesk(idesk)
 {
-	_processor = new SocketProcessor;
 	client = new SocketClient();
 }
 
@@ -185,13 +185,12 @@ int GameServer::onGameMessage(int cmd, void* data, int datasize)
 	case cmd_platform_sc_userinfo: {
 		platform::msg_userinfo_reponse userinfo;
 		userinfo.ParseFromArray(data, datasize);
-		printf("userid: %d age:%d sex:%d name:%s address:%s ext:%s\n", userinfo.uid(),
-			userinfo.age(), userinfo.sex(), userinfo.name().c_str(), userinfo.address().c_str(), userinfo.ext().c_str());
+		printf("userid: %d name:%s\n", userinfo.uid(), userinfo.name().c_str());
 	}break;
 	case cmd_platform_sc_chat_reponse: {
 		platform::msg_chat_reponse msg;
 		msg.ParseFromArray(data, datasize);
-		printf("from_uid: %d to_uid:%d msg:%s\n", msg.from_uid(), msg.to_uid(), msg.msg().c_str());
+		printf("from_uid: %d to_uid:%d\n", msg.from_uid(), msg.to_uid());
 	} break;
 	default:
 		break;

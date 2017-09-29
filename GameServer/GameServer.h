@@ -6,10 +6,10 @@
 
 #include "common_type.h"
 #include "common_struct.h"
-#include "socket_session.h"
 #include "socket_client.h"
 
 class SocketProcessor;
+class SocketSession;
 
 class AbstractGameServer
 {
@@ -83,12 +83,8 @@ public:
 public:
 	virtual int onGameMessage(int cmd, void* data, int datasize) override;
 
-
 public:
 	SocketClient* client;
-
-private:
-	SocketProcessor* _processor;
 };
 
 #endif	//__GameLogic_H__
