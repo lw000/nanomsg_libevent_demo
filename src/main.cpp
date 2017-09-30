@@ -13,32 +13,28 @@
 
 int main(int argc, char** argv) {
 	if (argc < 2) return 0;
+	
+	START_ENTER_METHOD METHODS[] = {
+		{ "center", main_center_server },
+		{ "platform", main_platform_server },
+		{ "game", main_game_server},
+		{ "http", main_http_server },
+		{ "pubsub", main_pubsub_servr },	//pubsub tcp://127.0.0.1:5555 -s
+		{ "survey", main_nanomsg_survey },
+		{ "nanorpc", main_nonamsg_rpc },
+	};
 
-	if (strcmp(argv[1], "pubsub") == 0) {
-		//pubsub tcp://127.0.0.1:5555 -s
-		pubsub_servr_main(argc, argv);
-	}
-	else if (strcmp(argv[1], "center") == 0) {
-		//center
-		center_server_main(argc, argv);
+	std::string s(argv[1]);
 
-	} if (strcmp(argv[1], "platform") == 0) {
-		//platform
-		platform_server_main(argc, argv);
-	}
-	else if (strcmp(argv[1], "http") == 0) {
-		//http
-		http_server_main(argc, argv);
-	} else if (strcmp(argv[1], "game") == 0) {
-		//game
-		game_server_main(argc, argv);
-	}
-	else if (strcmp(argv[1], "survey") == 0) {
-		//survey
-		nanomsg_survey_main(argc, argv);
-	}
-	else {
-		fprintf(stderr, "usage: %s <url> [-s]\n", argv[0]);
+	for (int i = 0; i < sizeof(METHODS) / sizeof(METHODS[0]); i++) {
+		if (s.compare(METHODS[i].name) == 0) {
+			
+			if (METHODS[i].call != NULL) {
+				METHODS[i].call(argc, argv);
+			}
+
+			break;
+		}
 	}
 
 	return 0;

@@ -28,8 +28,8 @@
     <ClCompile Include="..\src\main.cpp" />
     <ClCompile Include="..\src\nanomsg_survey_main.cpp" />
     <ClCompile Include="..\src\platform_server_main.cpp" />
+    <ClCompile Include="..\src\protobufrpc_main.cpp" />
     <ClCompile Include="..\src\pubsub_main.cpp" />
-    <ClCompile Include="protobufrpc_main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\center_server\CenterServer.h" />

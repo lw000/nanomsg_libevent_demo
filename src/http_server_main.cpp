@@ -9,7 +9,7 @@
 #include "net.h"
 #include "utils.h"
 
-int http_server_main(int argc, char** argv)
+int main_http_server(int argc, char** argv)
 {
 	if (argc < 2) return 0;
 

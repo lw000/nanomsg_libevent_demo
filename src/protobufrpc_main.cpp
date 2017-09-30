@@ -44,7 +44,6 @@ static int _rpc_client() {
 			 	stub.Echo(NULL, &request, &response, NULL);
 			 	std::cerr << response.c() << std::endl;
 			}
-
 		}
 	}
 	catch (nn::exception& e) {
@@ -73,7 +72,7 @@ static void OnExit(int sig)
 	std::cerr << "Exiting on ^C " << sig << std::endl;
 }
 
-int protobufrpc_main(int argc, char *argv[]) {
+int main_nonamsg_rpc(int argc, char *argv[]) {
 
 	signal(SIGINT, OnExit);
 

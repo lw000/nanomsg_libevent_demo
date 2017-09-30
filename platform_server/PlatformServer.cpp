@@ -98,7 +98,9 @@ void PlatformServerHandler::onSocketParse(SocketSession* session, lw_int32 cmd, 
 				session->sendData(cmd_heart_beat, s.get(), c);
 			}
 		}
-	} break;
+
+		break;
+	}
 	case cmd_platform_cs_chat_request:
 	{
 		platform::msg_chat_reponse recv_msg;
@@ -116,8 +118,10 @@ void PlatformServerHandler::onSocketParse(SocketSession* session, lw_int32 cmd, 
 				session->sendData(cmd_platform_sc_chat_reponse, s.get(), c);
 			}
 		}	
-	} break;
-	default:
 		break;
+	}
+	default: {
+		break;
+	}	
 	}
 }

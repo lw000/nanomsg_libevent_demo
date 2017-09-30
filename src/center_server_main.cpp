@@ -20,21 +20,19 @@
 
 using namespace zsummer::log4z;
 
-static SocketServer		__g_serv;
-static lw_int32			__g_center_server_port = 19800;
-
-int center_server_main(int argc, char** argv) {
+int main_center_server(int argc, char** argv) {
 // 	if (argc < 2) return 0;
 
 	SocketInit sinit;
 
 	ILog4zManager::getInstance()->start();
-	
-	if (__g_serv.create(new CenterServerHandler())) {
-		__g_serv.listen(new SocketConfig("0.0.0.0", __g_center_server_port), [](lw_int32 what) {
-			char s[512];
-			sprintf(s, "center server running. [port: %d]", __g_center_server_port);
-			LOGD(s);
+
+	SocketServer serv;
+	lw_int32 port = 19800;
+
+	if (serv.create(new CenterServerHandler(), new SocketConfig("0.0.0.0", port))) {
+		serv.serv([port](lw_int32 what) {
+			LOGFMTD("center server running. [port:%d]", port);
 		});
 
 		while (1) { lw_sleep(1); }

@@ -8,11 +8,23 @@
 #ifndef MAIN_H_
 #define MAIN_H_
 
-int center_server_main(int argc, char** argv);
-int platform_server_main(int argc, char** argv);
-int http_server_main(int argc, char** argv);
-int game_server_main(int argc, char** argv);
-int pubsub_servr_main(int argc, char** argv);
-int nanomsg_survey_main(int argc, char** argv);
+#include <string>
+
+typedef int(*ENTER_FUN)(int, char**);
+
+typedef struct tagSTART_ENTER_METHOD
+{
+	std::string name;
+	ENTER_FUN call;
+} START_ENTER_METHOD;
+
+int main_center_server(int argc, char** argv);
+int main_platform_server(int argc, char** argv);
+int main_http_server(int argc, char** argv);
+int main_game_server(int argc, char** argv);
+int main_pubsub_servr(int argc, char** argv);
+int main_nanomsg_survey(int argc, char** argv);
+int main_nonamsg_rpc(int argc, char** argv);
+
 
 #endif /* MAIN_H_ */

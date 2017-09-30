@@ -180,7 +180,7 @@ static void *pthread_push_msgdata(void *args)
 	return nullptr;
 }
 
-int pubsub_servr_main(int argc, char** argv) {
+int main_pubsub_servr(int argc, char** argv) {
 	if (argc < 3) return 0;
 
 	ILog4zManager::getInstance()->start();

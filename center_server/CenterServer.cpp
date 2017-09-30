@@ -84,8 +84,12 @@ void CenterServerHandler::onSocketParse(SocketSession* session, lw_int32 cmd, lw
 	case cmd_heart_beat:
 	{
 		sendHeartbeat(session);	
-	} break;
-	default:
+
 		break;
+	}
+	default: {
+
+		break;
+	}
 	}
 }

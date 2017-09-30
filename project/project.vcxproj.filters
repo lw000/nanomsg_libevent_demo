@@ -75,10 +75,10 @@
     <ClCompile Include="..\src\game_server_main.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="protobufrpc_main.cpp">
+    <ClCompile Include="..\src\nanomsg_survey_main.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\nanomsg_survey_main.cpp">
+    <ClCompile Include="..\src\protobufrpc_main.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>

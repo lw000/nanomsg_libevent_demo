@@ -23,18 +23,17 @@
 #include "Users.h"
 
 #include "net_core.h"
+#include "socket_config.h"
 #include "socket_processor.h"
 #include "net.h"
 
 #include <log4z.h>
-#include "socket_config.h"
 using namespace zsummer::log4z;
 
 using namespace LW;
 
 static Users			__g_umgr;
-static SocketServer		__g_serv;
-static lw_int32			__g_platform_server_port = 19801;
+
 
 static void _add_user_thread()
 {
@@ -65,7 +64,7 @@ static void _remove_user_thread()
 	}
 }
 
-int platform_server_main(int argc, char** argv)
+int main_platform_server(int argc, char** argv)
 {
 // 	if (argc < 2) return 0;
 
@@ -80,11 +79,14 @@ int platform_server_main(int argc, char** argv)
 
 	ILog4zManager::getInstance()->start();
 
-	if (__g_serv.create(new PlatformServerHandler()))
+	SocketServer serv;
+	lw_int32 port = 19801;
+
+	if (serv.create(new PlatformServerHandler(), new SocketConfig("0.0.0.0", port)))
 	{
-		__g_serv.listen(new SocketConfig("0.0.0.0", __g_platform_server_port), [](int what)
+		serv.serv([port](int what)
 		{
-			printf("platform server running. [%d]\n", __g_platform_server_port);
+			LOGFMTD("platform server running. [port:%d]", port);
 		});
 
 		while (1) { lw_sleep(1); }

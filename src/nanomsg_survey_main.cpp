@@ -185,7 +185,7 @@ int server_main() {
 	return 0;
 }
 
-int nanomsg_survey_main(int argc, char** argv) {
+int main_nanomsg_survey(int argc, char** argv) {
 	std::string s(argv[2]);
 
 	if (s.compare("-s") == 0) {

@@ -58,7 +58,8 @@ void GameServer::start()
 {
 	do 
 	{			
-		int ret = client->run();
+		int ret = client->open();
+
 	} while (0);
 }
 
