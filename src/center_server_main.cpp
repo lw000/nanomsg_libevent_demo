@@ -20,13 +20,11 @@
 using namespace zsummer::log4z;
 
 int main_center_server(int argc, char** argv) {
-// 	if (argc < 2) return 0;
-
 	SocketInit sinit;
 
-	SocketServer serv;
 	lw_int32 port = 19800;
 
+	SocketServer serv;
 	if (serv.create(new CenterServerHandler(), new SocketConfig("0.0.0.0", port))) {
 		serv.serv([port](lw_int32 what) {
 			LOGFMTD("center server running. [port:%d]", port);

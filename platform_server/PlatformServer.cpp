@@ -29,12 +29,12 @@ AbstractUser* PlatformServerHandler::getUsers()
 
 void PlatformServerHandler::onListener(SocketSession* session)
 {
-	static int i = 0;
-	USER_INFO user;
-	user.uid = i++;
-	users.add(user, session);
-
-	const UserSession* us = users.find(user.uid);
+//	static int i = 0;
+//	USER_INFO user;
+//	user.uid = i++;
+//	users.add(user, session);
+//
+//	const UserSession* us = users.find(user.uid);
 
 	platform::msg_connected msg;
 	lw_llong64 t = time(NULL);

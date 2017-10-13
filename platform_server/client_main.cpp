@@ -11,6 +11,7 @@
 #include "socket_client.h"
 #include "socket_session.h"
 #include "socket_timer.h"
+#include "socket_config.h"
 
 using namespace LW;
 
@@ -62,7 +63,6 @@ protected:
 		return 0;
 	}
 };
-
 
 class PlatformClientHandler : public AbstractSocketClientHandler
 {
@@ -134,9 +134,9 @@ protected:
 
 int __connect_center_server(const lw_char8* addr, lw_short16 port)
 {
-	if (__g_platform_client.create(new PlatformClientHandler()))
+	if (__g_platform_client.create(new PlatformClientHandler(), new SocketConfig(addr, port)))
 	{
-		int ret = __g_platform_client.run(addr, port);
+		int ret = __g_platform_client.open();
 	}
 	return 0;
 }

@@ -11,6 +11,8 @@
 #include <string.h>
 #include <stdio.h>
 
+#include "socket_processor.h"
+
 #include <log4z.h>
 using namespace zsummer::log4z;
 
@@ -34,6 +36,8 @@ int main(int argc, char** argv) {
 	std::string s(argv[1]);
 
 	ILog4zManager::getInstance()->start();
+
+	SocketProcessor::use_threads();
 
 	for (int i = 0; i < sizeof(METHODS) / sizeof(METHODS[0]); i++) {
 		if (s.compare(METHODS[i].name) == 0) {

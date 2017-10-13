@@ -65,20 +65,18 @@ static void _remove_user_thread()
 
 int main_platform_server(int argc, char** argv)
 {
-// 	if (argc < 2) return 0;
-
-	{
-		// 	std::thread a(_add_user_thread);
-		// 	std::thread b(_remove_user_thread);
-		// 	a.detach();
-		// 	b.detach();
-	}
+//	{
+//		std::thread a(_add_user_thread);
+//		std::thread b(_remove_user_thread);
+//		a.detach();
+//		b.detach();
+//	}
 
 	SocketInit s;
 
-	SocketServer serv;
 	lw_int32 port = 19801;
 
+	SocketServer serv;
 	if (serv.create(new PlatformServerHandler(), new SocketConfig("0.0.0.0", port)))
 	{
 		serv.serv([port](int what)

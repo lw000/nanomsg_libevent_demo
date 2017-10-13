@@ -10,6 +10,8 @@
 
 #ifdef _WIN32
 #include <Windows.h>
+#else
+#include <unistd.h>
 #endif
 
 #include "nanomsgcpp_socket.h"
@@ -79,7 +81,11 @@ public:
 				}
 			}
 			printf("SERVER: current receive %d survey response. \n", count);
+#ifdef _WIN32
 			::Sleep(1000);
+#else
+			sleep(1);
+#endif
 		}
 
 		this->shutdown();
