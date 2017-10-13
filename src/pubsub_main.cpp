@@ -183,8 +183,6 @@ static void *pthread_push_msgdata(void *args)
 int main_pubsub_servr(int argc, char** argv) {
 	if (argc < 3) return 0;
 
-	ILog4zManager::getInstance()->start();
-
 	__g_msg_queue.createChannel();
 
 	struct pthread_args* pargs = new struct pthread_args;

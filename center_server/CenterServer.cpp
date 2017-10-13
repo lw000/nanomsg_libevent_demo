@@ -50,7 +50,8 @@ void CenterServerHandler::onListener(SocketSession* session)
 		}
 		delete s;
 	}
-	std::cout << *session << std::endl;
+
+	std::cout << session->debug() << std::endl;
 }
 
 int CenterServerHandler::onSocketConnected(SocketSession* session)

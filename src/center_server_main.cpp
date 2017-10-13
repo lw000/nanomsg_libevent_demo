@@ -17,15 +17,12 @@
 #include "net.h"
 
 #include <log4z.h>
-
 using namespace zsummer::log4z;
 
 int main_center_server(int argc, char** argv) {
 // 	if (argc < 2) return 0;
 
 	SocketInit sinit;
-
-	ILog4zManager::getInstance()->start();
 
 	SocketServer serv;
 	lw_int32 port = 19800;

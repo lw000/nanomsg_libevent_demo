@@ -22,7 +22,6 @@
 #include "utils.h"
 #include "Users.h"
 
-#include "net_core.h"
 #include "socket_config.h"
 #include "socket_processor.h"
 #include "net.h"
@@ -76,8 +75,6 @@ int main_platform_server(int argc, char** argv)
 	}
 
 	SocketInit s;
-
-	ILog4zManager::getInstance()->start();
 
 	SocketServer serv;
 	lw_int32 port = 19801;

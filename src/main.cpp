@@ -11,8 +11,15 @@
 #include <string.h>
 #include <stdio.h>
 
+#include <log4z.h>
+using namespace zsummer::log4z;
+
 int main(int argc, char** argv) {
-	if (argc < 2) return 0;
+	if (argc < 2)
+	{
+		printf("please input server name/n");
+		return 0;
+	}
 	
 	START_ENTER_METHOD METHODS[] = {
 		{ "center", main_center_server },
@@ -25,6 +32,8 @@ int main(int argc, char** argv) {
 	};
 
 	std::string s(argv[1]);
+
+	ILog4zManager::getInstance()->start();
 
 	for (int i = 0; i < sizeof(METHODS) / sizeof(METHODS[0]); i++) {
 		if (s.compare(METHODS[i].name) == 0) {
