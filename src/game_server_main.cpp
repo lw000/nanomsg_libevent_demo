@@ -177,7 +177,7 @@ protected:
 		case cmd_platform_sc_chat_reponse: {
 			platform::msg_chat_reponse msg;
 			msg.ParseFromArray(buf, bufsize);
-			LOGFMTD("from_uid: %d to_uid:%d", msg.from_uid(), msg.to_uid());
+			LOGFMTD("from_uid: %d to_uid:%d msg:%s", msg.from_uid(), msg.to_uid(), msg.msg().c_str());
 
 			break;
 		}
