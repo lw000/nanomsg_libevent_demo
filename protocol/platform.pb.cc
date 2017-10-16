@@ -85,7 +85,8 @@ void protobuf_AssignDesc_platform_2eproto() {
       sizeof(msg_heartbeat),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(msg_heartbeat, _internal_metadata_));
   msg_connected_descriptor_ = file->message_type(1);
-  static const int msg_connected_offsets_[2] = {
+  static const int msg_connected_offsets_[3] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(msg_connected, client_id_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(msg_connected, state_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(msg_connected, time_),
   };
@@ -372,25 +373,25 @@ void protobuf_AddDesc_platform_2eproto_impl() {
   protobuf_InitDefaults_platform_2eproto();
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
     "\n\016platform.proto\022\010platform\"+\n\rmsg_heartb"
-    "eat\022\014\n\004time\030\001 \001(\003\022\014\n\004data\030\002 \001(\t\",\n\rmsg_c"
-    "onnected\022\r\n\005state\030\001 \001(\005\022\014\n\004time\030\002 \001(\003\"F\n"
-    "\021msg_login_request\022\016\n\006device\030\001 \001(\005\022\020\n\010us"
-    "ername\030\002 \001(\t\022\017\n\007userpsd\030\003 \001(\t\" \n\021msg_log"
-    "in_reponse\022\013\n\003msg\030\001 \001(\t\"1\n\022msg_logout_re"
-    "quest\022\016\n\006device\030\001 \001(\005\022\013\n\003uid\030\002 \001(\005\"!\n\022ms"
-    "g_logout_reponse\022\013\n\003msg\030\001 \001(\t\"Q\n\020msg_cha"
-    "t_request\022\016\n\006device\030\001 \001(\005\022\020\n\010from_uid\030\002 "
-    "\001(\005\022\016\n\006to_uid\030\003 \001(\005\022\013\n\003msg\030\004 \001(\t\"Q\n\020msg_"
-    "chat_reponse\022\020\n\010from_uid\030\001 \001(\005\022\016\n\006to_uid"
-    "\030\002 \001(\005\022\016\n\006result\030\003 \001(\005\022\013\n\003msg\030\004 \001(\t\"#\n\024m"
-    "sg_userinfo_request\022\013\n\003uid\030\001 \001(\005\"i\n\024msg_"
-    "userinfo_reponse\022\013\n\003uid\030\001 \001(\005\022\013\n\003age\030\002 \001"
-    "(\005\022\013\n\003sex\030\003 \001(\005\022\014\n\004name\030\004 \001(\t\022\017\n\007address"
-    "\030\005 \001(\t\022\013\n\003ext\030\006 \001(\t\"\"\n\nEchoReqMsg\022\t\n\001a\030\001"
-    " \001(\005\022\t\n\001b\030\002 \001(\005\"%\n\013EchoRespMsg\022\t\n\001c\030\001 \001("
-    "\005\022\013\n\003msg\030\002 \001(\t2@\n\tMyService\0223\n\004Echo\022\024.pl"
-    "atform.EchoReqMsg\032\025.platform.EchoRespMsg"
-    "B\003\200\001\001b\006proto3", 773);
+    "eat\022\014\n\004time\030\001 \001(\003\022\014\n\004data\030\002 \001(\t\"\?\n\rmsg_c"
+    "onnected\022\021\n\tclient_id\030\001 \001(\005\022\r\n\005state\030\002 \001"
+    "(\005\022\014\n\004time\030\003 \001(\003\"F\n\021msg_login_request\022\016\n"
+    "\006device\030\001 \001(\005\022\020\n\010username\030\002 \001(\t\022\017\n\007userp"
+    "sd\030\003 \001(\t\" \n\021msg_login_reponse\022\013\n\003msg\030\001 \001"
+    "(\t\"1\n\022msg_logout_request\022\016\n\006device\030\001 \001(\005"
+    "\022\013\n\003uid\030\002 \001(\005\"!\n\022msg_logout_reponse\022\013\n\003m"
+    "sg\030\001 \001(\t\"Q\n\020msg_chat_request\022\016\n\006device\030\001"
+    " \001(\005\022\020\n\010from_uid\030\002 \001(\005\022\016\n\006to_uid\030\003 \001(\005\022\013"
+    "\n\003msg\030\004 \001(\t\"Q\n\020msg_chat_reponse\022\020\n\010from_"
+    "uid\030\001 \001(\005\022\016\n\006to_uid\030\002 \001(\005\022\016\n\006result\030\003 \001("
+    "\005\022\013\n\003msg\030\004 \001(\t\"#\n\024msg_userinfo_request\022\013"
+    "\n\003uid\030\001 \001(\005\"i\n\024msg_userinfo_reponse\022\013\n\003u"
+    "id\030\001 \001(\005\022\013\n\003age\030\002 \001(\005\022\013\n\003sex\030\003 \001(\005\022\014\n\004na"
+    "me\030\004 \001(\t\022\017\n\007address\030\005 \001(\t\022\013\n\003ext\030\006 \001(\t\"\""
+    "\n\nEchoReqMsg\022\t\n\001a\030\001 \001(\005\022\t\n\001b\030\002 \001(\005\"%\n\013Ec"
+    "hoRespMsg\022\t\n\001c\030\001 \001(\005\022\013\n\003msg\030\002 \001(\t2@\n\tMyS"
+    "ervice\0223\n\004Echo\022\024.platform.EchoReqMsg\032\025.p"
+    "latform.EchoRespMsgB\003\200\001\001b\006proto3", 792);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "platform.proto", &protobuf_RegisterTypes);
   ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_platform_2eproto);
@@ -763,6 +764,7 @@ inline const msg_heartbeat* msg_heartbeat::internal_default_instance() {
 // ===================================================================
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int msg_connected::kClientIdFieldNumber;
 const int msg_connected::kStateFieldNumber;
 const int msg_connected::kTimeFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
@@ -786,8 +788,8 @@ msg_connected::msg_connected(const msg_connected& from)
 }
 
 void msg_connected::SharedCtor() {
-  ::memset(&time_, 0, reinterpret_cast<char*>(&state_) -
-    reinterpret_cast<char*>(&time_) + sizeof(state_));
+  ::memset(&client_id_, 0, reinterpret_cast<char*>(&time_) -
+    reinterpret_cast<char*>(&client_id_) + sizeof(time_));
   _cached_size_ = 0;
 }
 
@@ -842,7 +844,7 @@ void msg_connected::Clear() {
            ZR_HELPER_(last) - ZR_HELPER_(first) + sizeof(last));\
 } while (0)
 
-  ZR_(time_, state_);
+  ZR_(client_id_, time_);
 
 #undef ZR_HELPER_
 #undef ZR_
@@ -859,9 +861,24 @@ bool msg_connected::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional int32 state = 1;
+      // optional int32 client_id = 1;
       case 1: {
         if (tag == 8) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &client_id_)));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(16)) goto parse_state;
+        break;
+      }
+
+      // optional int32 state = 2;
+      case 2: {
+        if (tag == 16) {
+         parse_state:
 
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
@@ -869,13 +886,13 @@ bool msg_connected::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(16)) goto parse_time;
+        if (input->ExpectTag(24)) goto parse_time;
         break;
       }
 
-      // optional int64 time = 2;
-      case 2: {
-        if (tag == 16) {
+      // optional int64 time = 3;
+      case 3: {
+        if (tag == 24) {
          parse_time:
 
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
@@ -912,14 +929,19 @@ failure:
 void msg_connected::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:platform.msg_connected)
-  // optional int32 state = 1;
-  if (this->state() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->state(), output);
+  // optional int32 client_id = 1;
+  if (this->client_id() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->client_id(), output);
   }
 
-  // optional int64 time = 2;
+  // optional int32 state = 2;
+  if (this->state() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(2, this->state(), output);
+  }
+
+  // optional int64 time = 3;
   if (this->time() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt64(2, this->time(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteInt64(3, this->time(), output);
   }
 
   // @@protoc_insertion_point(serialize_end:platform.msg_connected)
@@ -929,14 +951,19 @@ void msg_connected::SerializeWithCachedSizes(
     bool deterministic, ::google::protobuf::uint8* target) const {
   (void)deterministic; // Unused
   // @@protoc_insertion_point(serialize_to_array_start:platform.msg_connected)
-  // optional int32 state = 1;
-  if (this->state() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->state(), target);
+  // optional int32 client_id = 1;
+  if (this->client_id() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->client_id(), target);
   }
 
-  // optional int64 time = 2;
+  // optional int32 state = 2;
+  if (this->state() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(2, this->state(), target);
+  }
+
+  // optional int64 time = 3;
   if (this->time() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(2, this->time(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(3, this->time(), target);
   }
 
   // @@protoc_insertion_point(serialize_to_array_end:platform.msg_connected)
@@ -947,14 +974,21 @@ size_t msg_connected::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:platform.msg_connected)
   size_t total_size = 0;
 
-  // optional int32 state = 1;
+  // optional int32 client_id = 1;
+  if (this->client_id() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->client_id());
+  }
+
+  // optional int32 state = 2;
   if (this->state() != 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::Int32Size(
         this->state());
   }
 
-  // optional int64 time = 2;
+  // optional int64 time = 3;
   if (this->time() != 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::Int64Size(
@@ -994,6 +1028,9 @@ void msg_connected::MergeFrom(const msg_connected& from) {
 
 void msg_connected::UnsafeMergeFrom(const msg_connected& from) {
   GOOGLE_DCHECK(&from != this);
+  if (from.client_id() != 0) {
+    set_client_id(from.client_id());
+  }
   if (from.state() != 0) {
     set_state(from.state());
   }
@@ -1026,6 +1063,7 @@ void msg_connected::Swap(msg_connected* other) {
   InternalSwap(other);
 }
 void msg_connected::InternalSwap(msg_connected* other) {
+  std::swap(client_id_, other->client_id_);
   std::swap(state_, other->state_);
   std::swap(time_, other->time_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
@@ -1043,7 +1081,21 @@ void msg_connected::InternalSwap(msg_connected* other) {
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
 // msg_connected
 
-// optional int32 state = 1;
+// optional int32 client_id = 1;
+void msg_connected::clear_client_id() {
+  client_id_ = 0;
+}
+::google::protobuf::int32 msg_connected::client_id() const {
+  // @@protoc_insertion_point(field_get:platform.msg_connected.client_id)
+  return client_id_;
+}
+void msg_connected::set_client_id(::google::protobuf::int32 value) {
+  
+  client_id_ = value;
+  // @@protoc_insertion_point(field_set:platform.msg_connected.client_id)
+}
+
+// optional int32 state = 2;
 void msg_connected::clear_state() {
   state_ = 0;
 }
@@ -1057,7 +1109,7 @@ void msg_connected::set_state(::google::protobuf::int32 value) {
   // @@protoc_insertion_point(field_set:platform.msg_connected.state)
 }
 
-// optional int64 time = 2;
+// optional int64 time = 3;
 void msg_connected::clear_time() {
   time_ = GOOGLE_LONGLONG(0);
 }

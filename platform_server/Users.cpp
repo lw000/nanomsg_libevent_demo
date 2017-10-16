@@ -44,7 +44,7 @@ const UserSession* Users::find(int uid)
 {
 	UserSession* pUsession = nullptr;
 	{
-		std::lock_guard < std::mutex > l(_m);
+		lw_lock_guard l(&_lock);
 		iterator iter = _live.begin();
 		for (; iter != _live.end(); ++iter)
 		{
@@ -73,7 +73,7 @@ const UserSession* Users::find(const SocketSession* session)
 {
 	UserSession* pUsession = nullptr;
 	{
-		std::lock_guard < std::mutex > l(_m);
+		lw_lock_guard l(&_lock);
 		iterator iter = _live.begin();
 		for (; iter != _live.end(); ++iter)
 		{
@@ -100,7 +100,7 @@ int Users::add(const USER_INFO& user, SocketSession* session)
 		UserSession* pUsession = nullptr;
 
 		{
-			std::lock_guard < std::mutex > l(_m);
+			lw_lock_guard l(&_lock);
 			iterator iter = _live.begin();
 			for (; iter != _live.end(); ++iter)
 			{
@@ -147,7 +147,7 @@ void Users::remove(const SocketSession* session)
 	clock_t t = clock();
 	int uid = 0;
 	{
-		std::lock_guard < std::mutex > l(_m);
+		lw_lock_guard l(&_lock);
 		UserSession* pUsession = nullptr;
 		iterator iter = _live.begin();
 		for (; iter != _live.end(); ++iter)
@@ -181,7 +181,7 @@ void Users::remove(int uid)
 {
 	clock_t t = clock();
 	{
-		std::lock_guard < std::mutex > l(_m);
+		lw_lock_guard l(&_lock);
 		UserSession* pUsession = nullptr;
 		iterator iter = _live.begin();
 		for (; iter != _live.end(); ++iter)
@@ -244,7 +244,8 @@ void Users::removeUserTest()
 	clock_t t = clock();
 	int uid = 0;
 	{
-		std::lock_guard < std::mutex > l(_m);
+		lw_lock_guard l(&_lock);
+
 		UserSession* pUsession = nullptr;
 
 		// 缓存中取出对象
@@ -273,7 +274,7 @@ void Users::removeUserTest()
 void Users::restoreCache()
 {
 	{
-		std::lock_guard < std::mutex > l(_m);
+		lw_lock_guard l(&_lock);
 
 		iterator iter = _cache.begin();
 		for (; iter != _cache.end(); ++iter)

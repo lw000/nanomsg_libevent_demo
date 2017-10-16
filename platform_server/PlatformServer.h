@@ -3,11 +3,13 @@
 
 #include "socket_server.h"
 #include "Users.h"
+#include "lock.h"
 
 class PlatformServerHandler : public AbstractSocketServerHandler
 {
 public:
 	Users users;
+	lw_fast_lock _lock;
 
 public:
 	PlatformServerHandler();

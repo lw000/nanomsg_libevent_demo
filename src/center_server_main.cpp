@@ -14,14 +14,10 @@
 #include "socket_processor.h"
 
 #include "utils.h"
-#include "net.h"
 
 #include <log4z.h>
-using namespace zsummer::log4z;
 
 int main_center_server(int argc, char** argv) {
-	SocketInit sinit;
-
 	lw_int32 port = 19800;
 
 	SocketServer serv;

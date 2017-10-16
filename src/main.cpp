@@ -13,6 +13,8 @@
 
 #include "socket_processor.h"
 
+#include "net.h"
+
 #include <log4z.h>
 using namespace zsummer::log4z;
 
@@ -31,9 +33,12 @@ int main(int argc, char** argv) {
 		{ "pubsub", main_pubsub_servr },	//pubsub tcp://127.0.0.1:5555 -s
 		{ "survey", main_nanomsg_survey },
 		{ "nanorpc", main_nonamsg_rpc },
+		{ "ai", main_ai_server },
 	};
 
 	std::string s(argv[1]);
+
+	SocketInit sinit;
 
 	ILog4zManager::getInstance()->start();
 

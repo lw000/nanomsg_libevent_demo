@@ -25,6 +25,6 @@ int main_game_server(int argc, char** argv);
 int main_pubsub_servr(int argc, char** argv);
 int main_nanomsg_survey(int argc, char** argv);
 int main_nonamsg_rpc(int argc, char** argv);
-
+int main_ai_server(int argc, char** argv);
 
 #endif /* MAIN_H_ */

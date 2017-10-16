@@ -24,7 +24,6 @@
 
 #include "socket_config.h"
 #include "socket_processor.h"
-#include "net.h"
 
 #include <log4z.h>
 using namespace zsummer::log4z;
@@ -71,8 +70,6 @@ int main_platform_server(int argc, char** argv)
 //		a.detach();
 //		b.detach();
 //	}
-
-	SocketInit s;
 
 	lw_int32 port = 19801;
 

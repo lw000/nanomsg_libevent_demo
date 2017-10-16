@@ -214,15 +214,21 @@ class msg_connected : public ::google::protobuf::Message /* @@protoc_insertion_p
 
   // accessors -------------------------------------------------------
 
-  // optional int32 state = 1;
+  // optional int32 client_id = 1;
+  void clear_client_id();
+  static const int kClientIdFieldNumber = 1;
+  ::google::protobuf::int32 client_id() const;
+  void set_client_id(::google::protobuf::int32 value);
+
+  // optional int32 state = 2;
   void clear_state();
-  static const int kStateFieldNumber = 1;
+  static const int kStateFieldNumber = 2;
   ::google::protobuf::int32 state() const;
   void set_state(::google::protobuf::int32 value);
 
-  // optional int64 time = 2;
+  // optional int64 time = 3;
   void clear_time();
-  static const int kTimeFieldNumber = 2;
+  static const int kTimeFieldNumber = 3;
   ::google::protobuf::int64 time() const;
   void set_time(::google::protobuf::int64 value);
 
@@ -230,8 +236,9 @@ class msg_connected : public ::google::protobuf::Message /* @@protoc_insertion_p
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  ::google::protobuf::int64 time_;
+  ::google::protobuf::int32 client_id_;
   ::google::protobuf::int32 state_;
+  ::google::protobuf::int64 time_;
   mutable int _cached_size_;
   friend void  protobuf_InitDefaults_platform_2eproto_impl();
   friend void  protobuf_AddDesc_platform_2eproto_impl();
@@ -1396,7 +1403,21 @@ inline const msg_heartbeat* msg_heartbeat::internal_default_instance() {
 
 // msg_connected
 
-// optional int32 state = 1;
+// optional int32 client_id = 1;
+inline void msg_connected::clear_client_id() {
+  client_id_ = 0;
+}
+inline ::google::protobuf::int32 msg_connected::client_id() const {
+  // @@protoc_insertion_point(field_get:platform.msg_connected.client_id)
+  return client_id_;
+}
+inline void msg_connected::set_client_id(::google::protobuf::int32 value) {
+  
+  client_id_ = value;
+  // @@protoc_insertion_point(field_set:platform.msg_connected.client_id)
+}
+
+// optional int32 state = 2;
 inline void msg_connected::clear_state() {
   state_ = 0;
 }
@@ -1410,7 +1431,7 @@ inline void msg_connected::set_state(::google::protobuf::int32 value) {
   // @@protoc_insertion_point(field_set:platform.msg_connected.state)
 }
 
-// optional int64 time = 2;
+// optional int64 time = 3;
 inline void msg_connected::clear_time() {
   time_ = GOOGLE_LONGLONG(0);
 }

@@ -2,7 +2,7 @@
 #define __usermgr_h__
 
 #include <list>
-#include <mutex>
+#include "lock.h"
 #include <string.h>
 
 #include "common_struct.h"
@@ -82,7 +82,7 @@ public:
 	void restoreCache();
 
 private:
-	std::mutex _m;
+	lw_fast_lock _lock;
 
 private:
 	USER_LIST _live;	// �����û�

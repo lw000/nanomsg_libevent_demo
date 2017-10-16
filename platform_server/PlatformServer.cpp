@@ -13,6 +13,8 @@
 
 using namespace LW;
 
+static int __g_client_id_base = 0;
+
 PlatformServerHandler::PlatformServerHandler()
 {
 }
@@ -29,16 +31,21 @@ AbstractUser* PlatformServerHandler::getUsers()
 
 void PlatformServerHandler::onListener(SocketSession* session)
 {
-//	static int i = 0;
-//	USER_INFO user;
-//	user.uid = i++;
-//	users.add(user, session);
-//
-//	const UserSession* us = users.find(user.uid);
+	int new_client_id = 0;
+	
+	{
+		lw_lock_guard l(&_lock);
+		new_client_id = __g_client_id_base++;
+	}
+
+	USER_INFO user;
+	user.uid = new_client_id;
+	users.add(user, session);
 
 	platform::msg_connected msg;
 	lw_llong64 t = time(NULL);
 	msg.set_time(t);
+	msg.set_client_id(new_client_id);
 	int len = msg.ByteSize();
 	{
 		char *s = new char[len + 1];

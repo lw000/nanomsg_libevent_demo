@@ -11,11 +11,12 @@ message msg_heartbeat
 	string		data = 2;	// data
 }
 
-// 链接成功消息
+// 连接成功消息
 message msg_connected
 {
-	int32     state = 1;  // state
-	int64     time = 2;  // time
+	int32		client_id = 1;	// client_id
+	int32		state = 2;  // state
+	int64		time = 3;  // time
 }
 
 // 登录消息

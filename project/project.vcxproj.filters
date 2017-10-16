@@ -22,6 +22,9 @@
     <Filter Include="game_server">
       <UniqueIdentifier>{65e0eed9-65a0-47ef-904a-583ba1a29bd3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="game_ai">
+      <UniqueIdentifier>{512ce709-7a5b-487f-ad9c-4aa20d02f4ca}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\center_server\CenterServer.cpp">
@@ -81,6 +84,9 @@
     <ClCompile Include="..\src\protobufrpc_main.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\game_ai\game_ai.cpp">
+      <Filter>game_ai</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\center_server\CenterServer.h">
@@ -124,6 +130,9 @@
     </ClInclude>
     <ClInclude Include="..\GameServer\GameServer.h">
       <Filter>game_server</Filter>
+    </ClInclude>
+    <ClInclude Include="..\game_ai\game_ai.h">
+      <Filter>game_ai</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
