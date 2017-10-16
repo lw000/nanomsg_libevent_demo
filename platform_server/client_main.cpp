@@ -64,7 +64,7 @@ protected:
 	}
 };
 
-class PlatformClientHandler : public AbstractSocketClientHandler
+class PlatformClientHandler/* : public AbstractSocketClientHandler*/
 {
 	AITestTimer __g_timer_test;
 
@@ -77,30 +77,30 @@ public:
 	{
 	}
 
-protected:
-	virtual int onSocketConnected(SocketSession* session) override
+public:
+	/*virtual*/ int onSocketConnected(SocketSession* session) /*override*/
 	{
 		__g_timer_test.start();
 		return 0;
 	}
 
-	virtual int onSocketDisConnect(SocketSession* session) override
+	/*virtual*/ int onSocketDisConnect(SocketSession* session) /*override*/
 	{
 		return 0;
 	}
 
-	virtual int onSocketTimeout(SocketSession* session) override
+	/*virtual*/ int onSocketTimeout(SocketSession* session) /*override*/
 	{
 		return 0;
 	}
 
-	virtual int onSocketError(SocketSession* session) override
+	/*virtual*/ int onSocketError(SocketSession* session) /*override*/
 	{
 		return 0;
 	}
 
-protected:
-	virtual void onSocketParse(SocketSession* session, lw_int32 cmd, lw_char8* buf, lw_int32 bufsize) override
+public:
+	/*virtual*/ void onSocketParse(SocketSession* session, lw_int32 cmd, lw_char8* buf, lw_int32 bufsize) /*override*/
 	{
 		switch (cmd)
 		{
@@ -134,7 +134,13 @@ protected:
 
 int __connect_center_server(const lw_char8* addr, lw_short16 port)
 {
-	if (__g_platform_client.create(new PlatformClientHandler(), new SocketConfig(addr, port)))
+	PlatformClientHandler* cliHandler = new PlatformClientHandler();
+	__g_platform_client.connectedHandler = SOCKET_EVENT_SELECTOR_1(PlatformClientHandler::onSocketConnected, cliHandler);
+	__g_platform_client.disConnectHandler = SOCKET_EVENT_SELECTOR_1(PlatformClientHandler::onSocketDisConnect, cliHandler);
+	__g_platform_client.timeoutHandler = SOCKET_EVENT_SELECTOR_1(PlatformClientHandler::onSocketTimeout, cliHandler);
+	__g_platform_client.errorHandler = SOCKET_EVENT_SELECTOR_1(PlatformClientHandler::onSocketError, cliHandler);
+	__g_platform_client.parseHandler = SOCKET_PARSE_SELECTOR_4(PlatformClientHandler::onSocketParse, cliHandler);
+	if (__g_platform_client.create(new SocketConfig(addr, port)))
 	{
 		int ret = __g_platform_client.open();
 	}

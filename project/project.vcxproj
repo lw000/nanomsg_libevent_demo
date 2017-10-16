@@ -16,6 +16,7 @@
     <ClCompile Include="..\GameServer\GameServer.cpp" />
     <ClCompile Include="..\game_ai\game_ai.cpp" />
     <ClCompile Include="..\http_server\http_server_business.cpp" />
+    <ClCompile Include="..\platform_server\client_main.cpp" />
     <ClCompile Include="..\platform_server\Desk.cpp" />
     <ClCompile Include="..\platform_server\PlatformServer.cpp" />
     <ClCompile Include="..\platform_server\room.cpp" />
@@ -39,6 +40,7 @@
     <ClInclude Include="..\GameServer\GameServer.h" />
     <ClInclude Include="..\game_ai\game_ai.h" />
     <ClInclude Include="..\http_server\http_server_business.h" />
+    <ClInclude Include="..\platform_server\client_main.h" />
     <ClInclude Include="..\platform_server\Desk.h" />
     <ClInclude Include="..\platform_server\PlatformServer.h" />
     <ClInclude Include="..\platform_server\room.h" />

@@ -87,6 +87,9 @@
     <ClCompile Include="..\game_ai\game_ai.cpp">
       <Filter>game_ai</Filter>
     </ClCompile>
+    <ClCompile Include="..\platform_server\client_main.cpp">
+      <Filter>platform_server</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\center_server\CenterServer.h">
@@ -133,6 +136,9 @@
     </ClInclude>
     <ClInclude Include="..\game_ai\game_ai.h">
       <Filter>game_ai</Filter>
+    </ClInclude>
+    <ClInclude Include="..\platform_server\client_main.h">
+      <Filter>platform_server</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
