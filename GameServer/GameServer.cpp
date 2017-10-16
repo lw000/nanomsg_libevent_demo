@@ -18,6 +18,12 @@ using namespace LW;
 GameServer::GameServer(AbstractGameServer* idesk) : iDesk(idesk)
 {
 	client = new SocketClient();
+	client->connectedHandler = SOCKET_EVENT_SELECTOR_1(GameServer::onSocketConnected, this);
+	client->disConnectHandler = SOCKET_EVENT_SELECTOR_1(GameServer::onSocketDisConnect, this);
+	client->timeoutHandler = SOCKET_EVENT_SELECTOR_1(GameServer::onSocketTimeout, this);
+	client->errorHandler = SOCKET_EVENT_SELECTOR_1(GameServer::onSocketError, this);
+	client->parseHandler = SOCKET_PARSE_SELECTOR_4(GameServer::onSocketParse, this);
+
 }
 
 GameServer::~GameServer()
@@ -38,7 +44,7 @@ bool GameServer::create(const DESK_INFO& info)
 	bool ret = false;
 	do 
 	{
-		if (!client->create(this, new SocketConfig("127.0.0.1", 19801))) {
+		if (!client->create(new SocketConfig("127.0.0.1", 19801))) {
 			break;
 		}
 

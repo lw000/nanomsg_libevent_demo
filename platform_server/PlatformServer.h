@@ -5,7 +5,7 @@
 #include "Users.h"
 #include "lock.h"
 
-class PlatformServerHandler : public AbstractSocketServerHandler
+class PlatformServerHandler
 {
 public:
 	Users users;
@@ -18,17 +18,17 @@ public:
 public:
 	AbstractUser* getUsers();
 
-protected:
-	virtual void onListener(SocketSession* session) override;
+public:
+	int onListener(SocketSession* session);
 
-protected:
-	virtual int onSocketConnected(SocketSession* session) override;
-	virtual int onSocketDisConnect(SocketSession* session) override;
-	virtual int onSocketTimeout(SocketSession* session) override;
-	virtual int onSocketError(SocketSession* session) override;
+public:
+	int onSocketConnected(SocketSession* session);
+	int onSocketDisConnect(SocketSession* session);
+	int onSocketTimeout(SocketSession* session);
+	int onSocketError(SocketSession* session);
 
-protected:
-	virtual void onSocketParse(SocketSession* session, lw_int32 cmd, lw_char8* buf, lw_int32 bufsize) override;
+public:
+	void onSocketParse(SocketSession* session, lw_int32 cmd, lw_char8* buf, lw_int32 bufsize);
 };
 
 

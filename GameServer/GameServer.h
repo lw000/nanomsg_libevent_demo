@@ -30,7 +30,7 @@ public:
 	virtual int onGameMessage(int cmd, void* data, int datasize) = 0;
 };
 
-class GameServer : public AbstractGameServer, public AbstractSocketClientHandler
+class GameServer : public AbstractGameServer
 {
 private:
 	AbstractGameServer* iDesk;
@@ -60,12 +60,12 @@ public:
 	void sendData(lw_int32 cmd, void* object, lw_int32 objectSize);
 
 protected:
-	virtual int onSocketConnected(SocketSession* session) override;
-	virtual int onSocketDisConnect(SocketSession* session) override;
-	virtual int onSocketTimeout(SocketSession* session) override;
-	virtual int onSocketError(SocketSession* session) override;
+	int onSocketConnected(SocketSession* session);
+	int onSocketDisConnect(SocketSession* session);
+	int onSocketTimeout(SocketSession* session);
+	int onSocketError(SocketSession* session);
 
-	virtual void onSocketParse(SocketSession* session, lw_int32 cmd, lw_char8* buf, lw_int32 bufsize) override;
+	void onSocketParse(SocketSession* session, lw_int32 cmd, lw_char8* buf, lw_int32 bufsize);
 
 public:
 	int frameMessage(int cmd, void* data, int datasize);

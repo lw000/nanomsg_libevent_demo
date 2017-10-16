@@ -15,7 +15,7 @@ class Timer;
 
 class GameAIMgr;
 
-static const int GAME_AI_COUNT = 100;
+static const int GAME_AI_COUNT = 200;
 
 class GameAIMgr : public Threadable {
 	friend class GameAiClientHandler;

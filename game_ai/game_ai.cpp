@@ -18,7 +18,7 @@
 using namespace LW;
 
 //////////////////////////////////////////////////////////////////////////////////////////
-class GameAiClientHandler : public AbstractSocketSessionHanlder {
+class GameAiClientHandler{
 public:
 	SocketSession* _session;
 	GameAIMgr* _aimgr;
@@ -31,8 +31,8 @@ public:
 	virtual ~GameAiClientHandler() {
 	}
 
-protected:
-	virtual int onSocketConnected(SocketSession* session) override
+public:
+	int onSocketConnected(SocketSession* session)
 	{
 		if (!this->_aimgr->_is_init) {
 			this->_aimgr->_lock.lock();
@@ -72,24 +72,24 @@ protected:
 		return 0;
 	}
 
-	virtual int onSocketDisConnect(SocketSession* session) override
+	int onSocketDisConnect(SocketSession* session)
 	{
 		return 0;
 	}
 
-	virtual int onSocketTimeout(SocketSession* session) override
+	int onSocketTimeout(SocketSession* session)
 	{
 		return 0;
 	}
 
-	virtual int onSocketError(SocketSession* session) override
+	int onSocketError(SocketSession* session)
 	{
 		return 0;
 	}
 
-protected:
-	virtual void onSocketParse(SocketSession* session, lw_int32 cmd,
-		lw_char8* buf, lw_int32 bufsize) override
+public:
+	void onSocketParse(SocketSession* session, lw_int32 cmd,
+		lw_char8* buf, lw_int32 bufsize)
 	{
 		switch (cmd) {
 		case cmd_connected: {
@@ -144,9 +144,26 @@ int GameAIMgr::onStart() {
 	bool ret = this->_processor->create(false);
 	if (ret) {
 		this->_timer->create(this->_processor);
+
+// 		for (int i = 0; i < GAME_AI_COUNT; i++) {
+// 			this->_timer->start(100+i, 100,
+// 				[this](int tid, unsigned int tms) -> bool {
+// 				printf("tid: %d, tms: %d \n", tid, tms);
+// 				return true;
+// 			});
+// 		}
+
 		for (int i = 0; i < GAME_AI_COUNT; i++) {
-			SocketSession *session = new SocketSession(new GameAiClientHandler(this),
-				new SocketConfig("127.0.0.1", 19801));
+			GameAiClientHandler* cli = new GameAiClientHandler(this);
+
+			SocketSession *session = new SocketSession(new SocketConfig("127.0.0.1", 19801));
+			session->connectedHandler = SOCKET_EVENT_SELECTOR_1(GameAiClientHandler::onSocketConnected, cli);
+			session->disConnectHandler = SOCKET_EVENT_SELECTOR_1(GameAiClientHandler::onSocketDisConnect, cli);
+			session->timeoutHandler = SOCKET_EVENT_SELECTOR_1(GameAiClientHandler::onSocketTimeout, cli);
+			session->errorHandler = SOCKET_EVENT_SELECTOR_1(GameAiClientHandler::onSocketError, cli);
+			
+			session->parseHandler = SOCKET_PARSE_SELECTOR_4(GameAiClientHandler::onSocketParse, cli);
+
 			int r = session->create(SESSION_TYPE::Client, _processor);
 			if (r == 0) {
 				sessions[i] = session;

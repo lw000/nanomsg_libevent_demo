@@ -1,11 +1,11 @@
 #include "PlatformServer.h"
 	
+#include <memory>
+
 #include "socket_session.h"
 
 #include "command.h"
 #include "platform.pb.h"
-
-#include <memory>
 
 #include <iostream>
 
@@ -29,7 +29,7 @@ AbstractUser* PlatformServerHandler::getUsers()
 	return &this->users;
 }
 
-void PlatformServerHandler::onListener(SocketSession* session)
+int PlatformServerHandler::onListener(SocketSession* session)
 {
 	int new_client_id = 0;
 	
@@ -59,6 +59,8 @@ void PlatformServerHandler::onListener(SocketSession* session)
 	}
 
 	LOGD(session->debug());
+
+	return 0;
 }
 
 int PlatformServerHandler::onSocketConnected(SocketSession* session)

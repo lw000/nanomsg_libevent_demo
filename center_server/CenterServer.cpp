@@ -32,7 +32,7 @@ void CenterServerHandler::sendHeartbeat(SocketSession* session)
 	}
 }
 
-void CenterServerHandler::onListener(SocketSession* session)
+int CenterServerHandler::onListener(SocketSession* session)
 {
 	Sessions.add(session);
 
@@ -52,6 +52,8 @@ void CenterServerHandler::onListener(SocketSession* session)
 	}
 
 	std::cout << session->debug() << std::endl;
+
+	return 0;
 }
 
 int CenterServerHandler::onSocketConnected(SocketSession* session)

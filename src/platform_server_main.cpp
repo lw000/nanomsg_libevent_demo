@@ -26,12 +26,11 @@
 #include "socket_processor.h"
 
 #include <log4z.h>
-using namespace zsummer::log4z;
+#include "socket_hanlder.h"
 
 using namespace LW;
 
 static Users			__g_umgr;
-
 
 static void _add_user_thread()
 {
@@ -74,7 +73,16 @@ int main_platform_server(int argc, char** argv)
 	lw_int32 port = 19801;
 
 	SocketServer serv;
-	if (serv.create(new PlatformServerHandler(), new SocketConfig("0.0.0.0", port)))
+	PlatformServerHandler *servHandler = new PlatformServerHandler();
+	serv.listenHandler = SOCKET_EVENT_SELECTOR_1(PlatformServerHandler::onListener, servHandler);
+	serv.connectedHandler = SOCKET_EVENT_SELECTOR_1(PlatformServerHandler::onSocketConnected, servHandler);
+	serv.disConnectHandler = SOCKET_EVENT_SELECTOR_1(PlatformServerHandler::onSocketDisConnect, servHandler);
+	serv.timeoutHandler = SOCKET_EVENT_SELECTOR_1(PlatformServerHandler::onSocketTimeout, servHandler);
+	serv.errorHandler = SOCKET_EVENT_SELECTOR_1(PlatformServerHandler::onSocketError, servHandler);
+	
+	serv.parseHandler = SOCKET_PARSE_SELECTOR_4(PlatformServerHandler::onSocketParse, servHandler);
+	
+	if (serv.create(new SocketConfig("0.0.0.0", port)))
 	{
 		serv.serv([port](int what)
 		{
