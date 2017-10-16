@@ -18,8 +18,7 @@
 #include <signal.h>
 #include <string>
 #include <vector>
-
-HttpServer __g_htpServ;
+#include "socket_config.h"
 
 #ifndef POST_BUF_MAX
 #define POST_BUF_MAX			1024*4
@@ -209,17 +208,19 @@ go_exit:
 
 void __create_http_service_business(lw_int32 port)
 {
+	HttpServer htpServ;
+
 	// 设置回调函数
-	int ret = __g_htpServ.create("127.0.0.1", port);
+	int ret = htpServ.create(new SocketConfig("127.0.0.1", port));
 	if (ret == 0)
 	{
 		// 设置标准接口回调函数
-		__g_htpServ.gen(default_cb);
+		htpServ.gen(default_cb);
 
-		__g_htpServ.post("/login", login_post_cb);
-		__g_htpServ.get("/add", add_get_cb);
-		__g_htpServ.get("/sub", sub_get_cb);
-		__g_htpServ.get("/mul", [](struct evhttp_request *req)
+		htpServ.post("/login", login_post_cb);
+		htpServ.get("/add", add_get_cb);
+		htpServ.get("/sub", sub_get_cb);
+		htpServ.get("/mul", [](struct evhttp_request *req)
 		{
 			const char *uri = evhttp_request_get_uri(req);
 
@@ -253,6 +254,8 @@ void __create_http_service_business(lw_int32 port)
 			evbuffer_free(buf);
 		});
 
-		__g_htpServ.listen();
+		htpServ.listen();
+
+		while (1) { lw_sleep(1); }
 	}
 }
