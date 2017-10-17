@@ -96,6 +96,9 @@
     <ClCompile Include="..\GameServer\GameClientHandler.cpp">
       <Filter>game_server</Filter>
     </ClCompile>
+    <ClCompile Include="..\protocol\chat.pb.cc">
+      <Filter>protocol</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\center_server\CenterServer.h">
@@ -152,6 +155,9 @@
     <ClInclude Include="..\GameServer\GameClientHandler.h">
       <Filter>game_server</Filter>
     </ClInclude>
+    <ClInclude Include="..\protocol\chat.pb.h">
+      <Filter>protocol</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\protocol\build.bat">
@@ -167,6 +173,9 @@
       <Filter>protocol</Filter>
     </None>
     <None Include="..\protocol\protoc.exe">
+      <Filter>protocol</Filter>
+    </None>
+    <None Include="..\protocol\chat.proto">
       <Filter>protocol</Filter>
     </None>
   </ItemGroup>

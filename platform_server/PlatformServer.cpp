@@ -6,6 +6,7 @@
 
 #include "command.h"
 #include "platform.pb.h"
+#include "chat.pb.h"
 
 #include <iostream>
 
@@ -110,12 +111,12 @@ void PlatformServerHandler::onSocketParse(SocketSession* session, lw_int32 cmd, 
 
 		break;
 	}
-	case cmd_platform_cs_chat_request:
+	case cs_chat_request:
 	{
-		platform::msg_chat_reponse recv_msg;
+		chat::msg_chat_request recv_msg;
 		bool r = recv_msg.ParseFromArray(buf, bufsize);
 		if (r) {
-			platform::msg_chat_reponse msg_reply;
+			chat::msg_chat_reply msg_reply;
 			msg_reply.set_from_uid(recv_msg.from_uid());
 			msg_reply.set_to_uid(recv_msg.to_uid());
 			msg_reply.set_msg(recv_msg.msg());
@@ -124,7 +125,7 @@ void PlatformServerHandler::onSocketParse(SocketSession* session, lw_int32 cmd, 
 			bool ret = msg_reply.SerializeToArray(s.get(), c);
 			if (ret)
 			{
-				session->sendData(cmd_platform_sc_chat_reponse, s.get(), c);
+				session->sendData(sc_chat_reply, s.get(), c);
 			}
 		}	
 		break;

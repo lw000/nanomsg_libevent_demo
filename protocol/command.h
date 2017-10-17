@@ -3,48 +3,56 @@
 
 namespace LW 
 {
-	enum NET_CMD
+	enum NET_TCP_CMD
 	{
-		cmd_heart_beat				= 100,
-		cmd_connected				= 101,
+		cmd_base = 0,
+
+		cmd_heart_beat = cmd_base + 100,
+		cmd_connected = cmd_base + 101,
 
 		/*
 			平台消息
 		*/
-		cmd_platform_cs_login		= 10100001,
-		cmd_platform_sc_login		= 10110000,
+		p_cs_login_request = cmd_base + 200,
+		p_sc_login_reply = cmd_base + 1200,
 
-		cmd_platform_cs_logout		= 10100002,
-		cmd_platform_sc_logout		= 10120000,
-
-		cmd_platform_cs_userinfo	= 10100003,
-		cmd_platform_sc_userinfo	= 10130000,
-
-		cmd_platform_cs_chat_request = 10100004,
-		cmd_platform_sc_chat_reponse = 10140000,
+		p_cs_logout_request = cmd_base + 201,
+		p_sc_logout_reply = cmd_base + 1201,
 
 		/*
 			平台框架消息
 		*/
-		cmd_platform_frame_cs_join_room = 20000000,
-		cmd_platform_frame_cs_leave_room = 20000001,
-		cmd_platform_frame_cs_join_game = 20000002,
-		cmd_platform_frame_cs_leave_game = 20000003,
-
-		/*
-			游戏框架消息
-		*/
-		
-		cmd_game_frame_cs_game_start = 40400001,
-		cmd_game_frame_sc_game_end = 40410000,
-
-		cmd_game_frame_cs_sit_up = 40400002,
-		cmd_game_frame_sc_sit_up = 40420000,
-
-		cmd_game_frame_cs_sit_down = 40400003,
-		cmd_game_frame_sc_sit_down = 40430000,
-
+		p_frame_cs_join_room = cmd_base + 300,
+		p_frame_cs_leave_room = cmd_base + 301,	
 	};
+
+	enum NET_GAME_MSG_CMD
+	{
+		/*
+		游戏框架消息
+		*/
+		cmd_game_base = 10000,
+		
+		g_frame_cs_game_start = cmd_game_base + 100,
+		g_frame_sc_game_end = cmd_game_base + 1100,
+
+		g_frame_cs_sit_up = cmd_game_base + 101,
+		g_frame_sc_sit_up = cmd_game_base + 1101,
+
+		g_frame_cs_sit_down = cmd_game_base + 102,
+		g_frame_sc_sit_down = cmd_game_base + 1102,
+	};
+
+	enum NET_CHAT_MSG_CMD
+	{
+		cmd_chat_base = 20000,
+
+		cs_chat_request = cmd_chat_base + 100,
+		sc_chat_reply = cmd_chat_base + 1100,
+	};
+
+
+
 }
 
 #endif // !__command_H__

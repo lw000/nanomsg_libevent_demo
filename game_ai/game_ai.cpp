@@ -12,6 +12,8 @@
 #include "command.h"
 #include "platform.pb.h"
 #include "game.pb.h"
+#include "chat.pb.h"
+
 #include "log4z.h"
 #include "utils.h"
 
@@ -146,8 +148,8 @@ public:
 
 			break;
 		}
-		case cmd_platform_sc_chat_reponse: {
-			platform::msg_chat_reponse msg;
+		case sc_chat_reply: {
+			chat::msg_chat_reply msg;
 			msg.ParseFromArray(buf, bufsize);
 			LOGFMTD("from_uid: %d to_uid:%d msg:%s", msg.from_uid(), msg.to_uid(), msg.msg().c_str());
 

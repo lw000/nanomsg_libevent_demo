@@ -117,13 +117,6 @@ public:
 			msg.ParseFromArray(buf, bufsize);
 			printf("heartBeat[%d]\n", msg.time());
 		} break;
-		case cmd_platform_sc_userinfo:
-		{
-			platform::msg_userinfo_reponse msg;
-			msg.ParseFromArray(buf, bufsize);
-			printf("userid: %d age:%d sex:%d name:%s address:%s\n", msg.uid(),
-				msg.age(), msg.sex(), msg.name().c_str(), msg.address().c_str());
-		} break;
 		default:
 			break;
 		}

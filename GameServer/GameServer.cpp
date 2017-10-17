@@ -110,10 +110,10 @@ void GameServer::onSocketParse(SocketSession* session, lw_int32 cmd, lw_char8* b
 	{
 		printf("cmd_connected\n");
 	} break;
-	case cmd_game_frame_cs_game_start:
-	case cmd_game_frame_sc_game_end:
-	case cmd_game_frame_sc_sit_up:
-	case cmd_game_frame_sc_sit_down:
+	case g_frame_cs_game_start:
+	case g_frame_sc_game_end:
+	case g_frame_sc_sit_up:
+	case g_frame_sc_sit_down:
 	{
 		this->frameMessage(cmd, buf, bufsize);
 	} break;
@@ -128,19 +128,19 @@ int GameServer::frameMessage(int cmd, void* data, int datasize)
 {
 	switch (cmd)
 	{
-	case cmd_game_frame_cs_game_start:
+	case g_frame_cs_game_start:
 	{
 		this->_handler->onGameStartReponse(data, datasize);
 	} break;
-	case cmd_game_frame_sc_game_end:
+	case g_frame_sc_game_end:
 	{
 		this->_handler->onGameEndReponse(data, datasize);
 	} break;
-	case cmd_game_frame_sc_sit_up:
+	case g_frame_sc_sit_up:
 	{
 		this->_handler->onGameUserSitupReponse(data, datasize);
 	} break;
-	case cmd_game_frame_sc_sit_down:
+	case g_frame_sc_sit_down:
 	{
 		this->_handler->onGameUserSitdownReponse(data, datasize);
 	} break;
@@ -164,7 +164,7 @@ void GameServer::sendSitup(int uid)
 	int c = situp.ByteSizeLong();
 	std::unique_ptr<char[]> s(new char[c + 1]);
 	bool ret = situp.SerializeToArray(s.get(), c);
-	_cli->getSession()->sendData(cmd_game_frame_cs_sit_up, s.get(), c);
+	_cli->getSession()->sendData(g_frame_cs_sit_up, s.get(), c);
 }
 
 void GameServer::sendSitdown(int uid)
@@ -174,5 +174,5 @@ void GameServer::sendSitdown(int uid)
 	int c = sitdown.ByteSizeLong();
 	std::unique_ptr<char[]> s(new char[c + 1]);
 	bool ret = sitdown.SerializeToArray(s.get(), c);
-	_cli->getSession()->sendData(cmd_game_frame_cs_sit_down, s.get(), c);
+	_cli->getSession()->sendData(g_frame_cs_sit_down, s.get(), c);
 }

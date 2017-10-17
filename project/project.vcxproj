@@ -24,6 +24,7 @@
     <ClCompile Include="..\platform_server\room.cpp" />
     <ClCompile Include="..\platform_server\RoomManager.cpp" />
     <ClCompile Include="..\platform_server\Users.cpp" />
+    <ClCompile Include="..\protocol\chat.pb.cc" />
     <ClCompile Include="..\protocol\game.pb.cc" />
     <ClCompile Include="..\protocol\platform.pb.cc" />
     <ClCompile Include="..\src\center_server_main.cpp" />
@@ -50,6 +51,7 @@
     <ClInclude Include="..\platform_server\room.h" />
     <ClInclude Include="..\platform_server\RoomManager.h" />
     <ClInclude Include="..\platform_server\Users.h" />
+    <ClInclude Include="..\protocol\chat.pb.h" />
     <ClInclude Include="..\protocol\command.h" />
     <ClInclude Include="..\protocol\game.pb.h" />
     <ClInclude Include="..\protocol\platform.pb.h" />
@@ -57,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\protocol\build.bat" />
+    <None Include="..\protocol\chat.proto" />
     <None Include="..\protocol\game.proto" />
     <None Include="..\protocol\platform.proto" />
     <None Include="..\protocol\protoc" />
