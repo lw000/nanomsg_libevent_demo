@@ -1,5 +1,5 @@
-#ifndef __GameLogic_H__
-#define __GameLogic_H__
+#ifndef __GameServer_H__
+#define __GameServer_H__
 
 #include <string>
 #include <vector>
@@ -7,57 +7,33 @@
 #include "common_type.h"
 #include "common_struct.h"
 #include "socket_client.h"
+#include "GameClientHandler.h"
 
 class SocketProcessor;
 class SocketSession;
 
-class AbstractGameServer
-{
-public:
-	virtual ~AbstractGameServer() {}
-
-public:
-	virtual bool create(const DESK_INFO& info) = 0;
-	virtual void destroy() = 0;
-
-public:
-	virtual void onGameStartReponse(void* data, int datasize) = 0;
-	virtual void onGameEndReponse(void* data, int datasize) = 0;
-	virtual void onGameUserSitupReponse(void* data, int datasize) = 0;
-	virtual void onGameUserSitdownReponse(void* data, int datasize) = 0;
-
-public:
-	virtual int onGameMessage(int cmd, void* data, int datasize) = 0;
-};
-
-class GameServer : public AbstractGameServer
+class GameServer
 {
 private:
-	AbstractGameServer* iDesk;
+	AbstractGameClientHandler* _handler;
 
 private:
-	DESK_INFO _desk_info;
-	std::vector<USER_INFO> users;
 
 public:
-	SocketEventHandler connectedHandler;
-	SocketEventHandler disConnectHandler;
-	SocketEventHandler timeoutHandler;
-	SocketEventHandler errorHandler;
-
-public:
-	GameServer(AbstractGameServer* idesk);
+	GameServer(AbstractGameClientHandler* handler);
 	virtual ~GameServer();
 
 public:
-	void start();
+	bool create(SocketConfig* conf);
+	void destroy();
 
 public:
-	void sendSitup();
-	void sendSitdown();
+	void sendSitup(int uid);
+	void sendSitdown(int uid);
 
 public:
 	void sendData(lw_int32 cmd, void* object, lw_int32 objectSize);
+	lw_int32 sendData(lw_int32 cmd, void* object, lw_int32 objectSize, const SocketRecvHandlerConf& cb);
 
 protected:
 	int onSocketConnected(SocketSession* session);
@@ -65,27 +41,16 @@ protected:
 	int onSocketTimeout(SocketSession* session);
 	int onSocketError(SocketSession* session);
 
+protected:
 	void onSocketParse(SocketSession* session, lw_int32 cmd, lw_char8* buf, lw_int32 bufsize);
 
-public:
+protected:
 	int frameMessage(int cmd, void* data, int datasize);
+	int onGameMessage(int cmd, void* data, int datasize);
 
 public:
-	virtual bool create(const DESK_INFO& info) override;
-	virtual void destroy() override;
-
-public:
-	virtual void onGameStartReponse(void* data, int datasize) override;
-	virtual void onGameEndReponse(void* data, int datasize) override;
-	virtual void onGameUserSitupReponse(void* data, int datasize) override;
-	virtual void onGameUserSitdownReponse(void* data, int datasize) override;
-
-public:
-	virtual int onGameMessage(int cmd, void* data, int datasize) override;
-
-public:
-	SocketClient* client;
+	SocketClient* _cli;
 };
 
-#endif	//__GameLogic_H__
+#endif	//__GameServer_H__
 

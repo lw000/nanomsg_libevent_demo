@@ -18,12 +18,12 @@ using namespace LW;
 class AITestTimer;
 class PlatformClientHandler;
 
-static SocketClient __g_platform_client;
+static SocketClient __g_client;
 
 class AITestTimer : public Threadable
 {
 	SocketProcessor _processor;
-	Timer _timer;
+	SocketTimer _timer;
 
 public:
 	AITestTimer() {
@@ -47,7 +47,7 @@ protected:
 			lw_bool ret = msg.SerializeToArray(s.get(), c);
 			if (ret)
 			{
-				__g_platform_client.getSession()->sendData(cmd_heart_beat, s.get(), c);
+				__g_client.getSession()->sendData(cmd_heart_beat, s.get(), c);
 			}
 			return true;
 		});
@@ -64,7 +64,7 @@ protected:
 	}
 };
 
-class PlatformClientHandler/* : public AbstractSocketClientHandler*/
+class PlatformClientHandler
 {
 	AITestTimer __g_timer_test;
 
@@ -78,29 +78,29 @@ public:
 	}
 
 public:
-	/*virtual*/ int onSocketConnected(SocketSession* session) /*override*/
+	int onSocketConnected(SocketSession* session)
 	{
 		__g_timer_test.start();
 		return 0;
 	}
 
-	/*virtual*/ int onSocketDisConnect(SocketSession* session) /*override*/
+	int onSocketDisConnect(SocketSession* session)
 	{
 		return 0;
 	}
 
-	/*virtual*/ int onSocketTimeout(SocketSession* session) /*override*/
+	int onSocketTimeout(SocketSession* session)
 	{
 		return 0;
 	}
 
-	/*virtual*/ int onSocketError(SocketSession* session) /*override*/
+	int onSocketError(SocketSession* session)
 	{
 		return 0;
 	}
 
 public:
-	/*virtual*/ void onSocketParse(SocketSession* session, lw_int32 cmd, lw_char8* buf, lw_int32 bufsize) /*override*/
+	void onSocketParse(SocketSession* session, lw_int32 cmd, lw_char8* buf, lw_int32 bufsize)
 	{
 		switch (cmd)
 		{
@@ -134,16 +134,18 @@ public:
 
 int __connect_center_server(const lw_char8* addr, lw_short16 port)
 {
-	PlatformClientHandler* cliHandler = new PlatformClientHandler();
-	__g_platform_client.connectedHandler = SOCKET_EVENT_SELECTOR_1(PlatformClientHandler::onSocketConnected, cliHandler);
-	__g_platform_client.disConnectHandler = SOCKET_EVENT_SELECTOR_1(PlatformClientHandler::onSocketDisConnect, cliHandler);
-	__g_platform_client.timeoutHandler = SOCKET_EVENT_SELECTOR_1(PlatformClientHandler::onSocketTimeout, cliHandler);
-	__g_platform_client.errorHandler = SOCKET_EVENT_SELECTOR_1(PlatformClientHandler::onSocketError, cliHandler);
-	__g_platform_client.parseHandler = SOCKET_PARSE_SELECTOR_4(PlatformClientHandler::onSocketParse, cliHandler);
-	if (__g_platform_client.create(new SocketConfig(addr, port)))
+	PlatformClientHandler* cli = new PlatformClientHandler();
+	__g_client.connectedHandler = SOCKET_EVENT_SELECTOR(PlatformClientHandler::onSocketConnected, cli);
+	__g_client.disConnectHandler = SOCKET_EVENT_SELECTOR(PlatformClientHandler::onSocketDisConnect, cli);
+	__g_client.timeoutHandler = SOCKET_EVENT_SELECTOR(PlatformClientHandler::onSocketTimeout, cli);
+	__g_client.errorHandler = SOCKET_EVENT_SELECTOR(PlatformClientHandler::onSocketError, cli);
+	__g_client.parseHandler = SOCKET_PARSE_SELECTOR_4(PlatformClientHandler::onSocketParse, cli);
+
+	if (__g_client.create(new SocketConfig(addr, port)))
 	{
-		int ret = __g_platform_client.open();
+
 	}
+
 	return 0;
 }
 

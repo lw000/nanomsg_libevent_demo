@@ -8,7 +8,6 @@ package platform;
 message msg_heartbeat
 {
 	int64		time = 1;  // time
-	string		data = 2;	// data
 }
 
 // 连接成功消息
@@ -32,16 +31,42 @@ message msg_login_reponse
 	string  msg			= 1;	// msg
 }
 
-// 登出消息
-message msg_logout_request
+message msg_game_start_reponse
 {
-	int32	device		= 1;	// device
-	int32   uid			= 2;	// uid
+	int32    state = 1;		// state
 }
 
-message msg_logout_reponse
+message msg_game_end_reponse
 {
-	string  msg			= 1;	// msg
+	int32    state = 1;		// state
+}
+
+message msg_situp_request
+{
+	int32    uid = 1;		// uid
+	int32    seat = 2;		// seat
+	bool     lookup = 3;	// lookup
+}
+
+message msg_situp_reponse
+{
+	int32    uid = 1;		// uid
+	int32    seat = 2;		// seat
+	bool     lookup = 3;	// lookup
+}
+
+message msg_sitdown_request
+{
+	int32    uid = 1;		// uid
+	int32    seat = 2;		// seat
+	bool     lookup = 3;	// lookup
+}
+
+message msg_sitdown_reponse
+{
+	int32    uid = 1;		// uid
+	int32    seat = 2;		// seat
+	bool     lookup = 3;	// lookup
 }
 
 // 聊天消息

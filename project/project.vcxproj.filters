@@ -90,6 +90,12 @@
     <ClCompile Include="..\platform_server\client_main.cpp">
       <Filter>platform_server</Filter>
     </ClCompile>
+    <ClCompile Include="..\GameServer\GameServerMgr.cpp">
+      <Filter>game_server</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GameServer\GameClientHandler.cpp">
+      <Filter>game_server</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\center_server\CenterServer.h">
@@ -139,6 +145,12 @@
     </ClInclude>
     <ClInclude Include="..\platform_server\client_main.h">
       <Filter>platform_server</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GameServer\GameServerMgr.h">
+      <Filter>game_server</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GameServer\GameClientHandler.h">
+      <Filter>game_server</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

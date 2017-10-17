@@ -49,19 +49,18 @@ int main_game_server(int argc, char** argv) {
 
 	DESK_INFO desk_info;
 	desk_info.did = 0;
-	desk_info.max_usercount = 6;
+	desk_info.max_usercount = 2;
 	desk_info.name = "²âÊÔ";
 	desk_info.rid = 0;
 	desk_info.state = DESK_STATE_Empty;
 
-	GameServer * serv = new GameServer(nullptr);
-
-	if (serv->create(desk_info))
+	GameClientHandler* cliHandler = new GameClientHandler;
+	cliHandler->create(desk_info);
+	GameServer * serv = new GameServer(cliHandler);
+	if (serv->create(new SocketConfig("127.0.0.1", 19801)))
 	{
-		serv->start();
-	}
 
-// 	run_client_http(http_times);
+	}
 
 	while (1) {
 		lw_sleep(1);

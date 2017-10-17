@@ -22,11 +22,11 @@ int main_center_server(int argc, char** argv) {
 
 	SocketServer serv;
 	CenterServerHandler *ServerHandler = new CenterServerHandler();
-	serv.listenHandler = SOCKET_EVENT_SELECTOR_1(CenterServerHandler::onListener, ServerHandler);
-	serv.connectedHandler = SOCKET_EVENT_SELECTOR_1(CenterServerHandler::onSocketConnected, ServerHandler);
-	serv.disConnectHandler = SOCKET_EVENT_SELECTOR_1(CenterServerHandler::onSocketDisConnect, ServerHandler);
-	serv.timeoutHandler = SOCKET_EVENT_SELECTOR_1(CenterServerHandler::onSocketTimeout, ServerHandler);
-	serv.errorHandler = SOCKET_EVENT_SELECTOR_1(CenterServerHandler::onSocketError, ServerHandler);
+	serv.listenHandler = SOCKET_EVENT_SELECTOR(CenterServerHandler::onListener, ServerHandler);
+	serv.connectedHandler = SOCKET_EVENT_SELECTOR(CenterServerHandler::onSocketConnected, ServerHandler);
+	serv.disConnectHandler = SOCKET_EVENT_SELECTOR(CenterServerHandler::onSocketDisConnect, ServerHandler);
+	serv.timeoutHandler = SOCKET_EVENT_SELECTOR(CenterServerHandler::onSocketTimeout, ServerHandler);
+	serv.errorHandler = SOCKET_EVENT_SELECTOR(CenterServerHandler::onSocketError, ServerHandler);
 
 	serv.parseHandler = SOCKET_PARSE_SELECTOR_4(CenterServerHandler::onSocketParse, ServerHandler);
 

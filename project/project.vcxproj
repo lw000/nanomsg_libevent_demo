@@ -13,7 +13,9 @@
   <ItemGroup>
     <ClCompile Include="..\center_server\CenterServer.cpp" />
     <ClCompile Include="..\GameServer\client_http.cpp" />
+    <ClCompile Include="..\GameServer\GameClientHandler.cpp" />
     <ClCompile Include="..\GameServer\GameServer.cpp" />
+    <ClCompile Include="..\GameServer\GameServerMgr.cpp" />
     <ClCompile Include="..\game_ai\game_ai.cpp" />
     <ClCompile Include="..\http_server\http_server_business.cpp" />
     <ClCompile Include="..\platform_server\client_main.cpp" />
@@ -37,7 +39,9 @@
     <ClInclude Include="..\center_server\CenterServer.h" />
     <ClInclude Include="..\common\common_struct.h" />
     <ClInclude Include="..\GameServer\client_http.h" />
+    <ClInclude Include="..\GameServer\GameClientHandler.h" />
     <ClInclude Include="..\GameServer\GameServer.h" />
+    <ClInclude Include="..\GameServer\GameServerMgr.h" />
     <ClInclude Include="..\game_ai\game_ai.h" />
     <ClInclude Include="..\http_server\http_server_business.h" />
     <ClInclude Include="..\platform_server\client_main.h" />

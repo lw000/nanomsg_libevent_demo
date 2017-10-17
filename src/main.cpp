@@ -67,6 +67,8 @@ int main(int argc, char** argv) {
 
 	SocketProcessor::use_threads();
 
+	//event_enable_debug_logging
+
 	__g_queue = queue_init(1024);
 	for (int i = 0; i < 100; i++) {
 		queue_add(__g_queue, new char('1'));

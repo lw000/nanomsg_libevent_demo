@@ -1,12 +1,13 @@
 #include "GameServer.h"
 
+#include "common_marco.h"
+
 #include "socket_processor.h"
 #include "socket_session.h"
 #include "socket_client.h"
 
 #include "command.h"
 #include "platform.pb.h"
-#include "game.pb.h"
 
 #include <iostream>
 #include "socket_config.h"
@@ -15,36 +16,29 @@ using namespace LW;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-GameServer::GameServer(AbstractGameServer* idesk) : iDesk(idesk)
+GameServer::GameServer(AbstractGameClientHandler* handler) : _handler(handler)
 {
-	client = new SocketClient();
-	client->connectedHandler = SOCKET_EVENT_SELECTOR_1(GameServer::onSocketConnected, this);
-	client->disConnectHandler = SOCKET_EVENT_SELECTOR_1(GameServer::onSocketDisConnect, this);
-	client->timeoutHandler = SOCKET_EVENT_SELECTOR_1(GameServer::onSocketTimeout, this);
-	client->errorHandler = SOCKET_EVENT_SELECTOR_1(GameServer::onSocketError, this);
-	client->parseHandler = SOCKET_PARSE_SELECTOR_4(GameServer::onSocketParse, this);
-
+	_cli = new SocketClient;
+	_cli->connectedHandler = SOCKET_EVENT_SELECTOR(GameServer::onSocketConnected, this);
+	_cli->disConnectHandler = SOCKET_EVENT_SELECTOR(GameServer::onSocketDisConnect, this);
+	_cli->timeoutHandler = SOCKET_EVENT_SELECTOR(GameServer::onSocketTimeout, this);
+	_cli->errorHandler = SOCKET_EVENT_SELECTOR(GameServer::onSocketError, this);
+	_cli->parseHandler = SOCKET_PARSE_SELECTOR_4(GameServer::onSocketParse, this);
 }
 
 GameServer::~GameServer()
 {
 	this->destroy();
-	
-	if (client != nullptr)
-	{
-		delete client;
-		client = nullptr;
-	}
+	SAFE_DELETE(_cli);
 }
 
-bool GameServer::create(const DESK_INFO& info)
+bool GameServer::create(SocketConfig* conf)
 {
-	this->_desk_info = info;
-
 	bool ret = false;
 	do 
 	{
-		if (!client->create(new SocketConfig("127.0.0.1", 19801))) {
+		ret = _cli->create(conf);
+		if (!ret) {
 			break;
 		}
 
@@ -57,57 +51,54 @@ bool GameServer::create(const DESK_INFO& info)
 
 void GameServer::destroy()
 {
-	client->destroy();
-}
-
-void GameServer::start()
-{
-	do 
-	{			
-		int ret = client->open();
-
-	} while (0);
+	_cli->destroy();
 }
 
 void GameServer::sendData(lw_int32 cmd, void* object, lw_int32 objectSize)
 {
-	client->getSession()->sendData(cmd, object, objectSize);
+	_cli->getSession()->sendData(cmd, object, objectSize);
+}
+
+lw_int32 GameServer::sendData(lw_int32 cmd, void* object, lw_int32 objectSize, const SocketRecvHandlerConf& cb) {
+	int c = _cli->getSession()->sendData(cmd, object, objectSize, cb);
+	return c;
 }
 
 int GameServer::onSocketConnected(SocketSession* session)
 {
-	if (connectedHandler != nullptr) {
-		connectedHandler(session);
-	}
+	_cli->startTimer(100, 10000, [this](int tid, unsigned int tms) -> bool {
+		platform::msg_heartbeat msg;
+		msg.set_time(time(NULL));
+		int c = msg.ByteSizeLong();
+		std::unique_ptr<char[]> s(new char[c]());
+		bool ret = msg.SerializeToArray(s.get(), c);
+		if (ret)
+		{
+			this->_cli->getSession()->sendData(cmd_heart_beat, s.get(), c);
+		}
+		return true;
+	});
+
 	return 0;
 }
 
 int GameServer::onSocketDisConnect(SocketSession* session)
 {
-	if (disConnectHandler != nullptr) {
-		disConnectHandler(session);
-	}
-	client->loopbreak();
+	_cli->close();
+
 	return 0;
 }
 
 int GameServer::onSocketTimeout(SocketSession* session)
 {
-	if (timeoutHandler != nullptr) {
-		timeoutHandler(session);
-	}
+	_cli->close();
 
-	client->loopbreak();
 	return 0;
 }
 
 int GameServer::onSocketError(SocketSession* session)
 {
-	if (errorHandler != nullptr) {
-		errorHandler(session);
-	}
-
-	client->loopbreak();
+	_cli->close();
 	return 0;
 }
 
@@ -139,92 +130,49 @@ int GameServer::frameMessage(int cmd, void* data, int datasize)
 	{
 	case cmd_game_frame_cs_game_start:
 	{
-		this->onGameStartReponse(data, datasize);
+		this->_handler->onGameStartReponse(data, datasize);
 	} break;
 	case cmd_game_frame_sc_game_end:
 	{
-		this->onGameEndReponse(data, datasize);
+		this->_handler->onGameEndReponse(data, datasize);
 	} break;
 	case cmd_game_frame_sc_sit_up:
 	{
-		this->onGameUserSitupReponse(data, datasize);
+		this->_handler->onGameUserSitupReponse(data, datasize);
 	} break;
 	case cmd_game_frame_sc_sit_down:
 	{
-		this->onGameUserSitdownReponse(data, datasize);
+		this->_handler->onGameUserSitdownReponse(data, datasize);
 	} break;
 	default:
 		break;
 	}
 
 	return 0;
-}
-
-void GameServer::onGameStartReponse(void* data, int datasize)
-{
-	msg::game_msg_start_reponse gstart;
-	gstart.ParseFromArray(data, datasize);
-	printf("game_msg_start_reponse: state: %d\n", gstart.state());
-}
-
-void GameServer::onGameEndReponse(void* data, int datasize)
-{
-	msg::game_msg_end_reponse gend;
-	gend.ParseFromArray(data, datasize);
-	printf("game_msg_end_reponse: state: %d\n", gend.state());
-}
-
-void GameServer::onGameUserSitupReponse(void* data, int datasize)
-{
-	msg::game_msg_situp_reponse situp;
-	situp.ParseFromArray(data, datasize);
-	printf("game_msg_situp_reponse uid: %d seat:%d lookup:%d\n", situp.uid(), situp.seat(), situp.lookup());
-}
-
-void GameServer::onGameUserSitdownReponse(void* data, int datasize)
-{
-	msg::game_msg_sitdown_reponse sitdown;
-	sitdown.ParseFromArray(data, datasize);
-	printf("game_msg_sitdown_reponse uid: %d seat:%d lookup: %d\n", sitdown.uid(), sitdown.seat(), sitdown.lookup());
 }
 
 int GameServer::onGameMessage(int cmd, void* data, int datasize)
 {
-	switch (cmd)
-	{
-	case cmd_platform_sc_userinfo: {
-		platform::msg_userinfo_reponse userinfo;
-		userinfo.ParseFromArray(data, datasize);
-		printf("userid: %d name:%s\n", userinfo.uid(), userinfo.name().c_str());
-	}break;
-	case cmd_platform_sc_chat_reponse: {
-		platform::msg_chat_reponse msg;
-		msg.ParseFromArray(data, datasize);
-		printf("from_uid: %d to_uid:%d\n", msg.from_uid(), msg.to_uid());
-	} break;
-	default:
-		break;
-	}
-
-	return 0;
+	int c = this->_handler->onGameMessage(cmd, data, datasize);
+	return c;
 }
 
-void GameServer::sendSitup()
+void GameServer::sendSitup(int uid)
 {
-	msg::game_msg_situp_request situp;
-	situp.set_uid(1);
+	platform::msg_situp_request situp;
+	situp.set_uid(uid);
 	int c = situp.ByteSizeLong();
 	std::unique_ptr<char[]> s(new char[c + 1]);
 	bool ret = situp.SerializeToArray(s.get(), c);
-	client->getSession()->sendData(cmd_game_frame_cs_sit_up, s.get(), c);
+	_cli->getSession()->sendData(cmd_game_frame_cs_sit_up, s.get(), c);
 }
 
-void GameServer::sendSitdown()
+void GameServer::sendSitdown(int uid)
 {
-	msg::game_msg_sitdown_request sitdown;
-	sitdown.set_uid(1);
+	platform::msg_sitdown_request sitdown;
+	sitdown.set_uid(uid);
 	int c = sitdown.ByteSizeLong();
 	std::unique_ptr<char[]> s(new char[c + 1]);
 	bool ret = sitdown.SerializeToArray(s.get(), c);
-	client->getSession()->sendData(cmd_game_frame_cs_sit_down, s.get(), c);
+	_cli->getSession()->sendData(cmd_game_frame_cs_sit_down, s.get(), c);
 }

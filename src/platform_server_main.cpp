@@ -74,11 +74,11 @@ int main_platform_server(int argc, char** argv)
 
 	SocketServer serv;
 	PlatformServerHandler *servHandler = new PlatformServerHandler();
-	serv.listenHandler = SOCKET_EVENT_SELECTOR_1(PlatformServerHandler::onListener, servHandler);
-	serv.connectedHandler = SOCKET_EVENT_SELECTOR_1(PlatformServerHandler::onSocketConnected, servHandler);
-	serv.disConnectHandler = SOCKET_EVENT_SELECTOR_1(PlatformServerHandler::onSocketDisConnect, servHandler);
-	serv.timeoutHandler = SOCKET_EVENT_SELECTOR_1(PlatformServerHandler::onSocketTimeout, servHandler);
-	serv.errorHandler = SOCKET_EVENT_SELECTOR_1(PlatformServerHandler::onSocketError, servHandler);
+	serv.listenHandler = SOCKET_EVENT_SELECTOR(PlatformServerHandler::onListener, servHandler);
+	serv.connectedHandler = SOCKET_EVENT_SELECTOR(PlatformServerHandler::onSocketConnected, servHandler);
+	serv.disConnectHandler = SOCKET_EVENT_SELECTOR(PlatformServerHandler::onSocketDisConnect, servHandler);
+	serv.timeoutHandler = SOCKET_EVENT_SELECTOR(PlatformServerHandler::onSocketTimeout, servHandler);
+	serv.errorHandler = SOCKET_EVENT_SELECTOR(PlatformServerHandler::onSocketError, servHandler);
 	
 	serv.parseHandler = SOCKET_PARSE_SELECTOR_4(PlatformServerHandler::onSocketParse, servHandler);
 	

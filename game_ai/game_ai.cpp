@@ -17,58 +17,92 @@
 
 using namespace LW;
 
+
+static const int GAME_AI_COUNT = 5000;
+
 //////////////////////////////////////////////////////////////////////////////////////////
-class GameAiClientHandler{
+class GameAIHandler {
+public:
+	int tid;
+	GameAI* _ai;
+	SocketTimer *_timer;
+
 public:
 	SocketSession* _session;
-	GameAIMgr* _aimgr;
+	lw_fast_lock _lock;
 
 public:
-	GameAiClientHandler(GameAIMgr* _aimgr) {
-		this->_aimgr = _aimgr;
+	GameAIHandler(GameAI* ai, int tid) {
+		this->tid = tid;
+		this->_ai = ai;
+		this->_timer = new SocketTimer;
+
+		this->_session = new SocketSession(new SocketConfig("127.0.0.1", 19801));
+		this->_session->connectedHandler = SOCKET_EVENT_SELECTOR(GameAIHandler::onSocketConnected, this);
+		this->_session->disConnectHandler = SOCKET_EVENT_SELECTOR(GameAIHandler::onSocketDisConnect, this);
+		this->_session->timeoutHandler = SOCKET_EVENT_SELECTOR(GameAIHandler::onSocketTimeout, this);
+		this->_session->errorHandler = SOCKET_EVENT_SELECTOR(GameAIHandler::onSocketError, this);
+		this->_session->parseHandler = SOCKET_PARSE_SELECTOR_4(GameAIHandler::onSocketParse, this);
 	}
 
-	virtual ~GameAiClientHandler() {
+	virtual ~GameAIHandler() {
+		delete this->_timer;
+	}
+
+public:
+	bool create(GameAIMgr* aimgr) {
+		do
+		{
+			{
+				int c = this->_timer->create(aimgr->_processor);
+			}
+			
+			{
+				int c = this->_session->create(SESSION_TYPE::client, aimgr->_processor);
+				if (c == 0) {
+					return true;
+				}
+				else {
+					delete this->_session;
+					this->_session = nullptr;
+				}
+			}
+		} while (0);
+		
+		return false;
 	}
 
 public:
 	int onSocketConnected(SocketSession* session)
 	{
-		if (!this->_aimgr->_is_init) {
-			this->_aimgr->_lock.lock();
-			if (!this->_aimgr->_is_init) {
-				this->_aimgr->_is_init = true;
-
-				this->_aimgr->_timer->start(100, 100,
-					[this](int tid, unsigned int tms) -> bool {
-					for (int i = 0; i < GAME_AI_COUNT; i++) {
-						if (this->_aimgr->sessions[i] != NULL) {
-							if (this->_aimgr->sessions[i]->connected()) {
-								platform::msg_chat_request msg;
-								msg.set_device(1);
-								msg.set_from_uid(i);
-								msg.set_to_uid(10000);
-								//
-								msg.set_msg("{\"name\":\"liwei\",\"age\":30,\"sex\":1,\"address\":\"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDE\"}");
-								int c = msg.ByteSizeLong();
-								std::unique_ptr<char[]> s(new char[c]());
-								bool ret = msg.SerializeToArray(s.get(), c);
-								if (ret)
-								{
-									this->_aimgr->sessions[i]->sendData(cmd_platform_cs_chat_request, s.get(), c);
-								}
-							}
-						}
-					}
-					return true;
-				});
-			}
-
-			this->_aimgr->_lock.unlock();
-		}
-
 		this->_session = session;
 
+		this->_timer->start(this->tid, 15000, [this](int tid, unsigned int tms) -> bool {
+			{
+				lw_lock_guard l(&_lock);
+				if (this->_session->connected()) {
+					{
+						platform::msg_heartbeat msg;
+						msg.set_time(time(NULL));
+						int c = msg.ByteSizeLong();
+						std::unique_ptr<char[]> s(new char[c]());
+						bool ret = msg.SerializeToArray(s.get(), c);
+						if (ret)
+						{
+							SocketRecvHandlerConf conf(cmd_heart_beat, 1, [](lw_char8* buf, lw_int32 bufsize) -> bool {
+								platform::msg_heartbeat msg;
+								msg.ParseFromArray(buf, bufsize);
+								LOGFMTD("heartBeat[%d]", msg.time());
+
+								return false;
+							});
+							this->_session->sendData(cmd_heart_beat, s.get(), c, conf);
+						}
+					}
+				}
+			}
+			return true;
+		});
 		return 0;
 	}
 
@@ -84,6 +118,11 @@ public:
 
 	int onSocketError(SocketSession* session)
 	{
+		{
+			lw_lock_guard l(&_lock);
+			this->_ai->removeClient(this);
+		}
+
 		return 0;
 	}
 
@@ -106,13 +145,6 @@ public:
 
 			break;
 		}
-		case cmd_platform_sc_userinfo: {
-			platform::msg_userinfo_reponse msg;
-			msg.ParseFromArray(buf, bufsize);
-			LOGFMTD("userid: %d name:%s", msg.uid(), msg.name().c_str());
-
-			break;
-		}
 		case cmd_platform_sc_chat_reponse: {
 			platform::msg_chat_reponse msg;
 			msg.ParseFromArray(buf, bufsize);
@@ -129,49 +161,87 @@ public:
 };
 
 //////////////////////////////////////////////////////////////////////////////////////////
+
+GameAI::GameAI(GameAIMgr* aimgr){
+	this->_aimgr = aimgr;
+}
+
+GameAI::~GameAI() {
+}
+
+void GameAI::addClient(GameAIHandler* cli) {
+	{
+		lw_lock_guard l(&_cli_lock);
+		this->_clis.push_back(cli);
+	}
+}
+
+void GameAI::removeClient(GameAIHandler* cli) {
+	{
+		lw_lock_guard l(&_cli_lock);
+		std::vector<GameAIHandler*>::iterator iter = std::find_if(this->_clis.begin(), this->_clis.end(), [cli](GameAIHandler* c) -> bool {
+			return (c == cli);
+		});
+
+		if (iter != this->_clis.end()) {
+			delete *iter;
+
+			this->_clis.erase(iter);
+		}
+	}
+}
+
+int GameAI::onStart() {
+	for (int i = 1000; i < GAME_AI_COUNT + 1000; i++) {
+		GameAIHandler* gai = new GameAIHandler(this, i);
+		bool r = gai->create(this->_aimgr);
+		if (r) {
+			this->addClient(gai);
+		}
+		else {
+			delete gai;
+		}
+
+		Sleep(5);
+	}
+
+	return 0;
+}
+
+int GameAI::onRun() {
+
+	return 0;
+}
+
+int GameAI::onEnd() {
+
+	return 0;
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////
 GameAIMgr::GameAIMgr() {
-	this->_is_init = false;
 	this->_processor = new SocketProcessor;
-	this->_timer = new Timer;
+	this->_ai = new GameAI(this);
+	this->_timer = new SocketTimer;
 }
 
 GameAIMgr::~GameAIMgr() {
-	delete this->_processor;
+	delete this->_ai;
 	delete this->_timer;
+	delete this->_processor;
 }
 
 int GameAIMgr::onStart() {
 	bool ret = this->_processor->create(false);
 	if (ret) {
 		this->_timer->create(this->_processor);
+		this->_timer->start(0, 10000,
+			[this](int tid, unsigned int tms) -> bool {
+			//printf("tid: %d, tms: %d \n", tid, tms);
+			return true;
+		});
 
-// 		for (int i = 0; i < GAME_AI_COUNT; i++) {
-// 			this->_timer->start(100+i, 100,
-// 				[this](int tid, unsigned int tms) -> bool {
-// 				printf("tid: %d, tms: %d \n", tid, tms);
-// 				return true;
-// 			});
-// 		}
-
-		for (int i = 0; i < GAME_AI_COUNT; i++) {
-			GameAiClientHandler* cli = new GameAiClientHandler(this);
-
-			SocketSession *session = new SocketSession(new SocketConfig("127.0.0.1", 19801));
-			session->connectedHandler = SOCKET_EVENT_SELECTOR_1(GameAiClientHandler::onSocketConnected, cli);
-			session->disConnectHandler = SOCKET_EVENT_SELECTOR_1(GameAiClientHandler::onSocketDisConnect, cli);
-			session->timeoutHandler = SOCKET_EVENT_SELECTOR_1(GameAiClientHandler::onSocketTimeout, cli);
-			session->errorHandler = SOCKET_EVENT_SELECTOR_1(GameAiClientHandler::onSocketError, cli);
-			
-			session->parseHandler = SOCKET_PARSE_SELECTOR_4(GameAiClientHandler::onSocketParse, cli);
-
-			int r = session->create(SESSION_TYPE::Client, _processor);
-			if (r == 0) {
-				sessions[i] = session;
-			}
-			else {
-				delete session;
-			}
-		}
+		this->_ai->start();
 	}
 
 	return 0;
@@ -180,7 +250,7 @@ int GameAIMgr::onStart() {
 int GameAIMgr::onRun() {
 
 	int ret = this->_processor->dispatch();
-
+	printf("ret = %d", ret);
 	return 0;
 }
 
@@ -188,8 +258,8 @@ int GameAIMgr::onEnd() {
 	return 0;
 }
 
-
 GameAIMgr* __g_ai_mgr;
+
 int main_ai_server(int argc, char** argv) {
 	
 	__g_ai_mgr = new GameAIMgr;
