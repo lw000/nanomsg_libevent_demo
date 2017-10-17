@@ -34,7 +34,6 @@ static Users			__g_umgr;
 
 static void _add_user_thread()
 {
-	srand(time(NULL));
 	while (1)
 	{
 		for (int i = 0; i < 50000; i++)
@@ -89,7 +88,7 @@ int main_platform_server(int argc, char** argv)
 			LOGFMTD("platform server running. [port:%d]", port);
 		});
 
-		while (1) { lw_sleep(1); }
+		while (1) { lw_sleep(10); }
 	}
 
 	return 0;

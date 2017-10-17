@@ -256,6 +256,6 @@ void __create_http_service_business(lw_int32 port)
 
 		htpServ.listen();
 
-		while (1) { lw_sleep(1); }
+		while (1) { lw_sleep(10); }
 	}
 }

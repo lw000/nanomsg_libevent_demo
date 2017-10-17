@@ -66,7 +66,7 @@ lw_int32 GameServer::sendData(lw_int32 cmd, void* object, lw_int32 objectSize, c
 
 int GameServer::onSocketConnected(SocketSession* session)
 {
-	_cli->startTimer(100, 10000, [this](int tid, unsigned int tms) -> bool {
+	_cli->addTimer(100, 10000, [this](int tid, unsigned int tms) -> bool {
 		platform::msg_heartbeat msg;
 		msg.set_time(time(NULL));
 		int c = msg.ByteSizeLong();

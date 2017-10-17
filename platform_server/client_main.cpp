@@ -38,7 +38,7 @@ protected:
 	virtual int onStart() {
 		_processor.create(false);
 		_timer.create(&_processor);
-		_timer.start(100, 15000, [](int tid, unsigned int tms) -> bool
+		_timer.add(100, 15000, [](int tid, unsigned int tms) -> bool
 		{
 			platform::msg_heartbeat msg;
 			msg.set_time(time(NULL));

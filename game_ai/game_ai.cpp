@@ -18,12 +18,12 @@
 using namespace LW;
 
 
-static const int GAME_AI_COUNT = 5000;
+static const int GAME_AI_COUNT = 2000;
 
 //////////////////////////////////////////////////////////////////////////////////////////
 class GameAIHandler {
 public:
-	int tid;
+	int ai_id;
 	GameAI* _ai;
 	SocketTimer *_timer;
 
@@ -32,8 +32,8 @@ public:
 	lw_fast_lock _lock;
 
 public:
-	GameAIHandler(GameAI* ai, int tid) {
-		this->tid = tid;
+	GameAIHandler(GameAI* ai, int ai_id) {
+		this->ai_id = ai_id;
 		this->_ai = ai;
 		this->_timer = new SocketTimer;
 
@@ -77,7 +77,7 @@ public:
 	{
 		this->_session = session;
 
-		this->_timer->start(this->tid, 15000, [this](int tid, unsigned int tms) -> bool {
+		this->_timer->add(this->ai_id, 15000, [this](int tid, unsigned int tms) -> bool {
 			{
 				lw_lock_guard l(&_lock);
 				if (this->_session->connected()) {
@@ -96,6 +96,7 @@ public:
 
 								return false;
 							});
+
 							this->_session->sendData(cmd_heart_beat, s.get(), c, conf);
 						}
 					}
@@ -153,7 +154,6 @@ public:
 			break;
 		}
 		default: {
-
 			break;
 		}
 		}
@@ -192,6 +192,13 @@ void GameAI::removeClient(GameAIHandler* cli) {
 }
 
 int GameAI::onStart() {
+	
+
+	return 0;
+}
+
+int GameAI::onRun() {
+
 	for (int i = 1000; i < GAME_AI_COUNT + 1000; i++) {
 		GameAIHandler* gai = new GameAIHandler(this, i);
 		bool r = gai->create(this->_aimgr);
@@ -202,13 +209,8 @@ int GameAI::onStart() {
 			delete gai;
 		}
 
-		Sleep(5);
+		Sleep(10);
 	}
-
-	return 0;
-}
-
-int GameAI::onRun() {
 
 	return 0;
 }
@@ -235,7 +237,7 @@ int GameAIMgr::onStart() {
 	bool ret = this->_processor->create(false);
 	if (ret) {
 		this->_timer->create(this->_processor);
-		this->_timer->start(0, 10000,
+		this->_timer->add(0, 10000,
 			[this](int tid, unsigned int tms) -> bool {
 			//printf("tid: %d, tms: %d \n", tid, tms);
 			return true;
@@ -267,7 +269,7 @@ int main_ai_server(int argc, char** argv) {
 
 	while (1)
 	{
-		lw_sleep(1);
+		lw_sleep(10);
 	}
 
 	return 0;

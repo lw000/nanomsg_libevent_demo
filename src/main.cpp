@@ -11,9 +11,13 @@
 #include <string.h>
 #include <stdio.h>
 
+#include <time.h>
+
 #include "socket_processor.h"
 
 #include "net.h"
+#include "log4z.h"
+
 
 #ifdef __cplusplus 
 extern "C" {
@@ -24,7 +28,8 @@ extern "C" {
 }
 #endif
 
-#include "log4z.h"
+
+
 
 using namespace zsummer::log4z;
 
@@ -102,7 +107,8 @@ int main(int argc, char** argv) {
 	
 	queue_dispose(__g_queue);
 
-	
+	srand(time(NULL));
+
 	for (int i = 0; i < sizeof(METHODS) / sizeof(METHODS[0]); i++) {
 		if (s.compare(METHODS[i].name) == 0) {
 			

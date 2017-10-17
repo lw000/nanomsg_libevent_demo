@@ -35,7 +35,7 @@ int main_center_server(int argc, char** argv) {
 			LOGFMTD("center server running. [port:%d]", port);
 		});
 
-		while (1) { lw_sleep(1); }
+		while (1) { lw_sleep(10); }
 	}
 
 	return 0;
