@@ -23,7 +23,6 @@ public:
 	void reset()
 	{
 		session = nullptr;
-		::memset(&user, 0x00, sizeof(user));
 	}
 };
 

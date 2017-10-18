@@ -33,12 +33,16 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nanomsg_libevent_demo/center_server}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nanomsg_libevent_demo/http_server}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nanomsg_libevent_demo/platform_server}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nanomsg_libevent_demo/GameServer}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/lw_net/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/lw_common/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/lw_common/json}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/lw_core/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/libnanorpc}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nanomsg_libevent_demo/game_ai}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nanomsg_libevent_demo/data_server}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nanomsg_libevent_demo/chat}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nanomsg_libevent_demo/game_server}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nanomsg_libevent_demo/http_client}&quot;"/>
 								</option>
 								<option id="gnu.cpp.compiler.option.preprocessor.def.366959710" name="Defined symbols (-D)" superClass="gnu.cpp.compiler.option.preprocessor.def" useByScannerDiscovery="false"/>
 								<option id="gnu.cpp.compiler.option.dialect.std.575288051" name="Language standard" superClass="gnu.cpp.compiler.option.dialect.std" useByScannerDiscovery="true" value="gnu.cpp.compiler.dialect.default" valueType="enumerated"/>
@@ -70,7 +74,7 @@
 									<listOptionValue builtIn="false" value="/usr/local/lib64/libnanomsg.so"/>
 									<listOptionValue builtIn="false" value="/usr/local/lib/libevent.a"/>
 								</option>
-								<option id="gnu.cpp.link.option.paths.861201387" name="Library search path (-L)" superClass="gnu.cpp.link.option.paths" valueType="libPaths"/>
+								<option id="gnu.cpp.link.option.paths.861201387" name="Library search path (-L)" superClass="gnu.cpp.link.option.paths"/>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.linker.input.1350715863" superClass="cdt.managedbuild.tool.gnu.cpp.linker.input">
 									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
 									<additionalInput kind="additionalinput" paths="$(LIBS)"/>
@@ -93,12 +97,16 @@
 								<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nanomsg_libevent_demo/center_server}&quot;"/>
 								<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nanomsg_libevent_demo/http_server}&quot;"/>
 								<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nanomsg_libevent_demo/platform_server}&quot;"/>
-								<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nanomsg_libevent_demo/GameServer}&quot;"/>
 								<listOptionValue builtIn="false" value="&quot;${workspace_loc:/lw_net/include}&quot;"/>
 								<listOptionValue builtIn="false" value="&quot;${workspace_loc:/lw_common/include}&quot;"/>
 								<listOptionValue builtIn="false" value="&quot;${workspace_loc:/lw_common/json}&quot;"/>
 								<listOptionValue builtIn="false" value="&quot;${workspace_loc:/lw_core/include}&quot;"/>
 								<listOptionValue builtIn="false" value="&quot;${workspace_loc:/libnanorpc}&quot;"/>
+								<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nanomsg_libevent_demo/game_ai}&quot;"/>
+								<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nanomsg_libevent_demo/data_server}&quot;"/>
+								<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nanomsg_libevent_demo/chat}&quot;"/>
+								<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nanomsg_libevent_demo/game_server}&quot;"/>
+								<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nanomsg_libevent_demo/http_client}&quot;"/>
 							</option>
 							<inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.1002370243" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
 						</tool>

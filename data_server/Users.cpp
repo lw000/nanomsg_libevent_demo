@@ -155,7 +155,16 @@ int Users::add(const UserInfo& user, SocketSession* session)
 		}
 
 		pUsession->session = session;
-		pUsession->user = user;
+		pUsession->user.addr = user.addr;
+		pUsession->user.age = user.age;
+		pUsession->user.ext = user.ext;
+		pUsession->user.name = user.name;
+		pUsession->user.rid = user.rid;
+		pUsession->user.seat = user.seat;
+		pUsession->user.sex = user.sex;
+		pUsession->user.state = user.state;
+		pUsession->user.uid = user.uid;
+		pUsession->user.addr = user.addr;
 
 // 		{
 // 			clock_t t = clock();
@@ -270,7 +279,7 @@ void Users::removeUserTest()
 
 		UserSession* pUsession = nullptr;
 
-		// »º´æÖÐÈ¡³ö¶ÔÏó
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		if (!_alive.empty())
 		{
 			pUsession = _alive.front();
