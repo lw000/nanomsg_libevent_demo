@@ -16,16 +16,12 @@ public:
 	virtual ~PlatformServerHandler();
 
 public:
-	AbstractUser* getUsers();
+	void onSocketListener(SocketSession* session);
 
 public:
-	int onListener(SocketSession* session);
-
-public:
-	int onSocketConnected(SocketSession* session);
-	int onSocketDisConnect(SocketSession* session);
-	int onSocketTimeout(SocketSession* session);
-	int onSocketError(SocketSession* session);
+	void onSocketDisConnect(SocketSession* session);
+	void onSocketTimeout(SocketSession* session);
+	void onSocketError(SocketSession* session);
 
 public:
 	void onSocketParse(SocketSession* session, lw_int32 cmd, lw_char8* buf, lw_int32 bufsize);

@@ -19,7 +19,7 @@ GameClientHandler::~GameClientHandler()
 
 }
 
-bool GameClientHandler::create(const DESK_INFO& info)
+bool GameClientHandler::create(const DeskInfo& info)
 {
 	this->_desk_info = info;
 	return true;

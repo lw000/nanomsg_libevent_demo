@@ -4,7 +4,7 @@
 #include "socket_server.h"
 #include "session_manager.h"
 
-class CenterServerHandler/* : public AbstractSocketServerHandler*/
+class CenterServerHandler
 {
 public:
 	SessionManager Sessions;
@@ -14,19 +14,15 @@ public:
 	virtual ~CenterServerHandler();
 
 public:
-	/*virtual*/ int onListener(SocketSession* session) /*override*/;
+	void onSocketListener(SocketSession* session);
 
 public:
-	/*virtual*/ int onSocketConnected(SocketSession* session) /*override*/;
-	/*virtual*/ int onSocketDisConnect(SocketSession* session) /*override*/;
-	/*virtual*/ int onSocketTimeout(SocketSession* session) /*override*/;
-	/*virtual*/ int onSocketError(SocketSession* session) /*override*/;
+	void onSocketDisConnect(SocketSession* session);
+	void onSocketTimeout(SocketSession* session);
+	void onSocketError(SocketSession* session);
 
 public:
-	/*virtual*/ void onSocketParse(SocketSession* session, lw_int32 cmd, lw_char8* buf, lw_int32 bufsize) /*override*/;
-
-private:
-	void sendHeartbeat(SocketSession* session);
+	void onSocketParse(SocketSession* session, lw_int32 cmd, lw_char8* buf, lw_int32 bufsize) /*override*/;
 };
 
 #endif	// !__CenterServer_ServerHandler_h__

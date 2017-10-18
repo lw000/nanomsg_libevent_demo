@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package chat;
+
+// ÁÄÌìÏûÏ¢
+message msg_chat_request
+{
+	int32		device		= 1;  // device
+	int32		from_uid	= 2;  // from_uid
+	int32		to_uid		= 3;  // to_uid
+	string		msg			= 4;  // msg
+}
+
+message msg_chat_reply
+{
+	int32		from_uid	= 1;  // from_uid
+	int32		to_uid		= 2;  // to_uid
+	int32		result		= 3;  // result
+	string		msg			= 4;  // msg
+}

@@ -10,7 +10,7 @@ class Desk;
 class Room
 {
 private:
-	ROOM_INFO _room_info;
+	RoomInfo _room_info;
 
 private:
 	std::vector<Desk*> _desks;	// ×À×Ó
@@ -20,7 +20,7 @@ public:
 	virtual ~Room();
 
 public:
-	bool create(const ROOM_INFO& info);
+	bool create(const RoomInfo& info);
 	void destroy();
 
 };

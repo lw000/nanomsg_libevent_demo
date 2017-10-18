@@ -23,7 +23,7 @@ namespace LW
 			平台框架消息
 		*/
 		p_frame_cs_join_room = cmd_base + 300,
-		p_frame_cs_leave_room = cmd_base + 301,	
+		p_frame_cs_leave_room = cmd_base + 301,
 	};
 
 	enum NET_GAME_MSG_CMD
@@ -49,10 +49,9 @@ namespace LW
 
 		cs_chat_request = cmd_chat_base + 100,
 		sc_chat_reply = cmd_chat_base + 1100,
+
+		sc_chat_broadcast = cmd_chat_base + 1101,
 	};
-
-
-
 }
 
 #endif // !__command_H__

@@ -47,7 +47,7 @@ int main_game_server(int argc, char** argv) {
 // 	signal(SIGABRT, signal_handler);
 // 	signal(SIGTERM, signal_handler);
 
-	DESK_INFO desk_info;
+	DeskInfo desk_info;
 	desk_info.did = 0;
 	desk_info.max_usercount = 2;
 	desk_info.name = "≤‚ ‘";

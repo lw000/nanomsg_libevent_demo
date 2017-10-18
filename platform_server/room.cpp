@@ -12,13 +12,13 @@ Room::~Room()
 
 }
 
-bool Room::create(const ROOM_INFO& info)
+bool Room::create(const RoomInfo& info)
 {
 	this->_room_info = info;
 
 	for (int i = 0; i < _room_info.deskcount; i++)
 	{
-		DESK_INFO desk_info;
+		DeskInfo desk_info;
 		desk_info.did = i;
 		desk_info.max_usercount = 6;
 		char buf[64];

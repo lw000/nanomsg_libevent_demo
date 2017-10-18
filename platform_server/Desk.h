@@ -10,7 +10,7 @@ public:
 	virtual ~IDesk() {}
 
 public:
-	virtual bool create(const DESK_INFO& info) = 0;
+	virtual bool create(const DeskInfo& info) = 0;
 	virtual void destroy() = 0;
 
 public:
@@ -30,7 +30,7 @@ public:
 	virtual ~Desk();
 
 public:
-	virtual bool create(const DESK_INFO& info) override;
+	virtual bool create(const DeskInfo& info) override;
 	virtual void destroy() override;
 
 public:
@@ -43,10 +43,10 @@ public:
 	virtual int onGameMessage(int cmd, void* data, int datasize) override;
 
 private:
-	DESK_INFO desk_info;
+	DeskInfo desk_info;
 
 private:
-	std::vector<USER_INFO*> _users;
+	std::vector<UserInfo*> _users;
 };
 
 #endif	// !__desk_h__

@@ -20,7 +20,7 @@
 using namespace LW;
 
 
-static const int GAME_AI_COUNT = 2000;
+static const int GAME_AI_COUNT = 100;
 
 //////////////////////////////////////////////////////////////////////////////////////////
 class GameAIHandler {
@@ -75,7 +75,7 @@ public:
 	}
 
 public:
-	int onSocketConnected(SocketSession* session)
+	void onSocketConnected(SocketSession* session)
 	{
 		this->_session = session;
 
@@ -106,27 +106,24 @@ public:
 			}
 			return true;
 		});
-		return 0;
 	}
 
-	int onSocketDisConnect(SocketSession* session)
+	void onSocketDisConnect(SocketSession* session)
 	{
-		return 0;
+
 	}
 
-	int onSocketTimeout(SocketSession* session)
+	void onSocketTimeout(SocketSession* session)
 	{
-		return 0;
+
 	}
 
-	int onSocketError(SocketSession* session)
+	void onSocketError(SocketSession* session)
 	{
 		{
 			lw_lock_guard l(&_lock);
 			this->_ai->removeClient(this);
 		}
-
-		return 0;
 	}
 
 public:

@@ -10,7 +10,7 @@ Desk::~Desk()
 
 }
 
-bool Desk::create(const DESK_INFO& info)
+bool Desk::create(const DeskInfo& info)
 {
 	this->desk_info = info;
 

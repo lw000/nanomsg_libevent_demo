@@ -13,7 +13,7 @@ public:
 	virtual ~AbstractGameClientHandler() {}
 
 public:
-	virtual bool create(const DESK_INFO& info) = 0;
+	virtual bool create(const DeskInfo& info) = 0;
 	virtual void destroy() = 0;
 
 public:
@@ -28,15 +28,15 @@ public:
 
 class GameClientHandler : public AbstractGameClientHandler
 {
-	std::vector<USER_INFO> users;
-	DESK_INFO _desk_info;
+	std::vector<UserInfo> users;
+	DeskInfo _desk_info;
 
 public:
 	GameClientHandler();
 	virtual ~GameClientHandler();
 
 public:
-	virtual bool create(const DESK_INFO& info) override;
+	virtual bool create(const DeskInfo& info) override;
 	virtual void destroy() override;
 
 public:

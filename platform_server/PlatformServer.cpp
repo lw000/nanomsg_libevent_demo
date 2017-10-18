@@ -25,12 +25,7 @@ PlatformServerHandler::~PlatformServerHandler()
 
 }
 
-AbstractUser* PlatformServerHandler::getUsers()
-{
-	return &this->users;
-}
-
-int PlatformServerHandler::onListener(SocketSession* session)
+void PlatformServerHandler::onSocketListener(SocketSession* session)
 {
 	int new_client_id = 0;
 	
@@ -39,7 +34,7 @@ int PlatformServerHandler::onListener(SocketSession* session)
 		new_client_id = __g_client_id_base++;
 	}
 
-	USER_INFO user;
+	UserInfo user;
 	user.uid = new_client_id;
 	users.add(user, session);
 
@@ -60,31 +55,27 @@ int PlatformServerHandler::onListener(SocketSession* session)
 	}
 
 	LOGD(session->debug());
-
-	return 0;
 }
 
-int PlatformServerHandler::onSocketConnected(SocketSession* session)
-{
-	return 0;
-}
-
-int PlatformServerHandler::onSocketDisConnect(SocketSession* session)
+void PlatformServerHandler::onSocketDisConnect(SocketSession* session)
 {
 	users.remove(session);
-	return 0;
+	
+	LOGD("PlatformServerHandler::onSocketDisConnect");
 }
 
-int PlatformServerHandler::onSocketTimeout(SocketSession* session)
+void PlatformServerHandler::onSocketTimeout(SocketSession* session)
 {
 	users.remove(session);
-	return 0;
+
+	LOGD("PlatformServerHandler::onSocketTimeout");
 }
 
-int PlatformServerHandler::onSocketError(SocketSession* session)
+void PlatformServerHandler::onSocketError(SocketSession* session)
 {
 	users.remove(session);
-	return 0;
+
+	LOGD("PlatformServerHandler::onSocketError");
 }
 
 void PlatformServerHandler::onSocketParse(SocketSession* session, lw_int32 cmd, lw_char8* buf, lw_int32 bufsize)

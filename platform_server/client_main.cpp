@@ -1,8 +1,9 @@
 #include "client_main.h"
 
 #include <stdio.h>
-#include <iostream>
 #include <signal.h>
+
+#include "common_marco.h"
 
 #include "command.h"
 #include "platform.pb.h"
@@ -15,30 +16,38 @@
 
 using namespace LW;
 
-class AITestTimer;
 class PlatformClientHandler;
 
-static SocketClient __g_client;
-
-class AITestTimer : public Threadable
+class PlatformClientHandler
 {
-	SocketProcessor _processor;
-	SocketTimer _timer;
+	SocketSession* _session;
+	SocketClient* _client;
 
 public:
-	AITestTimer() {
-
+	PlatformClientHandler() : _session(nullptr)
+	{
+		this->_client = new SocketClient;
+		this->_client->connectedHandler = SOCKET_EVENT_SELECTOR(PlatformClientHandler::onSocketConnected, this);
+		this->_client->disConnectHandler = SOCKET_EVENT_SELECTOR(PlatformClientHandler::onSocketDisConnect, this);
+		this->_client->timeoutHandler = SOCKET_EVENT_SELECTOR(PlatformClientHandler::onSocketTimeout, this);
+		this->_client->errorHandler = SOCKET_EVENT_SELECTOR(PlatformClientHandler::onSocketError, this);
+		this->_client->parseHandler = SOCKET_PARSE_SELECTOR_4(PlatformClientHandler::onSocketParse, this);
 	}
 
-	~AITestTimer() {
-
+	virtual ~PlatformClientHandler()
+	{
+		SAFE_DELETE(this->_client);
 	}
 
-protected:
-	virtual int onStart() {
-		_processor.create(false);
-		_timer.create(&_processor);
-		_timer.add(100, 15000, [](int tid, unsigned int tms) -> bool
+public:
+	bool create(const lw_char8* addr, lw_short16 port) {
+	
+		if (this->_client->create(new SocketConfig(addr, port)))
+		{
+
+		}
+
+		_client->addTimer(100, 15000, [this](int tid, unsigned int tms) -> bool
 		{
 			platform::msg_heartbeat msg;
 			msg.set_time(time(NULL));
@@ -47,56 +56,33 @@ protected:
 			lw_bool ret = msg.SerializeToArray(s.get(), c);
 			if (ret)
 			{
-				__g_client.getSession()->sendData(cmd_heart_beat, s.get(), c);
+				_session->sendData(cmd_heart_beat, s.get(), c);
 			}
 			return true;
 		});
-		return 0;
-	}
 
-	virtual int onRun() {
-		_processor.dispatch();
-		return 0;
-	}
-
-	virtual int onEnd() {
-		return 0;
-	}
-};
-
-class PlatformClientHandler
-{
-	AITestTimer __g_timer_test;
-
-public:
-	PlatformClientHandler()
-	{
-	}
-
-	virtual ~PlatformClientHandler()
-	{
+		return true;
 	}
 
 public:
-	int onSocketConnected(SocketSession* session)
+	void onSocketConnected(SocketSession* session)
 	{
-		__g_timer_test.start();
-		return 0;
+		this->_session = session;
 	}
 
-	int onSocketDisConnect(SocketSession* session)
+	void onSocketDisConnect(SocketSession* session)
 	{
-		return 0;
+
 	}
 
-	int onSocketTimeout(SocketSession* session)
+	void onSocketTimeout(SocketSession* session)
 	{
-		return 0;
+
 	}
 
-	int onSocketError(SocketSession* session)
+	void onSocketError(SocketSession* session)
 	{
-		return 0;
+
 	}
 
 public:
@@ -127,14 +113,8 @@ public:
 
 int __connect_center_server(const lw_char8* addr, lw_short16 port)
 {
-	PlatformClientHandler* cli = new PlatformClientHandler();
-	__g_client.connectedHandler = SOCKET_EVENT_SELECTOR(PlatformClientHandler::onSocketConnected, cli);
-	__g_client.disConnectHandler = SOCKET_EVENT_SELECTOR(PlatformClientHandler::onSocketDisConnect, cli);
-	__g_client.timeoutHandler = SOCKET_EVENT_SELECTOR(PlatformClientHandler::onSocketTimeout, cli);
-	__g_client.errorHandler = SOCKET_EVENT_SELECTOR(PlatformClientHandler::onSocketError, cli);
-	__g_client.parseHandler = SOCKET_PARSE_SELECTOR_4(PlatformClientHandler::onSocketParse, cli);
-
-	if (__g_client.create(new SocketConfig(addr, port)))
+	PlatformClientHandler* cliHandler = new PlatformClientHandler();
+	if (cliHandler->create(addr, port))
 	{
 
 	}

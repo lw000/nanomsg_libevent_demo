@@ -30,51 +30,58 @@
 
 using namespace LW;
 
-static Users			__g_umgr;
+static Users __g_umgr;
 
-static void _add_user_thread()
+#define USER_COUNT	10000
+
+static void __on_thread_add_user()
 {
 	while (1)
 	{
-		for (int i = 0; i < 50000; i++)
+		for (int i = 0; i < USER_COUNT; i++)
 		{
-			USER_INFO info;
-			info.uid = /*rand() + */10000000 + i;
+			UserInfo info;
+			info.uid = /*rand() + */USER_COUNT + i;
 			__g_umgr.add(info, nullptr);
 		}
-// 		lw_sleep(1);
 	}
 }
 
-static void _remove_user_thread()
+static void __on_thread_remove_user()
 {
 	while (1)
 	{
-		for (int i = 0; i < 10000; i++)
-		{
-			int uid = rand() + 10000000;
-			//__g_umgr.removeUserTest();
-			__g_umgr.remove(uid);
-		}
-// 		lw_sleep(1);
+		int uid = rand() % USER_COUNT;
+		//__g_umgr.removeUserTest();
+		__g_umgr.find(uid);
+// 		if (__g_umgr.size() == 0) {
+// 			break;
+// 		}
 	}
 }
 
 int main_platform_server(int argc, char** argv)
 {
-//	{
-//		std::thread a(_add_user_thread);
-//		std::thread b(_remove_user_thread);
-//		a.detach();
-//		b.detach();
-//	}
+// 	{
+// 		for (int i = 0; i < USER_COUNT; i++)
+// 		{
+// 			UserInfo info;
+// 			info.uid = i+1;
+// 			__g_umgr.add(info, nullptr);
+// 		}
+// 
+// 		//std::thread a(__on_thread_add_user);
+// 		std::thread b(__on_thread_remove_user);
+// 		//a.detach();
+// 		b.detach();
+// 	}
 
 	lw_int32 port = 19801;
 
 	SocketServer serv;
+	
 	PlatformServerHandler *servHandler = new PlatformServerHandler();
-	serv.listenHandler = SOCKET_EVENT_SELECTOR(PlatformServerHandler::onListener, servHandler);
-	serv.connectedHandler = SOCKET_EVENT_SELECTOR(PlatformServerHandler::onSocketConnected, servHandler);
+	serv.listenHandler = SOCKET_EVENT_SELECTOR(PlatformServerHandler::onSocketListener, servHandler);
 	serv.disConnectHandler = SOCKET_EVENT_SELECTOR(PlatformServerHandler::onSocketDisConnect, servHandler);
 	serv.timeoutHandler = SOCKET_EVENT_SELECTOR(PlatformServerHandler::onSocketTimeout, servHandler);
 	serv.errorHandler = SOCKET_EVENT_SELECTOR(PlatformServerHandler::onSocketError, servHandler);
