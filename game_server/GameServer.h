@@ -41,7 +41,7 @@ protected:
 	void onSocketError(SocketSession* session);
 
 protected:
-	void onSocketParse(SocketSession* session, lw_int32 cmd, lw_char8* buf, lw_int32 bufsize);
+	int onSocketParse(SocketSession* session, lw_int32 cmd, lw_char8* buf, lw_int32 bufsize);
 
 protected:
 	int frameMessage(int cmd, void* data, int datasize);

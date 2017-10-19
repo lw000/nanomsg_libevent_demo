@@ -20,14 +20,14 @@
 using namespace LW;
 
 
-static const int GAME_AI_COUNT = 100;
+static const int GAME_AI_COUNT = 10;
 
 //////////////////////////////////////////////////////////////////////////////////////////
 class GameAIHandler {
 public:
 	int ai_id;
 	GameAI* _ai;
-	SocketTimer *_timer;
+	GameAIMgr* _aimgr;
 
 public:
 	SocketSession* _session;
@@ -37,7 +37,6 @@ public:
 	GameAIHandler(GameAI* ai, int ai_id) {
 		this->ai_id = ai_id;
 		this->_ai = ai;
-		this->_timer = new SocketTimer;
 
 		this->_session = new SocketSession(new SocketConfig("127.0.0.1", 19801));
 		this->_session->connectedHandler = SOCKET_EVENT_SELECTOR(GameAIHandler::onSocketConnected, this);
@@ -48,20 +47,20 @@ public:
 	}
 
 	virtual ~GameAIHandler() {
-		delete this->_timer;
 	}
 
 public:
 	bool create(GameAIMgr* aimgr) {
 		do
 		{
-			{
-				int c = this->_timer->create(aimgr->_processor);
-			}
+			this->_aimgr = aimgr;
 			
 			{
-				int c = this->_session->create(SESSION_TYPE::client, aimgr->_processor);
+				int c = this->_session->create(SESSION_TYPE::client, this->_aimgr->_processor);
 				if (c == 0) {
+					
+					//_session->setAutoHeartBeat(5000);
+
 					return true;
 				}
 				else {
@@ -79,7 +78,7 @@ public:
 	{
 		this->_session = session;
 
-		this->_timer->add(this->ai_id, 15000, [this](int tid, unsigned int tms) -> bool {
+		this->_aimgr->_processor->addTimer(this->ai_id, 15000, [this](int tid, unsigned int tms) -> bool {
 			{
 				lw_lock_guard l(&_lock);
 				if (this->_session->connected()) {
@@ -127,7 +126,7 @@ public:
 	}
 
 public:
-	void onSocketParse(SocketSession* session, lw_int32 cmd,
+	int onSocketParse(SocketSession* session, lw_int32 cmd,
 		lw_char8* buf, lw_int32 bufsize)
 	{
 		switch (cmd) {
@@ -156,6 +155,8 @@ public:
 			break;
 		}
 		}
+
+		return 0;
 	}
 };
 

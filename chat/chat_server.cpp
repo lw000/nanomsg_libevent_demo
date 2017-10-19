@@ -95,7 +95,7 @@ void ChatServerHandler::onSocketError(SocketSession* session)
 
 }
 
-void ChatServerHandler::onSocketParse(SocketSession* session, lw_int32 cmd, lw_char8* buf, lw_int32 bufsize)
+int ChatServerHandler::onSocketParse(SocketSession* session, lw_int32 cmd, lw_char8* buf, lw_int32 bufsize)
 {
 	switch (cmd)
 	{
@@ -131,4 +131,6 @@ void ChatServerHandler::onSocketParse(SocketSession* session, lw_int32 cmd, lw_c
 		break;
 	}
 	}
+
+	return 0;
 }

@@ -87,7 +87,7 @@ void GameServer::onSocketError(SocketSession* session)
 	_cli->close();
 }
 
-void GameServer::onSocketParse(SocketSession* session, lw_int32 cmd, lw_char8* buf, lw_int32 bufsize)
+int GameServer::onSocketParse(SocketSession* session, lw_int32 cmd, lw_char8* buf, lw_int32 bufsize)
 {
 	switch (cmd)
 	{
@@ -107,6 +107,8 @@ void GameServer::onSocketParse(SocketSession* session, lw_int32 cmd, lw_char8* b
 		this->onGameMessage(cmd, buf, bufsize);
 	} break;
 	}
+
+	return 0;
 }
 
 int GameServer::frameMessage(int cmd, void* data, int datasize)

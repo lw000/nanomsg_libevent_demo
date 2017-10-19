@@ -22,7 +22,7 @@ public:
 	void onSocketError(SocketSession* session);
 
 public:
-	void onSocketParse(SocketSession* session, lw_int32 cmd, lw_char8* buf, lw_int32 bufsize) /*override*/;
+	int onSocketParse(SocketSession* session, lw_int32 cmd, lw_char8* buf, lw_int32 bufsize) /*override*/;
 };
 
 #endif	// !__CenterServer_ServerHandler_h__

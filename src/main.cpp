@@ -13,22 +13,20 @@
 
 #include <time.h>
 
-#include "socket_processor.h"
-
-#include "net.h"
-#include "log4z.h"
-
-
 #ifdef __cplusplus 
 extern "C" {
 #endif
-	#include "queue.h"
-
+#include "queue.h"
 #ifdef __cplusplus
 }
 #endif
 
+#include "socket_processor.h"
 
+#include "net.h"
+#include "log4z.h"
+#include "utils.h"
+#include "Threadable.h"
 
 
 using namespace zsummer::log4z;
@@ -62,6 +60,7 @@ int main(int argc, char** argv) {
 		{ "survey", main_nanomsg_survey },
 		{ "nanorpc", main_nonamsg_rpc },
 		{ "ai", main_ai_server },
+		{ "timer", main_timer_server },
 	};
 
 	std::string s(argv[1]);

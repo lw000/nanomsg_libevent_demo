@@ -94,7 +94,7 @@ void PlatformServerHandler::onSocketError(SocketSession* session)
 	LOGD("PlatformServerHandler::onSocketError");
 }
 
-void PlatformServerHandler::onSocketParse(SocketSession* session, lw_int32 cmd, lw_char8* buf, lw_int32 bufsize)
+int PlatformServerHandler::onSocketParse(SocketSession* session, lw_int32 cmd, lw_char8* buf, lw_int32 bufsize)
 {
 	switch (cmd)
 	{
@@ -141,4 +141,6 @@ void PlatformServerHandler::onSocketParse(SocketSession* session, lw_int32 cmd, 
 		break;
 	}	
 	}
+
+	return 0;
 }

@@ -114,6 +114,9 @@
     <ClCompile Include="..\game_server\GameServerMgr.cpp">
       <Filter>game_server</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\timer_server_main.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\center_server\CenterServer.h">

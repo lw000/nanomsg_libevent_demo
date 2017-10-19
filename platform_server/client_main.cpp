@@ -86,7 +86,7 @@ public:
 	}
 
 public:
-	void onSocketParse(SocketSession* session, lw_int32 cmd, lw_char8* buf, lw_int32 bufsize)
+	int onSocketParse(SocketSession* session, lw_int32 cmd, lw_char8* buf, lw_int32 bufsize)
 	{
 		switch (cmd)
 		{
@@ -106,6 +106,8 @@ public:
 		default:
 			break;
 		}
+
+		return 0;
 	}
 };
 
