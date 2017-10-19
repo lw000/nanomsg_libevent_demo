@@ -6,6 +6,9 @@
 #include "socket_session.h"
 
 #include "log4z.h"
+#include "socket_config.h"
+#include "server_session.h"
+#include "common_marco.h"
 
 using namespace LW;
 
@@ -19,25 +22,38 @@ CenterServerHandler::~CenterServerHandler()
 	
 }
 
-void CenterServerHandler::onSocketListener(SocketSession* session)
+SocketSession* CenterServerHandler::onSocketListener(SocketProcessor* processor, evutil_socket_t fd)
 {
-	Sessions.add(session);
-
-	platform::msg_connected msg;
-	msg.set_time(time(NULL));
-	int len = msg.ByteSize();
+	ServerSession* pSession = new ServerSession(new SocketConfig);
+	pSession->disConnectHandler = SOCKET_EVENT_SELECTOR(CenterServerHandler::onSocketDisConnect, this);
+	pSession->timeoutHandler = SOCKET_EVENT_SELECTOR(CenterServerHandler::onSocketTimeout, this);
+	pSession->errorHandler = SOCKET_EVENT_SELECTOR(CenterServerHandler::onSocketError, this);
+	pSession->parseHandler = SOCKET_PARSE_SELECTOR_4(CenterServerHandler::onSocketParse, this);
+	int r = pSession->create(processor, fd);
+	if (r == 0)
 	{
-		char *s = new char[len];
-		bool ret = msg.SerializeToArray(s, len);
-		if (ret)
+		Sessions.add(pSession);
+
+		platform::msg_connected msg;
+		msg.set_time(time(NULL));
+		int len = msg.ByteSize();
 		{
-			session->sendData(cmd_connected, s, len);
+			char *s = new char[len];
+			bool ret = msg.SerializeToArray(s, len);
+			if (ret)
+			{
+				pSession->sendData(cmd_connected, s, len);
+			}
+			delete[] s;
 		}
-		delete[] s;
+	}
+	else
+	{
+		pSession->destroy();
+		SAFE_DELETE(pSession);
 	}
 
-	LOGFMTD("%s\n", session->debug().c_str());
-
+	return pSession;
 }
 
 void CenterServerHandler::onSocketDisConnect(SocketSession* session)

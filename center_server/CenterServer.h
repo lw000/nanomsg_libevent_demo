@@ -14,7 +14,7 @@ public:
 	virtual ~CenterServerHandler();
 
 public:
-	void onSocketListener(SocketSession* session);
+	SocketSession* onSocketListener(SocketProcessor* processor, evutil_socket_t fd);
 
 public:
 	void onSocketDisConnect(SocketSession* session);

@@ -23,8 +23,9 @@
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-typedef struct _tag_user_info
+class UserInfo
 {
+public:
 	int uid;	// 用户ID
 	int rid;	// 房间编号
 	int seat;	// 座位编号
@@ -38,7 +39,7 @@ typedef struct _tag_user_info
 	std::string ext;	// 用户扩展信息
 	
 public:
-	_tag_user_info()
+	UserInfo()
 	{
 		uid = -1;	// 用户ID
 		sex = -1;	// 用户性别
@@ -48,11 +49,11 @@ public:
 		seat = -1;	// 座位编号
 		state = -1;	// 用户状态
 	}
+};
 
-} UserInfo;
-
-typedef struct _tag_desk_info
+class DeskInfo
 {
+public:
 	int rid;		// 房间编号
 	int did;		// 桌位编号
 	int state;		// 桌子状态
@@ -62,7 +63,7 @@ typedef struct _tag_desk_info
 	std::string ext;	// 桌子扩展信息
 
 public:
-	_tag_desk_info()
+	DeskInfo()
 	{
 		rid = -1;		// 房间编号
 		did = -1;		// 桌位编号
@@ -70,10 +71,11 @@ public:
 		max_usercount = -1;	// 最大用户个数
 	}
 
-} DeskInfo;
+} ;
 
-typedef struct _tag_room_info
+class RoomInfo
 {
+public:
 	int rid;	// 房间编号
 	int state;	// 房间状态
 	int deskcount;	// 桌子个数
@@ -83,7 +85,7 @@ typedef struct _tag_room_info
 	std::string ext;	// 房间扩展信息
 
 public:
-	_tag_room_info()
+	RoomInfo()
 	{
 		rid = -1;		// 房间编号
 		state = -1;		// 房间状态
@@ -92,7 +94,6 @@ public:
 		usercount = -1;	// 用户个数
 		max_usercount = -1;	// 最大用户个数
 	}
-
-} RoomInfo;
+};
 
 #endif	// !__common_struct_h__

@@ -8,7 +8,7 @@
 class PlatformServerHandler
 {
 public:
-	Users users;
+	Users _users;
 	lw_fast_lock _lock;
 
 public:
@@ -16,7 +16,7 @@ public:
 	virtual ~PlatformServerHandler();
 
 public:
-	void onSocketListener(SocketSession* session);
+	SocketSession* onSocketListener(SocketProcessor* processor, evutil_socket_t fd);
 
 public:
 	void onSocketDisConnect(SocketSession* session);

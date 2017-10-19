@@ -6,11 +6,13 @@
 #include "socket_session.h"
 #include "socket_client.h"
 #include "socket_config.h"
+#include "server_session.h"
 
 #include "command.h"
 #include "platform.pb.h"
 #include "chat.pb.h"
 
+#include "log4z.h"
 
 using namespace LW;
 
@@ -35,32 +37,47 @@ void ChatServerHandler::destroy()
 {
 }
 
-void ChatServerHandler::onSocketListener(SocketSession* session) {
+SocketSession* ChatServerHandler::onSocketListener(SocketProcessor* processor, evutil_socket_t fd) {
 	
-	int new_client_id = 0;
+	ServerSession* pSession = new ServerSession(new SocketConfig);
+	pSession->disConnectHandler = SOCKET_EVENT_SELECTOR(ChatServerHandler::onSocketDisConnect, this);
+	pSession->timeoutHandler = SOCKET_EVENT_SELECTOR(ChatServerHandler::onSocketTimeout, this);
+	pSession->errorHandler = SOCKET_EVENT_SELECTOR(ChatServerHandler::onSocketError, this);
+	pSession->parseHandler = SOCKET_PARSE_SELECTOR_4(ChatServerHandler::onSocketParse, this);
+	int r = pSession->create(processor, fd);
+	if (r == 0)
 	{
-		lw_lock_guard l(&_lock);
-		new_client_id = _client_id++;
-	}
+		int new_client_id = 0;
 
-	UserInfo user;
-	user.uid = new_client_id;
-	_users.add(user, session);
-
-	platform::msg_connected msg;
-	lw_llong64 t = time(NULL);
-	msg.set_time(t);
-	msg.set_client_id(new_client_id);
-	int len = msg.ByteSize();
-	{
-		char *s = new char[len + 1];
-		bool ret = msg.SerializeToArray(s, len);
-		if (ret)
 		{
-			session->sendData(cmd_connected, s, len);
+			lw_lock_guard l(&_lock);
+			new_client_id = _client_id++;
 		}
-		delete s;
+
+		UserInfo user;
+		user.uid = new_client_id;
+		_users.add(user, pSession);
+
+		platform::msg_connected msg;
+		msg.set_time(time(NULL));
+		int len = msg.ByteSize();
+		{
+			char *s = new char[len];
+			bool ret = msg.SerializeToArray(s, len);
+			if (ret)
+			{
+				pSession->sendData(cmd_connected, s, len);
+			}
+			delete[] s;
+		}
 	}
+	else
+	{
+		pSession->destroy();
+		SAFE_DELETE(pSession);
+	}
+
+	return pSession;
 }
 
 void ChatServerHandler::onSocketDisConnect(SocketSession* session)

@@ -155,16 +155,7 @@ int Users::add(const UserInfo& user, SocketSession* session)
 		}
 
 		pUsession->session = session;
-		pUsession->user.addr = user.addr;
-		pUsession->user.age = user.age;
-		pUsession->user.ext = user.ext;
-		pUsession->user.name = user.name;
-		pUsession->user.rid = user.rid;
-		pUsession->user.seat = user.seat;
-		pUsession->user.sex = user.sex;
-		pUsession->user.state = user.state;
-		pUsession->user.uid = user.uid;
-		pUsession->user.addr = user.addr;
+		pUsession->user = user;
 
 // 		{
 // 			clock_t t = clock();

@@ -39,11 +39,12 @@ int main_chat_server(int argc, char** argv)
 	SocketServer serv;
 
 	ChatServerHandler *servHandler = new ChatServerHandler();
-	serv.listenHandler = SOCKET_EVENT_SELECTOR(ChatServerHandler::onSocketListener, servHandler);
-	serv.disConnectHandler = SOCKET_EVENT_SELECTOR(ChatServerHandler::onSocketDisConnect, servHandler);
-	serv.timeoutHandler = SOCKET_EVENT_SELECTOR(ChatServerHandler::onSocketTimeout, servHandler);
-	serv.errorHandler = SOCKET_EVENT_SELECTOR(ChatServerHandler::onSocketError, servHandler);
-	serv.parseHandler = SOCKET_PARSE_SELECTOR_4(ChatServerHandler::onSocketParse, servHandler);
+	serv.listenHandler = SOCKET_LISTENER_SELECTOR_2(ChatServerHandler::onSocketListener, servHandler);
+
+// 	serv.disConnectHandler = SOCKET_EVENT_SELECTOR(ChatServerHandler::onSocketDisConnect, servHandler);
+// 	serv.timeoutHandler = SOCKET_EVENT_SELECTOR(ChatServerHandler::onSocketTimeout, servHandler);
+// 	serv.errorHandler = SOCKET_EVENT_SELECTOR(ChatServerHandler::onSocketError, servHandler);
+// 	serv.parseHandler = SOCKET_PARSE_SELECTOR_4(ChatServerHandler::onSocketParse, servHandler);
 	
 	if (serv.create(new SocketConfig("0.0.0.0", port)))
 	{

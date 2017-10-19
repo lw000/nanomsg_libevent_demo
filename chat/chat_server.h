@@ -30,7 +30,7 @@ public:
 	void destroy();
 
 public:
-	void onSocketListener(SocketSession* session);
+	SocketSession* onSocketListener(SocketProcessor* processor, evutil_socket_t fd);
 
 public:
 	void onSocketConnected(SocketSession* session);
