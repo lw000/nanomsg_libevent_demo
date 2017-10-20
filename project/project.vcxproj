@@ -14,12 +14,12 @@
     <ClCompile Include="..\center_server\CenterServer.cpp" />
     <ClCompile Include="..\chat\chat_client.cpp" />
     <ClCompile Include="..\chat\chat_server.cpp" />
-    <ClCompile Include="..\data_server\Users.cpp" />
+    <ClCompile Include="..\data_server\UserManager.cpp" />
+    <ClCompile Include="..\data_server\UserSession.cpp" />
     <ClCompile Include="..\game_ai\game_ai.cpp" />
     <ClCompile Include="..\game_server\GameClientHandler.cpp" />
     <ClCompile Include="..\game_server\GameServer.cpp" />
     <ClCompile Include="..\game_server\GameServerMgr.cpp" />
-    <ClCompile Include="..\http_client\client_http.cpp" />
     <ClCompile Include="..\http_server\http_server_business.cpp" />
     <ClCompile Include="..\platform_server\client_main.cpp" />
     <ClCompile Include="..\platform_server\Desk.cpp" />
@@ -32,6 +32,7 @@
     <ClCompile Include="..\src\center_server_main.cpp" />
     <ClCompile Include="..\src\chat_server_main.cpp" />
     <ClCompile Include="..\src\game_server_main.cpp" />
+    <ClCompile Include="..\src\http_client_main.cpp" />
     <ClCompile Include="..\src\http_server_main.cpp" />
     <ClCompile Include="..\src\main.cpp" />
     <ClCompile Include="..\src\nanomsg_survey_main.cpp" />
@@ -45,12 +46,12 @@
     <ClInclude Include="..\chat\chat_client.h" />
     <ClInclude Include="..\chat\chat_server.h" />
     <ClInclude Include="..\data_server\common_struct.h" />
-    <ClInclude Include="..\data_server\Users.h" />
+    <ClInclude Include="..\data_server\UserManager.h" />
+    <ClInclude Include="..\data_server\UserSession.h" />
     <ClInclude Include="..\game_ai\game_ai.h" />
     <ClInclude Include="..\game_server\GameClientHandler.h" />
     <ClInclude Include="..\game_server\GameServer.h" />
     <ClInclude Include="..\game_server\GameServerMgr.h" />
-    <ClInclude Include="..\http_client\client_http.h" />
     <ClInclude Include="..\http_server\http_server_business.h" />
     <ClInclude Include="..\platform_server\client_main.h" />
     <ClInclude Include="..\platform_server\Desk.h" />
@@ -140,7 +141,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\src;..\protocol;..\http_server;..\platform_server;..\center_server;..\game_ai;..\game_server;..\data_server;..\http_client;..\chat;..\..\lw_core\include;..\..\lw_net\include;..\..\lw_net\nanorpc;..\..\lw_common\include;..\..\lw_common\json;..\..\libcityhash;..\..\libnanorpc;..\..\..\cross-common\libevent;..\..\..\cross-common\libevent\include;..\..\..\cross-common\libevent\build\vs2013\include;..\..\..\cross-common\libevent\WIN32-Code;..\..\..\cross-common\nanomsg\src;..\..\..\cross-common\protobuf\protobuf-cpp-3.1.0\protobuf-3.1.0\src;..\..\..\cross-common\prebuilt-dll-2-9-1-release\include;E:\boost\boost_1_65_1</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\src;..\protocol;..\http_server;..\platform_server;..\center_server;..\game_ai;..\game_server;..\data_server;..\chat;..\..\lw_core\include;..\..\lw_net\include;..\..\lw_net\nanorpc;..\..\lw_common\include;..\..\lw_common\json;..\..\libcityhash;..\..\libnanorpc;..\..\..\cross-common\libevent;..\..\..\cross-common\libevent\include;..\..\..\cross-common\libevent\build\vs2013\include;..\..\..\cross-common\libevent\WIN32-Code;..\..\..\cross-common\nanomsg\src;..\..\..\cross-common\protobuf\protobuf-cpp-3.1.0\protobuf-3.1.0\src;..\..\..\cross-common\prebuilt-dll-2-9-1-release\include;E:\boost\boost_1_65_1</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4996</DisableSpecificWarnings>
     </ClCompile>
     <Link>

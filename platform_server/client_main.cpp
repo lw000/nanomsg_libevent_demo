@@ -27,11 +27,11 @@ public:
 	PlatformClientHandler() : _session(nullptr)
 	{
 		this->_client = new SocketClient;
-		this->_client->connectedHandler = SOCKET_EVENT_SELECTOR(PlatformClientHandler::onSocketConnected, this);
-		this->_client->disConnectHandler = SOCKET_EVENT_SELECTOR(PlatformClientHandler::onSocketDisConnect, this);
-		this->_client->timeoutHandler = SOCKET_EVENT_SELECTOR(PlatformClientHandler::onSocketTimeout, this);
-		this->_client->errorHandler = SOCKET_EVENT_SELECTOR(PlatformClientHandler::onSocketError, this);
-		this->_client->parseHandler = SOCKET_PARSE_SELECTOR_4(PlatformClientHandler::onSocketParse, this);
+		this->_client->onConnectedHandler = SOCKET_EVENT_SELECTOR(PlatformClientHandler::onSocketConnected, this);
+		this->_client->onDisconnectHandler = SOCKET_EVENT_SELECTOR(PlatformClientHandler::onSocketDisConnect, this);
+		this->_client->onTimeoutHandler = SOCKET_EVENT_SELECTOR(PlatformClientHandler::onSocketTimeout, this);
+		this->_client->onErrorHandler = SOCKET_EVENT_SELECTOR(PlatformClientHandler::onSocketError, this);
+		this->_client->onDataParseHandler = SOCKET_DATAPARSE_SELECTOR_4(PlatformClientHandler::onSocketParse, this);
 	}
 
 	virtual ~PlatformClientHandler()

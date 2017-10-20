@@ -59,7 +59,6 @@ protected:
 	virtual int onEnd() override;
 
 private:
-	SocketTimer* _timer;
 	SocketProcessor* _processor;
 	GameAI*	_ai;
 };

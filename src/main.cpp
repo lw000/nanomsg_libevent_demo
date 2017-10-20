@@ -55,12 +55,13 @@ int main(int argc, char** argv) {
 		{ "center", main_center_server },
 		{ "platform", main_platform_server },
 		{ "game", main_game_server},
-		{ "http", main_http_server },
+		{ "http_server", main_http_server },
 		{ "pubsub", main_pubsub_servr },	//pubsub tcp://127.0.0.1:5555 -s
 		{ "survey", main_nanomsg_survey },
 		{ "nanorpc", main_nonamsg_rpc },
 		{ "ai", main_ai_server },
 		{ "timer", main_timer_server },
+		{ "http_client", main_http_client },
 	};
 
 	std::string s(argv[1]);

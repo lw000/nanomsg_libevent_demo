@@ -20,11 +20,11 @@ using namespace LW;
 GameServer::GameServer(AbstractGameClientHandler* handler) : _handler(handler)
 {
 	_cli = new SocketClient;
-	_cli->connectedHandler = SOCKET_EVENT_SELECTOR(GameServer::onSocketConnected, this);
-	_cli->disConnectHandler = SOCKET_EVENT_SELECTOR(GameServer::onSocketDisConnect, this);
-	_cli->timeoutHandler = SOCKET_EVENT_SELECTOR(GameServer::onSocketTimeout, this);
-	_cli->errorHandler = SOCKET_EVENT_SELECTOR(GameServer::onSocketError, this);
-	_cli->parseHandler = SOCKET_PARSE_SELECTOR_4(GameServer::onSocketParse, this);
+	_cli->onConnectedHandler = SOCKET_EVENT_SELECTOR(GameServer::onSocketConnected, this);
+	_cli->onDisconnectHandler = SOCKET_EVENT_SELECTOR(GameServer::onSocketDisConnect, this);
+	_cli->onTimeoutHandler = SOCKET_EVENT_SELECTOR(GameServer::onSocketTimeout, this);
+	_cli->onErrorHandler = SOCKET_EVENT_SELECTOR(GameServer::onSocketError, this);
+	_cli->onDataParseHandler = SOCKET_DATAPARSE_SELECTOR_4(GameServer::onSocketParse, this);
 }
 
 GameServer::~GameServer()
@@ -62,7 +62,7 @@ void GameServer::sendData(lw_int32 cmd, void* object, lw_int32 objectSize)
 	_cli->getSession()->sendData(cmd, object, objectSize);
 }
 
-lw_int32 GameServer::sendData(lw_int32 cmd, void* object, lw_int32 objectSize, const SocketRecvHandlerConf& cb) {
+lw_int32 GameServer::sendData(lw_int32 cmd, void* object, lw_int32 objectSize, const SendDataCallback& cb) {
 	int c = _cli->getSession()->sendData(cmd, object, objectSize, cb);
 	return c;
 }

@@ -8,7 +8,7 @@
 #include "common_struct.h"
 #include "socket_client.h"
 #include "GameClientHandler.h"
-#include "Users.h"
+#include "UserManager.h"
 #include "lock.h"
 
 class SocketProcessor;
@@ -17,7 +17,7 @@ class SocketSession;
 class ChatServerHandler
 {
 private:
-	Users _users;
+	UserManager _users;
 	int _client_id;
 	lw_fast_lock _lock;
 

@@ -14,8 +14,6 @@
 #include "lock.h"
 #include "utils.h"
 
-#include "client_http.h"
-
 #include "GameServer.h"
 
 #include "net.h"

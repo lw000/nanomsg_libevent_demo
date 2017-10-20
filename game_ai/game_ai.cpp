@@ -38,12 +38,12 @@ public:
 		this->ai_id = ai_id;
 		this->_ai = ai;
 
-		this->_session = new SocketSession(new SocketConfig("127.0.0.1", 19801));
-		this->_session->connectedHandler = SOCKET_EVENT_SELECTOR(GameAIHandler::onSocketConnected, this);
-		this->_session->disConnectHandler = SOCKET_EVENT_SELECTOR(GameAIHandler::onSocketDisConnect, this);
-		this->_session->timeoutHandler = SOCKET_EVENT_SELECTOR(GameAIHandler::onSocketTimeout, this);
-		this->_session->errorHandler = SOCKET_EVENT_SELECTOR(GameAIHandler::onSocketError, this);
-		this->_session->parseHandler = SOCKET_PARSE_SELECTOR_4(GameAIHandler::onSocketParse, this);
+		this->_session = new SocketSession();
+		this->_session->onConnectedHandler = SOCKET_EVENT_SELECTOR(GameAIHandler::onSocketConnected, this);
+		this->_session->onDisconnectHandler = SOCKET_EVENT_SELECTOR(GameAIHandler::onSocketDisConnect, this);
+		this->_session->onTimeoutHandler = SOCKET_EVENT_SELECTOR(GameAIHandler::onSocketTimeout, this);
+		this->_session->onErrorHandler = SOCKET_EVENT_SELECTOR(GameAIHandler::onSocketError, this);
+		this->_session->onDataParseHandler = SOCKET_DATAPARSE_SELECTOR_4(GameAIHandler::onSocketParse, this);
 	}
 
 	virtual ~GameAIHandler() {
@@ -56,7 +56,7 @@ public:
 			this->_aimgr = aimgr;
 			
 			{
-				int c = this->_session->create(SESSION_TYPE::client, this->_aimgr->_processor);
+				int c = this->_session->create(SESSION_TYPE::client, this->_aimgr->_processor, new SocketConfig("127.0.0.1", 19801));
 				if (c == 0) {
 					
 					//_session->setAutoHeartBeat(5000);
@@ -90,7 +90,7 @@ public:
 						bool ret = msg.SerializeToArray(s.get(), c);
 						if (ret)
 						{
-							SocketRecvHandlerConf conf(cmd_heart_beat, 1, [](lw_char8* buf, lw_int32 bufsize) -> bool {
+							SendDataCallback cb(cmd_heart_beat, 1, [](lw_char8* buf, lw_int32 bufsize) -> bool {
 								platform::msg_heartbeat msg;
 								msg.ParseFromArray(buf, bufsize);
 								LOGFMTD("heartBeat[%d]", msg.time());
@@ -98,7 +98,7 @@ public:
 								return false;
 							});
 
-							this->_session->sendData(cmd_heart_beat, s.get(), c, conf);
+							this->_session->sendData(cmd_heart_beat, s.get(), c, cb);
 						}
 					}
 				}
@@ -224,33 +224,22 @@ int GameAI::onEnd() {
 GameAIMgr::GameAIMgr() {
 	this->_processor = new SocketProcessor;
 	this->_ai = new GameAI(this);
-	this->_timer = new SocketTimer;
 }
 
 GameAIMgr::~GameAIMgr() {
 	delete this->_ai;
-	delete this->_timer;
 	delete this->_processor;
 }
 
 int GameAIMgr::onStart() {
 	bool ret = this->_processor->create(false);
 	if (ret) {
-		this->_timer->create(this->_processor);
-		this->_timer->add(0, 10000,
-			[this](int tid, unsigned int tms) -> bool {
-			//printf("tid: %d, tms: %d \n", tid, tms);
-			return true;
-		});
-
 		this->_ai->start();
 	}
-
 	return 0;
 }
 
 int GameAIMgr::onRun() {
-
 	int ret = this->_processor->dispatch();
 	printf("ret = %d", ret);
 	return 0;

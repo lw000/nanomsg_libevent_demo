@@ -28,9 +28,6 @@
     <Filter Include="data_server">
       <UniqueIdentifier>{c03b07de-8117-4a20-869c-fec804fbde1e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="http_client">
-      <UniqueIdentifier>{e1700c6f-a8e9-40b0-9699-a12697932b50}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\center_server\CenterServer.cpp">
@@ -99,12 +96,6 @@
     <ClCompile Include="..\chat\chat_server.cpp">
       <Filter>chat</Filter>
     </ClCompile>
-    <ClCompile Include="..\data_server\Users.cpp">
-      <Filter>data_server</Filter>
-    </ClCompile>
-    <ClCompile Include="..\http_client\client_http.cpp">
-      <Filter>http_client</Filter>
-    </ClCompile>
     <ClCompile Include="..\game_server\GameClientHandler.cpp">
       <Filter>game_server</Filter>
     </ClCompile>
@@ -115,6 +106,15 @@
       <Filter>game_server</Filter>
     </ClCompile>
     <ClCompile Include="..\src\timer_server_main.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\data_server\UserManager.cpp">
+      <Filter>data_server</Filter>
+    </ClCompile>
+    <ClCompile Include="..\data_server\UserSession.cpp">
+      <Filter>data_server</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\http_client_main.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
@@ -167,12 +167,6 @@
     <ClInclude Include="..\data_server\common_struct.h">
       <Filter>data_server</Filter>
     </ClInclude>
-    <ClInclude Include="..\data_server\Users.h">
-      <Filter>data_server</Filter>
-    </ClInclude>
-    <ClInclude Include="..\http_client\client_http.h">
-      <Filter>http_client</Filter>
-    </ClInclude>
     <ClInclude Include="..\game_server\GameClientHandler.h">
       <Filter>game_server</Filter>
     </ClInclude>
@@ -181,6 +175,12 @@
     </ClInclude>
     <ClInclude Include="..\game_server\GameServerMgr.h">
       <Filter>game_server</Filter>
+    </ClInclude>
+    <ClInclude Include="..\data_server\UserManager.h">
+      <Filter>data_server</Filter>
+    </ClInclude>
+    <ClInclude Include="..\data_server\UserSession.h">
+      <Filter>data_server</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

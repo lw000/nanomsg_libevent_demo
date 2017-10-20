@@ -20,14 +20,14 @@
 #include "client_main.h"
 
 #include "utils.h"
-#include "Users.h"
+#include "UserManager.h"
 
 #include "socket_config.h"
 #include "socket_processor.h"
 #include "socket_hanlder.h"
 #include "chat_server.h"
 
-#include <log4z.h>
+#include "log4z.h"
 
 
 using namespace LW;

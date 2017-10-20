@@ -11,13 +11,11 @@
 #include <iostream>
 
 #include "log4z.h"
-#include "server_session.h"
+#include "UserSession.h"
 #include "socket_config.h"
 #include "common_marco.h"
 
 using namespace LW;
-
-static int __g_client_id_base = 0;
 
 PlatformServerHandler::PlatformServerHandler()
 {
@@ -30,25 +28,24 @@ PlatformServerHandler::~PlatformServerHandler()
 
 SocketSession* PlatformServerHandler::onSocketListener(SocketProcessor* processor, evutil_socket_t fd)
 {
-	ServerSession* pSession = nullptr;
-	pSession = new ServerSession(new SocketConfig);
+	UserSession* pSession = nullptr;
+	pSession = new UserSession;
 	if (pSession != nullptr) {
-		pSession->disConnectHandler = SOCKET_EVENT_SELECTOR(PlatformServerHandler::onSocketDisConnect, this);
-		pSession->timeoutHandler = SOCKET_EVENT_SELECTOR(PlatformServerHandler::onSocketTimeout, this);
-		pSession->errorHandler = SOCKET_EVENT_SELECTOR(PlatformServerHandler::onSocketError, this);
-		pSession->parseHandler = SOCKET_PARSE_SELECTOR_4(PlatformServerHandler::onSocketParse, this);
-		int r = pSession->create(processor, fd);
+		pSession->onDisconnectHandler = SOCKET_EVENT_SELECTOR(PlatformServerHandler::onSocketDisConnect, this);
+		pSession->onTimeoutHandler = SOCKET_EVENT_SELECTOR(PlatformServerHandler::onSocketTimeout, this);
+		pSession->onErrorHandler = SOCKET_EVENT_SELECTOR(PlatformServerHandler::onSocketError, this);
+		pSession->onDataParseHandler = SOCKET_DATAPARSE_SELECTOR_4(PlatformServerHandler::onSocketParse, this);
+		int r = pSession->create(processor, new SocketConfig, fd);
 		if (r == 0)
 		{
 			int new_client_id = 0;
 			{
 				lw_lock_guard l(&_lock);
-				new_client_id = __g_client_id_base++;
+				new_client_id = _base_client_id++;
 			}
 
-			UserInfo user;
-			user.uid = new_client_id;
-			_users.add(user, pSession);
+			pSession->userinfo.uid = new_client_id;
+			_users.add(pSession);
 
 			platform::msg_connected msg;
 			msg.set_time(time(NULL));
@@ -75,21 +72,21 @@ SocketSession* PlatformServerHandler::onSocketListener(SocketProcessor* processo
 
 void PlatformServerHandler::onSocketDisConnect(SocketSession* session)
 {
-	_users.remove(session);
+	_users.remove((UserSession*)session);
 	
 	LOGD("PlatformServerHandler::onSocketDisConnect");
 }
 
 void PlatformServerHandler::onSocketTimeout(SocketSession* session)
 {
-	_users.remove(session);
+	_users.remove((UserSession*)session);
 
 	LOGD("PlatformServerHandler::onSocketTimeout");
 }
 
 void PlatformServerHandler::onSocketError(SocketSession* session)
 {
-	_users.remove(session);
+	_users.remove((UserSession*)session);
 
 	LOGD("PlatformServerHandler::onSocketError");
 }

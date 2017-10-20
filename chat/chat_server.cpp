@@ -13,6 +13,7 @@
 #include "chat.pb.h"
 
 #include "log4z.h"
+#include "UserSession.h"
 
 using namespace LW;
 
@@ -39,12 +40,12 @@ void ChatServerHandler::destroy()
 
 SocketSession* ChatServerHandler::onSocketListener(SocketProcessor* processor, evutil_socket_t fd) {
 	
-	ServerSession* pSession = new ServerSession(new SocketConfig);
-	pSession->disConnectHandler = SOCKET_EVENT_SELECTOR(ChatServerHandler::onSocketDisConnect, this);
-	pSession->timeoutHandler = SOCKET_EVENT_SELECTOR(ChatServerHandler::onSocketTimeout, this);
-	pSession->errorHandler = SOCKET_EVENT_SELECTOR(ChatServerHandler::onSocketError, this);
-	pSession->parseHandler = SOCKET_PARSE_SELECTOR_4(ChatServerHandler::onSocketParse, this);
-	int r = pSession->create(processor, fd);
+	UserSession* pSession = new UserSession;
+	pSession->onDisconnectHandler = SOCKET_EVENT_SELECTOR(ChatServerHandler::onSocketDisConnect, this);
+	pSession->onTimeoutHandler = SOCKET_EVENT_SELECTOR(ChatServerHandler::onSocketTimeout, this);
+	pSession->onErrorHandler = SOCKET_EVENT_SELECTOR(ChatServerHandler::onSocketError, this);
+	pSession->onDataParseHandler = SOCKET_DATAPARSE_SELECTOR_4(ChatServerHandler::onSocketParse, this);
+	int r = pSession->create(processor, new SocketConfig, fd);
 	if (r == 0)
 	{
 		int new_client_id = 0;
@@ -54,9 +55,8 @@ SocketSession* ChatServerHandler::onSocketListener(SocketProcessor* processor, e
 			new_client_id = _client_id++;
 		}
 
-		UserInfo user;
-		user.uid = new_client_id;
-		_users.add(user, pSession);
+		pSession->userinfo.uid = new_client_id;
+		_users.add(pSession);
 
 		platform::msg_connected msg;
 		msg.set_time(time(NULL));

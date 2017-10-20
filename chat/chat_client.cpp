@@ -20,11 +20,11 @@ using namespace LW;
 ChatClient::ChatClient()
 {
 	_cli = new SocketClient;
-	_cli->connectedHandler = SOCKET_EVENT_SELECTOR(ChatClient::onSocketConnected, this);
-	_cli->disConnectHandler = SOCKET_EVENT_SELECTOR(ChatClient::onSocketDisConnect, this);
-	_cli->timeoutHandler = SOCKET_EVENT_SELECTOR(ChatClient::onSocketTimeout, this);
-	_cli->errorHandler = SOCKET_EVENT_SELECTOR(ChatClient::onSocketError, this);
-	_cli->parseHandler = SOCKET_PARSE_SELECTOR_4(ChatClient::onSocketParse, this);
+	_cli->onConnectedHandler = SOCKET_EVENT_SELECTOR(ChatClient::onSocketConnected, this);
+	_cli->onDisconnectHandler = SOCKET_EVENT_SELECTOR(ChatClient::onSocketDisConnect, this);
+	_cli->onTimeoutHandler = SOCKET_EVENT_SELECTOR(ChatClient::onSocketTimeout, this);
+	_cli->onErrorHandler = SOCKET_EVENT_SELECTOR(ChatClient::onSocketError, this);
+	_cli->onDataParseHandler = SOCKET_DATAPARSE_SELECTOR_4(ChatClient::onSocketParse, this);
 }
 
 ChatClient::~ChatClient()
@@ -60,7 +60,7 @@ void ChatClient::sendData(lw_int32 cmd, void* object, lw_int32 objectSize)
 	_cli->getSession()->sendData(cmd, object, objectSize);
 }
 
-lw_int32 ChatClient::sendData(lw_int32 cmd, void* object, lw_int32 objectSize, const SocketRecvHandlerConf& cb) {
+lw_int32 ChatClient::sendData(lw_int32 cmd, void* object, lw_int32 objectSize, const SendDataCallback& cb) {
 	int c = _cli->getSession()->sendData(cmd, object, objectSize, cb);
 	return c;
 }

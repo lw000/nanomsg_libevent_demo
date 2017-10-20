@@ -2,13 +2,16 @@
 #define __PlatformServer_ServerHandler_h__
 
 #include "socket_server.h"
-#include "Users.h"
+#include "UserManager.h"
 #include "lock.h"
 
 class PlatformServerHandler
 {
 public:
-	Users _users;
+	UserManager _users;
+
+public:
+	int _base_client_id;
 	lw_fast_lock _lock;
 
 public:

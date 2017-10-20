@@ -32,7 +32,7 @@ public:
 
 public:
 	void sendData(lw_int32 cmd, void* object, lw_int32 objectSize);
-	lw_int32 sendData(lw_int32 cmd, void* object, lw_int32 objectSize, const SocketRecvHandlerConf& cb);
+	lw_int32 sendData(lw_int32 cmd, void* object, lw_int32 objectSize, const SendDataCallback& cb);
 
 protected:
 	void onSocketConnected(SocketSession* session);

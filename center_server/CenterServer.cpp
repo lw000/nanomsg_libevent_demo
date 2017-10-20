@@ -24,12 +24,12 @@ CenterServerHandler::~CenterServerHandler()
 
 SocketSession* CenterServerHandler::onSocketListener(SocketProcessor* processor, evutil_socket_t fd)
 {
-	ServerSession* pSession = new ServerSession(new SocketConfig);
-	pSession->disConnectHandler = SOCKET_EVENT_SELECTOR(CenterServerHandler::onSocketDisConnect, this);
-	pSession->timeoutHandler = SOCKET_EVENT_SELECTOR(CenterServerHandler::onSocketTimeout, this);
-	pSession->errorHandler = SOCKET_EVENT_SELECTOR(CenterServerHandler::onSocketError, this);
-	pSession->parseHandler = SOCKET_PARSE_SELECTOR_4(CenterServerHandler::onSocketParse, this);
-	int r = pSession->create(processor, fd);
+	ServerSession* pSession = new ServerSession;
+	pSession->onDisconnectHandler = SOCKET_EVENT_SELECTOR(CenterServerHandler::onSocketDisConnect, this);
+	pSession->onTimeoutHandler = SOCKET_EVENT_SELECTOR(CenterServerHandler::onSocketTimeout, this);
+	pSession->onErrorHandler = SOCKET_EVENT_SELECTOR(CenterServerHandler::onSocketError, this);
+	pSession->onDataParseHandler = SOCKET_DATAPARSE_SELECTOR_4(CenterServerHandler::onSocketParse, this);
+	int r = pSession->create(processor, new SocketConfig, fd);
 	if (r == 0)
 	{
 		Sessions.add(pSession);

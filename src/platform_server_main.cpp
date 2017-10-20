@@ -20,17 +20,18 @@
 #include "client_main.h"
 
 #include "utils.h"
-#include "Users.h"
+#include "UserManager.h"
 
 #include "socket_config.h"
 #include "socket_processor.h"
 
 #include <log4z.h>
 #include "socket_hanlder.h"
+#include "UserSession.h"
 
 using namespace LW;
 
-static Users __g_umgr;
+static UserManager __g_umgr;
 
 #define USER_COUNT	10000
 
@@ -40,9 +41,9 @@ static void __on_thread_add_user()
 	{
 		for (int i = 0; i < USER_COUNT; i++)
 		{
-			UserInfo info;
-			info.uid = /*rand() + */USER_COUNT + i;
-			__g_umgr.add(info, nullptr);
+			UserSession *s = new UserSession;
+			s->userinfo.uid = /*rand() + */USER_COUNT + i;
+			__g_umgr.add(s);
 		}
 	}
 }
@@ -52,11 +53,10 @@ static void __on_thread_remove_user()
 	while (1)
 	{
 		int uid = rand() % USER_COUNT;
-		//__g_umgr.removeUserTest();
 		__g_umgr.find(uid);
-// 		if (__g_umgr.size() == 0) {
-// 			break;
-// 		}
+		if (__g_umgr.size() == 0) {
+			break;
+		}
 	}
 }
 
