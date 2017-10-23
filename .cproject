@@ -43,6 +43,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nanomsg_libevent_demo/chat}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nanomsg_libevent_demo/game_server}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nanomsg_libevent_demo/http_client}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nanomsg_libevent_demo/game_client}&quot;"/>
 								</option>
 								<option id="gnu.cpp.compiler.option.preprocessor.def.366959710" name="Defined symbols (-D)" superClass="gnu.cpp.compiler.option.preprocessor.def" useByScannerDiscovery="false"/>
 								<option id="gnu.cpp.compiler.option.dialect.std.575288051" name="Language standard" superClass="gnu.cpp.compiler.option.dialect.std" useByScannerDiscovery="true" value="gnu.cpp.compiler.dialect.default" valueType="enumerated"/>
@@ -107,6 +108,7 @@
 								<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nanomsg_libevent_demo/chat}&quot;"/>
 								<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nanomsg_libevent_demo/game_server}&quot;"/>
 								<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nanomsg_libevent_demo/http_client}&quot;"/>
+								<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nanomsg_libevent_demo/game_client}&quot;"/>
 							</option>
 							<inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.1002370243" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
 						</tool>

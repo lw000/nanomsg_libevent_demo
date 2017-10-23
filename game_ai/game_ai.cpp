@@ -1,6 +1,7 @@
 #include "game_ai.h"
 
 #include <iostream>
+#include <algorithm>
 
 #include "socket_processor.h"
 #include "socket_session.h"
@@ -201,7 +202,7 @@ int GameAI::onRun() {
 			delete gai;
 		}
 
-		Sleep(10);
+		lw_sleep(10);
 	}
 
 	return 0;
