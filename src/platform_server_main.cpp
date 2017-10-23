@@ -13,14 +13,10 @@
 #include "command.h"
 #include "platform.pb.h"
 
-//#include "http_server.h"
-
 #include "PlatformServer.h"
 
-#include "client_main.h"
-
 #include "utils.h"
-#include "UserManager.h"
+#include "UserServer.h"
 
 #include "socket_config.h"
 #include "socket_processor.h"
@@ -31,7 +27,7 @@
 
 using namespace LW;
 
-static UserManager __g_umgr;
+static UserServer __g_umgr;
 
 #define USER_COUNT	10000
 
@@ -83,12 +79,8 @@ int main_platform_server(int argc, char** argv)
 	PlatformServerHandler *servHandler = new PlatformServerHandler();
 	serv.listenHandler = SOCKET_LISTENER_SELECTOR_2(PlatformServerHandler::onSocketListener, servHandler);
 
-// 	serv.disConnectHandler = SOCKET_EVENT_SELECTOR(PlatformServerHandler::onSocketDisConnect, servHandler);
-// 	serv.timeoutHandler = SOCKET_EVENT_SELECTOR(PlatformServerHandler::onSocketTimeout, servHandler);
-// 	serv.errorHandler = SOCKET_EVENT_SELECTOR(PlatformServerHandler::onSocketError, servHandler);
-// 	
-// 	serv.parseHandler = SOCKET_PARSE_SELECTOR_4(PlatformServerHandler::onSocketParse, servHandler);
-	
+	servHandler->loadConfig();
+
 	if (serv.create(new SocketConfig("0.0.0.0", port)))
 	{
 		serv.serv([port](int what)

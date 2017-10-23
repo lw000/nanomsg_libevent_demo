@@ -7,8 +7,8 @@
 #include "common_type.h"
 #include "common_struct.h"
 #include "socket_client.h"
-#include "GameClientHandler.h"
-#include "UserManager.h"
+#include "GameHandler.h"
+#include "UserServer.h"
 #include "lock.h"
 
 class SocketProcessor;
@@ -17,9 +17,9 @@ class SocketSession;
 class ChatServerHandler
 {
 private:
-	UserManager _users;
+	UserServer _users;
 	int _client_id;
-	lw_fast_lock _lock;
+	lw_fast_mutex _lock;
 
 public:
 	ChatServerHandler();

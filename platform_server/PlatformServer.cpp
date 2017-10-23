@@ -26,6 +26,15 @@ PlatformServerHandler::~PlatformServerHandler()
 
 }
 
+void PlatformServerHandler::loadConfig() {
+	RoomInfo room_info;
+	room_info.rid = 0;	// 房间编号
+	room_info.deskcount = 1;// 桌子个数
+	room_info.max_usercount = 10000;// 最大用户个数
+	room_info.name = std::string("测试01房");	// 房间名称
+	this->_roomserver.create(room_info);
+}
+
 SocketSession* PlatformServerHandler::onSocketListener(SocketProcessor* processor, evutil_socket_t fd)
 {
 	UserSession* pSession = nullptr;
@@ -40,12 +49,12 @@ SocketSession* PlatformServerHandler::onSocketListener(SocketProcessor* processo
 		{
 			int new_client_id = 0;
 			{
-				lw_lock_guard l(&_lock);
-				new_client_id = _base_client_id++;
+				lw_fast_lock_guard l(&_lock);
+				new_client_id = this->_base_client_id++;
 			}
 
 			pSession->userinfo.uid = new_client_id;
-			_users.add(pSession);
+			this->_userserver.add(pSession);
 
 			platform::msg_connected msg;
 			msg.set_time(time(NULL));
@@ -72,23 +81,17 @@ SocketSession* PlatformServerHandler::onSocketListener(SocketProcessor* processo
 
 void PlatformServerHandler::onSocketDisConnect(SocketSession* session)
 {
-	_users.remove((UserSession*)session);
-	
-	LOGD("PlatformServerHandler::onSocketDisConnect");
+	this->_userserver.remove((UserSession*)session);
 }
 
 void PlatformServerHandler::onSocketTimeout(SocketSession* session)
 {
-	_users.remove((UserSession*)session);
-
-	LOGD("PlatformServerHandler::onSocketTimeout");
+	this->_userserver.remove((UserSession*)session);
 }
 
 void PlatformServerHandler::onSocketError(SocketSession* session)
 {
-	_users.remove((UserSession*)session);
-
-	LOGD("PlatformServerHandler::onSocketError");
+	this->_userserver.remove((UserSession*)session);
 }
 
 int PlatformServerHandler::onSocketParse(SocketSession* session, lw_int32 cmd, lw_char8* buf, lw_int32 bufsize)

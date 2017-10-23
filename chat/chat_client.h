@@ -7,7 +7,7 @@
 #include "common_type.h"
 #include "common_struct.h"
 #include "socket_client.h"
-#include "GameClientHandler.h"
+#include "GameHandler.h"
 
 class SocketProcessor;
 class SocketSession;

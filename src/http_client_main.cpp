@@ -25,7 +25,7 @@ int main_http_client(int argc, char** argv)
 		{
 			getchar();
 
-			for (int i = 0; i < 100; i++) {
+			for (int i = 0; i < 10000; i++) {
 				HttpRequest* request = new HttpRequest(&client);
 				request->setTag(i);
 				request->setUrl(hosts[0]);

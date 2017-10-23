@@ -51,7 +51,7 @@ SocketSession* ChatServerHandler::onSocketListener(SocketProcessor* processor, e
 		int new_client_id = 0;
 
 		{
-			lw_lock_guard l(&_lock);
+			lw_fast_lock_guard l(&_lock);
 			new_client_id = _client_id++;
 		}
 

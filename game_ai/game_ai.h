@@ -8,6 +8,7 @@
 #include "common_struct.h"
 #include "Threadable.h"
 #include "lock.h"
+#include "socket_timer.h"
 
 class SocketProcessor;
 class SocketSession;
@@ -24,11 +25,10 @@ private:
 	GameAIMgr* _aimgr;
 
 public:
-	SocketTimer* _timer;
 	std::vector<GameAIHandler*> _clis;
 
 public:
-	lw_fast_lock _cli_lock;
+	lw_fast_mutex _cli_lock;
 
 public:
 	GameAI(GameAIMgr* aimgr);
@@ -53,6 +53,14 @@ public:
 	GameAIMgr();
 	virtual ~GameAIMgr();
 
+public:
+	int addTimer(int tid, unsigned int tms, const TimerCallback& func);
+	void removeTimer(int tid);
+
+public:
+	void addClient(GameAIHandler* cli);
+	void removeClient(GameAIHandler* cli);
+
 protected:
 	virtual int onStart() override;
 	virtual int onRun() override;
@@ -61,6 +69,10 @@ protected:
 private:
 	SocketProcessor* _processor;
 	GameAI*	_ai;
+
+public:
+	std::vector<GameAIHandler*> _cliAis;
+	lw_fast_mutex _cliAiLock;
 };
 
 

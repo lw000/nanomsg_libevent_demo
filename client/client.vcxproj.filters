@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="protocol">
+      <UniqueIdentifier>{288f5460-f473-4650-be5d-bbd9a7963a6d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{c86df804-b027-4fa3-8472-6cd3d498cf5c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="game_client">
+      <UniqueIdentifier>{326e81a3-d8e1-4d37-8909-ca5d2d6d43f9}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\protocol\game.pb.cc">
+      <Filter>protocol</Filter>
+    </ClCompile>
+    <ClCompile Include="..\protocol\platform.pb.cc">
+      <Filter>protocol</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\main.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\game_server_main.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\protocol\chat.pb.cc">
+      <Filter>protocol</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\http_client_main.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\game_client\GameClient.cpp">
+      <Filter>game_client</Filter>
+    </ClCompile>
+    <ClCompile Include="..\game_client\GameClientHandler.cpp">
+      <Filter>game_client</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\protocol\command.h">
+      <Filter>protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\protocol\game.pb.h">
+      <Filter>protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\protocol\platform.pb.h">
+      <Filter>protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\main.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\protocol\chat.pb.h">
+      <Filter>protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\game_client\GameClient.h">
+      <Filter>game_client</Filter>
+    </ClInclude>
+    <ClInclude Include="..\game_client\GameClientHandler.h">
+      <Filter>game_client</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\protocol\build.bat">
+      <Filter>protocol</Filter>
+    </None>
+    <None Include="..\protocol\game.proto">
+      <Filter>protocol</Filter>
+    </None>
+    <None Include="..\protocol\platform.proto">
+      <Filter>protocol</Filter>
+    </None>
+    <None Include="..\protocol\protoc">
+      <Filter>protocol</Filter>
+    </None>
+    <None Include="..\protocol\protoc.exe">
+      <Filter>protocol</Filter>
+    </None>
+    <None Include="..\protocol\chat.proto">
+      <Filter>protocol</Filter>
+    </None>
+  </ItemGroup>
+</Project>

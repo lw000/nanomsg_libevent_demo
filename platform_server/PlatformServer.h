@@ -2,21 +2,28 @@
 #define __PlatformServer_ServerHandler_h__
 
 #include "socket_server.h"
-#include "UserManager.h"
+#include "UserServer.h"
+#include "RoomServer.h"
 #include "lock.h"
 
 class PlatformServerHandler
 {
+private:
+	UserServer _userserver;
+
 public:
-	UserManager _users;
+	RoomServer _roomserver;
 
 public:
 	int _base_client_id;
-	lw_fast_lock _lock;
+	lw_fast_mutex _lock;
 
 public:
 	PlatformServerHandler();
 	virtual ~PlatformServerHandler();
+
+public:
+	void loadConfig();
 
 public:
 	SocketSession* onSocketListener(SocketProcessor* processor, evutil_socket_t fd);

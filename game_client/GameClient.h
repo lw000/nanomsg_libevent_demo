@@ -1,5 +1,5 @@
-#ifndef __GameServer_H__
-#define __GameServer_H__
+#ifndef __GameClient_H__
+#define __GameClient_H__
 
 #include <string>
 #include <vector>
@@ -7,23 +7,22 @@
 #include "common_type.h"
 #include "common_struct.h"
 #include "socket_client.h"
-#include "GameHandler.h"
+#include "GameClientHandler.h"
 
-class SocketProcessor;
 class SocketSession;
 class SocketClient;
 
-class GameServer
+class GameClient
 {
 private:
-	AbstractGameServerHandler* _gameHandler;
+	AbstractGameClientHandler* _gameHandler;
 
 public:
-	GameServer(AbstractGameServerHandler* handler);
-	virtual ~GameServer();
+	GameClient(AbstractGameClientHandler* handler);
+	virtual ~GameClient();
 
 public:
-	bool create();
+	bool create(SocketConfig* conf);
 	void destroy();
 
 public:
@@ -44,7 +43,10 @@ protected:
 protected:
 	int frameMessage(int cmd, void* data, int datasize);
 	int onGameMessage(int cmd, void* data, int datasize);
+
+public:
+	SocketClient* _cli;
 };
 
-#endif	//__GameServer_H__
+#endif	//__GameClient_H__
 

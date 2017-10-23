@@ -7,14 +7,10 @@
 #include "common_type.h"
 #include "common_struct.h"
 
-class AbstractGameClientHandler
+class AbstractGameServerHandler
 {
 public:
-	virtual ~AbstractGameClientHandler() {}
-
-public:
-	virtual bool create(const DeskInfo& info) = 0;
-	virtual void destroy() = 0;
+	virtual ~AbstractGameServerHandler() {}
 
 public:
 	virtual void onGameStartReponse(void* data, int datasize) = 0;
@@ -26,18 +22,14 @@ public:
 	virtual int onGameMessage(int cmd, void* data, int datasize) = 0;
 };
 
-class GameClientHandler : public AbstractGameClientHandler
+class GameHandler : public AbstractGameServerHandler
 {
 	std::vector<UserInfo> users;
 	DeskInfo _desk_info;
 
 public:
-	GameClientHandler();
-	virtual ~GameClientHandler();
-
-public:
-	virtual bool create(const DeskInfo& info) override;
-	virtual void destroy() override;
+	GameHandler(const DeskInfo& info);
+	virtual ~GameHandler();
 
 public:
 	virtual void onGameStartReponse(void* data, int datasize) override;

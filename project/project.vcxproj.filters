@@ -28,6 +28,9 @@
     <Filter Include="data_server">
       <UniqueIdentifier>{c03b07de-8117-4a20-869c-fec804fbde1e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="game_client">
+      <UniqueIdentifier>{5d339d1e-34e2-4019-adcb-ae832810ea40}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\center_server\CenterServer.cpp">
@@ -36,16 +39,7 @@
     <ClCompile Include="..\http_server\http_server_business.cpp">
       <Filter>http_server</Filter>
     </ClCompile>
-    <ClCompile Include="..\platform_server\Desk.cpp">
-      <Filter>platform_server</Filter>
-    </ClCompile>
     <ClCompile Include="..\platform_server\PlatformServer.cpp">
-      <Filter>platform_server</Filter>
-    </ClCompile>
-    <ClCompile Include="..\platform_server\room.cpp">
-      <Filter>platform_server</Filter>
-    </ClCompile>
-    <ClCompile Include="..\platform_server\RoomManager.cpp">
       <Filter>platform_server</Filter>
     </ClCompile>
     <ClCompile Include="..\protocol\game.pb.cc">
@@ -69,9 +63,6 @@
     <ClCompile Include="..\src\pubsub_main.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\game_server_main.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\nanomsg_survey_main.cpp">
       <Filter>src</Filter>
     </ClCompile>
@@ -80,9 +71,6 @@
     </ClCompile>
     <ClCompile Include="..\game_ai\game_ai.cpp">
       <Filter>game_ai</Filter>
-    </ClCompile>
-    <ClCompile Include="..\platform_server\client_main.cpp">
-      <Filter>platform_server</Filter>
     </ClCompile>
     <ClCompile Include="..\protocol\chat.pb.cc">
       <Filter>protocol</Filter>
@@ -96,26 +84,35 @@
     <ClCompile Include="..\chat\chat_server.cpp">
       <Filter>chat</Filter>
     </ClCompile>
-    <ClCompile Include="..\game_server\GameClientHandler.cpp">
-      <Filter>game_server</Filter>
-    </ClCompile>
     <ClCompile Include="..\game_server\GameServer.cpp">
-      <Filter>game_server</Filter>
-    </ClCompile>
-    <ClCompile Include="..\game_server\GameServerMgr.cpp">
       <Filter>game_server</Filter>
     </ClCompile>
     <ClCompile Include="..\src\timer_server_main.cpp">
       <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\data_server\UserManager.cpp">
-      <Filter>data_server</Filter>
     </ClCompile>
     <ClCompile Include="..\data_server\UserSession.cpp">
       <Filter>data_server</Filter>
     </ClCompile>
     <ClCompile Include="..\src\http_client_main.cpp">
       <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\game_server\GameHandler.cpp">
+      <Filter>game_server</Filter>
+    </ClCompile>
+    <ClCompile Include="..\platform_server\RoomServer.cpp">
+      <Filter>platform_server</Filter>
+    </ClCompile>
+    <ClCompile Include="..\data_server\UserServer.cpp">
+      <Filter>data_server</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\game_server_main.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\game_client\GameClient.cpp">
+      <Filter>game_client</Filter>
+    </ClCompile>
+    <ClCompile Include="..\game_client\GameClientHandler.cpp">
+      <Filter>game_client</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -125,16 +122,7 @@
     <ClInclude Include="..\http_server\http_server_business.h">
       <Filter>http_server</Filter>
     </ClInclude>
-    <ClInclude Include="..\platform_server\Desk.h">
-      <Filter>platform_server</Filter>
-    </ClInclude>
     <ClInclude Include="..\platform_server\PlatformServer.h">
-      <Filter>platform_server</Filter>
-    </ClInclude>
-    <ClInclude Include="..\platform_server\room.h">
-      <Filter>platform_server</Filter>
-    </ClInclude>
-    <ClInclude Include="..\platform_server\RoomManager.h">
       <Filter>platform_server</Filter>
     </ClInclude>
     <ClInclude Include="..\protocol\command.h">
@@ -152,9 +140,6 @@
     <ClInclude Include="..\game_ai\game_ai.h">
       <Filter>game_ai</Filter>
     </ClInclude>
-    <ClInclude Include="..\platform_server\client_main.h">
-      <Filter>platform_server</Filter>
-    </ClInclude>
     <ClInclude Include="..\protocol\chat.pb.h">
       <Filter>protocol</Filter>
     </ClInclude>
@@ -167,20 +152,26 @@
     <ClInclude Include="..\data_server\common_struct.h">
       <Filter>data_server</Filter>
     </ClInclude>
-    <ClInclude Include="..\game_server\GameClientHandler.h">
-      <Filter>game_server</Filter>
-    </ClInclude>
     <ClInclude Include="..\game_server\GameServer.h">
       <Filter>game_server</Filter>
     </ClInclude>
-    <ClInclude Include="..\game_server\GameServerMgr.h">
-      <Filter>game_server</Filter>
-    </ClInclude>
-    <ClInclude Include="..\data_server\UserManager.h">
-      <Filter>data_server</Filter>
-    </ClInclude>
     <ClInclude Include="..\data_server\UserSession.h">
       <Filter>data_server</Filter>
+    </ClInclude>
+    <ClInclude Include="..\game_server\GameHandler.h">
+      <Filter>game_server</Filter>
+    </ClInclude>
+    <ClInclude Include="..\platform_server\RoomServer.h">
+      <Filter>platform_server</Filter>
+    </ClInclude>
+    <ClInclude Include="..\data_server\UserServer.h">
+      <Filter>data_server</Filter>
+    </ClInclude>
+    <ClInclude Include="..\game_client\GameClient.h">
+      <Filter>game_client</Filter>
+    </ClInclude>
+    <ClInclude Include="..\game_client\GameClientHandler.h">
+      <Filter>game_client</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

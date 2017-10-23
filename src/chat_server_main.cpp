@@ -13,14 +13,10 @@
 #include "command.h"
 #include "platform.pb.h"
 
-//#include "http_server.h"
-
 #include "PlatformServer.h"
 
-#include "client_main.h"
-
 #include "utils.h"
-#include "UserManager.h"
+#include "UserServer.h"
 
 #include "socket_config.h"
 #include "socket_processor.h"
@@ -40,12 +36,6 @@ int main_chat_server(int argc, char** argv)
 
 	ChatServerHandler *servHandler = new ChatServerHandler();
 	serv.listenHandler = SOCKET_LISTENER_SELECTOR_2(ChatServerHandler::onSocketListener, servHandler);
-
-// 	serv.disConnectHandler = SOCKET_EVENT_SELECTOR(ChatServerHandler::onSocketDisConnect, servHandler);
-// 	serv.timeoutHandler = SOCKET_EVENT_SELECTOR(ChatServerHandler::onSocketTimeout, servHandler);
-// 	serv.errorHandler = SOCKET_EVENT_SELECTOR(ChatServerHandler::onSocketError, servHandler);
-// 	serv.parseHandler = SOCKET_PARSE_SELECTOR_4(ChatServerHandler::onSocketParse, servHandler);
-	
 	if (serv.create(new SocketConfig("0.0.0.0", port)))
 	{
 		serv.serv([port](int what)

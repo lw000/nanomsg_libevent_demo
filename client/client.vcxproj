@@ -11,49 +11,18 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\center_server\CenterServer.cpp" />
-    <ClCompile Include="..\chat\chat_client.cpp" />
-    <ClCompile Include="..\chat\chat_server.cpp" />
-    <ClCompile Include="..\data_server\UserServer.cpp" />
-    <ClCompile Include="..\data_server\UserSession.cpp" />
-    <ClCompile Include="..\game_ai\game_ai.cpp" />
     <ClCompile Include="..\game_client\GameClient.cpp" />
     <ClCompile Include="..\game_client\GameClientHandler.cpp" />
-    <ClCompile Include="..\game_server\GameHandler.cpp" />
-    <ClCompile Include="..\game_server\GameServer.cpp" />
-    <ClCompile Include="..\http_server\http_server_business.cpp" />
-    <ClCompile Include="..\platform_server\PlatformServer.cpp" />
-    <ClCompile Include="..\platform_server\RoomServer.cpp" />
     <ClCompile Include="..\protocol\chat.pb.cc" />
     <ClCompile Include="..\protocol\game.pb.cc" />
     <ClCompile Include="..\protocol\platform.pb.cc" />
-    <ClCompile Include="..\src\center_server_main.cpp" />
-    <ClCompile Include="..\src\chat_server_main.cpp" />
     <ClCompile Include="..\src\game_server_main.cpp" />
     <ClCompile Include="..\src\http_client_main.cpp" />
-    <ClCompile Include="..\src\http_server_main.cpp" />
     <ClCompile Include="..\src\main.cpp" />
-    <ClCompile Include="..\src\nanomsg_survey_main.cpp" />
-    <ClCompile Include="..\src\platform_server_main.cpp" />
-    <ClCompile Include="..\src\protobufrpc_main.cpp" />
-    <ClCompile Include="..\src\pubsub_main.cpp" />
-    <ClCompile Include="..\src\timer_server_main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\center_server\CenterServer.h" />
-    <ClInclude Include="..\chat\chat_client.h" />
-    <ClInclude Include="..\chat\chat_server.h" />
-    <ClInclude Include="..\data_server\common_struct.h" />
-    <ClInclude Include="..\data_server\UserServer.h" />
-    <ClInclude Include="..\data_server\UserSession.h" />
-    <ClInclude Include="..\game_ai\game_ai.h" />
     <ClInclude Include="..\game_client\GameClient.h" />
     <ClInclude Include="..\game_client\GameClientHandler.h" />
-    <ClInclude Include="..\game_server\GameHandler.h" />
-    <ClInclude Include="..\game_server\GameServer.h" />
-    <ClInclude Include="..\http_server\http_server_business.h" />
-    <ClInclude Include="..\platform_server\PlatformServer.h" />
-    <ClInclude Include="..\platform_server\RoomServer.h" />
     <ClInclude Include="..\protocol\chat.pb.h" />
     <ClInclude Include="..\protocol\command.h" />
     <ClInclude Include="..\protocol\game.pb.h" />
@@ -92,7 +61,7 @@
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{AB2D92D1-39F3-4565-AB09-59C1CB23B024}</ProjectGuid>
+    <ProjectGuid>{B4281B69-BE06-4D93-99DB-89398749008A}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>nanomsg_libevent_demo</RootNamespace>
   </PropertyGroup>
@@ -137,7 +106,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\src;..\protocol;..\http_server;..\platform_server;..\center_server;..\game_ai;..\game_server;..\game_client;..\data_server;..\chat;..\..\lw_core\include;..\..\lw_net\include;..\..\lw_net\nanorpc;..\..\lw_common\include;..\..\lw_common\json;..\..\libcityhash;..\..\libnanorpc;..\..\..\cross-common\libevent;..\..\..\cross-common\libevent\include;..\..\..\cross-common\libevent\build\vs2013\include;..\..\..\cross-common\libevent\WIN32-Code;..\..\..\cross-common\nanomsg\src;..\..\..\cross-common\protobuf\protobuf-cpp-3.1.0\protobuf-3.1.0\src;..\..\..\cross-common\prebuilt-dll-2-9-1-release\include;E:\boost\boost_1_65_1</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\src;..\protocol;..\game_ai;..\game_client;..\data_server;..\..\lw_core\include;..\..\lw_net\include;..\..\lw_net\nanorpc;..\..\lw_common\include;..\..\lw_common\json;..\..\libcityhash;..\..\libnanorpc;..\..\..\cross-common\libevent;..\..\..\cross-common\libevent\include;..\..\..\cross-common\libevent\build\vs2013\include;..\..\..\cross-common\libevent\WIN32-Code;..\..\..\cross-common\nanomsg\src;..\..\..\cross-common\protobuf\protobuf-cpp-3.1.0\protobuf-3.1.0\src;..\..\..\cross-common\prebuilt-dll-2-9-1-release\include;E:\boost\boost_1_65_1</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4996</DisableSpecificWarnings>
     </ClCompile>
     <Link>
@@ -156,7 +125,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\src;..\protocol;..\http_server;..\platform_server;..\center_server;..\game_ai;..\game_server;..\game_client;..\data_server;..\chat;..\..\lw_core\include;..\..\lw_net\include;..\..\lw_net\nanorpc;..\..\lw_common\include;..\..\lw_common\json;..\..\libcityhash;..\..\libnanorpc;..\..\..\cross-common\libevent;..\..\..\cross-common\libevent\include;..\..\..\cross-common\libevent\build\vs2013\include;..\..\..\cross-common\libevent\WIN32-Code;..\..\..\cross-common\nanomsg\src;..\..\..\cross-common\protobuf\protobuf-cpp-3.1.0\protobuf-3.1.0\src;..\..\..\cross-common\prebuilt-dll-2-9-1-release\include;E:\boost\boost_1_65_1</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\src;..\protocol;..\game_ai;..\game_client;..\data_server;..\..\lw_core\include;..\..\lw_net\include;..\..\lw_net\nanorpc;..\..\lw_common\include;..\..\lw_common\json;..\..\libcityhash;..\..\libnanorpc;..\..\..\cross-common\libevent;..\..\..\cross-common\libevent\include;..\..\..\cross-common\libevent\build\vs2013\include;..\..\..\cross-common\libevent\WIN32-Code;..\..\..\cross-common\nanomsg\src;..\..\..\cross-common\protobuf\protobuf-cpp-3.1.0\protobuf-3.1.0\src;..\..\..\cross-common\prebuilt-dll-2-9-1-release\include;E:\boost\boost_1_65_1</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

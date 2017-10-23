@@ -16,11 +16,12 @@
 
 #include "log4z.h"
 #include "utils.h"
+#include "common_marco.h"
 
 using namespace LW;
 
 
-static const int GAME_AI_COUNT = 10;
+static const int GAME_AI_COUNT = 100;
 
 //////////////////////////////////////////////////////////////////////////////////////////
 class GameAIHandler {
@@ -31,22 +32,17 @@ public:
 
 public:
 	SocketSession* _session;
-	lw_fast_lock _lock;
 
 public:
 	GameAIHandler(GameAI* ai, int ai_id) {
 		this->ai_id = ai_id;
-		this->_ai = ai;
-
-		this->_session = new SocketSession();
-		this->_session->onConnectedHandler = SOCKET_EVENT_SELECTOR(GameAIHandler::onSocketConnected, this);
-		this->_session->onDisconnectHandler = SOCKET_EVENT_SELECTOR(GameAIHandler::onSocketDisConnect, this);
-		this->_session->onTimeoutHandler = SOCKET_EVENT_SELECTOR(GameAIHandler::onSocketTimeout, this);
-		this->_session->onErrorHandler = SOCKET_EVENT_SELECTOR(GameAIHandler::onSocketError, this);
-		this->_session->onDataParseHandler = SOCKET_DATAPARSE_SELECTOR_4(GameAIHandler::onSocketParse, this);
+		this->_ai = ai;	
+		this->_aimgr = nullptr;
+		this->_session = nullptr;
 	}
 
 	virtual ~GameAIHandler() {
+		SAFE_DELETE(this->_session);
 	}
 
 public:
@@ -55,17 +51,21 @@ public:
 		{
 			this->_aimgr = aimgr;
 			
-			{
+			this->_session = new SocketSession();
+
+			if (this->_session != nullptr) {
+				this->_session->onConnectedHandler = SOCKET_EVENT_SELECTOR(GameAIHandler::onSocketConnected, this);
+				this->_session->onDisconnectHandler = SOCKET_EVENT_SELECTOR(GameAIHandler::onSocketDisConnect, this);
+				this->_session->onTimeoutHandler = SOCKET_EVENT_SELECTOR(GameAIHandler::onSocketTimeout, this);
+				this->_session->onErrorHandler = SOCKET_EVENT_SELECTOR(GameAIHandler::onSocketError, this);
+				this->_session->onDataParseHandler = SOCKET_DATAPARSE_SELECTOR_4(GameAIHandler::onSocketParse, this);
 				int c = this->_session->create(SESSION_TYPE::client, this->_aimgr->_processor, new SocketConfig("127.0.0.1", 19801));
 				if (c == 0) {
-					
 					//_session->setAutoHeartBeat(5000);
-
 					return true;
 				}
 				else {
-					delete this->_session;
-					this->_session = nullptr;
+					SAFE_DELETE(this->_session);
 				}
 			}
 		} while (0);
@@ -78,9 +78,8 @@ public:
 	{
 		this->_session = session;
 
-		this->_aimgr->_processor->addTimer(this->ai_id, 15000, [this](int tid, unsigned int tms) -> bool {
+		this->_aimgr->addTimer(this->ai_id, 15000, [this](int tid, unsigned int tms) -> bool {
 			{
-				lw_lock_guard l(&_lock);
 				if (this->_session->connected()) {
 					{
 						platform::msg_heartbeat msg;
@@ -94,7 +93,6 @@ public:
 								platform::msg_heartbeat msg;
 								msg.ParseFromArray(buf, bufsize);
 								LOGFMTD("heartBeat[%d]", msg.time());
-
 								return false;
 							});
 
@@ -109,32 +107,28 @@ public:
 
 	void onSocketDisConnect(SocketSession* session)
 	{
-
+		this->_aimgr->removeTimer(this->ai_id);
 	}
 
 	void onSocketTimeout(SocketSession* session)
 	{
-
+		this->_aimgr->removeTimer(this->ai_id);
 	}
 
 	void onSocketError(SocketSession* session)
 	{
-		{
-			lw_lock_guard l(&_lock);
-			this->_ai->removeClient(this);
-		}
+		this->_aimgr->removeTimer(this->ai_id);
+		this->_ai->removeClient(this);
 	}
 
 public:
-	int onSocketParse(SocketSession* session, lw_int32 cmd,
-		lw_char8* buf, lw_int32 bufsize)
+	int onSocketParse(SocketSession* session, lw_int32 cmd, lw_char8* buf, lw_int32 bufsize)
 	{
 		switch (cmd) {
 		case cmd_connected: {
 			platform::msg_connected msg;
 			msg.ParseFromArray(buf, bufsize);
 			LOGFMTD("client_id[%d], connected. [time : %d]", msg.client_id(), msg.time());
-
 			break;
 		}
 		case cmd_heart_beat: {
@@ -171,21 +165,20 @@ GameAI::~GameAI() {
 
 void GameAI::addClient(GameAIHandler* cli) {
 	{
-		lw_lock_guard l(&_cli_lock);
+		lw_fast_lock_guard l(&_cli_lock);
 		this->_clis.push_back(cli);
 	}
 }
 
 void GameAI::removeClient(GameAIHandler* cli) {
 	{
-		lw_lock_guard l(&_cli_lock);
-		std::vector<GameAIHandler*>::iterator iter = std::find_if(this->_clis.begin(), this->_clis.end(), [cli](GameAIHandler* c) -> bool {
+		lw_fast_lock_guard l(&_cli_lock);
+		std::vector<GameAIHandler*>::iterator iter = this->_clis.end();
+		iter = std::find_if(this->_clis.begin(), this->_clis.end(), [cli](GameAIHandler* c) -> bool {
 			return (c == cli);
 		});
 
 		if (iter != this->_clis.end()) {
-			delete *iter;
-
 			this->_clis.erase(iter);
 		}
 	}
@@ -193,7 +186,6 @@ void GameAI::removeClient(GameAIHandler* cli) {
 
 int GameAI::onStart() {
 	
-
 	return 0;
 }
 
@@ -229,6 +221,36 @@ GameAIMgr::GameAIMgr() {
 GameAIMgr::~GameAIMgr() {
 	delete this->_ai;
 	delete this->_processor;
+}
+
+int GameAIMgr::addTimer(int tid, unsigned int tms, const TimerCallback& func) {
+	int c = this->_processor->addTimer(tid, tms, func);
+	return c;
+}
+
+void GameAIMgr::removeTimer(int tid) {
+	this->_processor->removeTimer(tid);
+}
+
+void GameAIMgr::addClient(GameAIHandler* cli) {
+	{
+		lw_fast_lock_guard l(&_cliAiLock);
+		this->_cliAis.push_back(cli);
+	}
+}
+
+void GameAIMgr::removeClient(GameAIHandler* cli) {
+	{
+		lw_fast_lock_guard l(&_cliAiLock);
+		std::vector<GameAIHandler*>::iterator iter = this->_cliAis.end();
+		iter = std::find_if(this->_cliAis.begin(), this->_cliAis.end(), [cli](GameAIHandler* c) -> bool {
+			return (c == cli);
+		});
+
+		if (iter != this->_cliAis.end()) {
+			this->_cliAis.erase(iter);
+		}
+	}
 }
 
 int GameAIMgr::onStart() {
