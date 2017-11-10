@@ -25,7 +25,7 @@ int main_http_client(int argc, char** argv)
 		{
 			getchar();
 
-			for (int i = 0; i < 10000; i++) {
+			for (int i = 0; i < 100; i++) {
 				HttpRequest* request = new HttpRequest(&client);
 				request->setTag(i);
 				request->setUrl(hosts[0]);
@@ -35,7 +35,7 @@ int main_http_client(int argc, char** argv)
 					LOGFMTD("tag: %d, %s", reponse->getTag(), data.c_str());
 				});
 				client.add(request);
-				lw_sleep(10);
+/*				lw_sleep(10);*/
 			}
 		}
 		

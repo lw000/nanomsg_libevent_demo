@@ -74,12 +74,8 @@ int main_platform_server(int argc, char** argv)
 
 	lw_int32 port = 19801;
 
-	SocketServer serv;
-	
-	PlatformServerHandler *servHandler = new PlatformServerHandler();
-	serv.listenHandler = SOCKET_LISTENER_SELECTOR_2(PlatformServerHandler::onSocketListener, servHandler);
-
-	servHandler->loadConfig();
+	PlatformServerHandler serv;
+	serv.loadConfig();
 
 	if (serv.create(new SocketConfig("0.0.0.0", port)))
 	{

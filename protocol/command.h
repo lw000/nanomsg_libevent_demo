@@ -22,8 +22,11 @@ namespace LW
 		/*
 			平台框架消息
 		*/
-		p_frame_cs_join_room = cmd_base + 300,
-		p_frame_cs_leave_room = cmd_base + 301,
+		p_frame_join_room_request = cmd_base + 202,
+		p_frame_join_room_reply = cmd_base + 1202,
+
+		p_frame_leave_room_request = cmd_base + 203,
+		p_frame_leave_room_reply = cmd_base + 1203,
 	};
 
 	enum NET_GAME_MSG_CMD

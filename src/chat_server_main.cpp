@@ -32,10 +32,8 @@ int main_chat_server(int argc, char** argv)
 {
 	lw_int32 port = 19802;
 
-	SocketServer serv;
-
-	ChatServerHandler *servHandler = new ChatServerHandler();
-	serv.listenHandler = SOCKET_LISTENER_SELECTOR_2(ChatServerHandler::onSocketListener, servHandler);
+	ChatServerHandler serv;
+	
 	if (serv.create(new SocketConfig("0.0.0.0", port)))
 	{
 		serv.serv([port](int what)

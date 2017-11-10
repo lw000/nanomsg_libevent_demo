@@ -7,14 +7,15 @@
 #include "common_type.h"
 #include "common_struct.h"
 #include "socket_client.h"
-#include "GameHandler.h"
+#include "GameDeskHandler.h"
 #include "UserServer.h"
 #include "lock.h"
+#include "socket_server.h"
 
 class SocketProcessor;
 class SocketSession;
 
-class ChatServerHandler
+class ChatServerHandler : public SocketServer
 {
 private:
 	UserServer _users;
@@ -31,14 +32,12 @@ public:
 
 public:
 	SocketSession* onSocketListener(SocketProcessor* processor, evutil_socket_t fd);
+	void onSocketListenerError(void * userdata, int er);
 
 public:
-	void onSocketConnected(SocketSession* session);
 	void onSocketDisConnect(SocketSession* session);
 	void onSocketTimeout(SocketSession* session);
 	void onSocketError(SocketSession* session);
-
-public:
 	int onSocketParse(SocketSession* session, lw_int32 cmd, lw_char8* buf, lw_int32 bufsize);
 };
 

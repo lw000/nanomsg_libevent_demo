@@ -4,7 +4,7 @@
 #include "socket_server.h"
 #include "session_manager.h"
 
-class CenterServerHandler
+class CenterServerHandler : public SocketServer
 {
 public:
 	SessionManager Sessions;
@@ -15,6 +15,7 @@ public:
 
 public:
 	SocketSession* onSocketListener(SocketProcessor* processor, evutil_socket_t fd);
+	void onSocketListenerError(void * userdata, int er);
 
 public:
 	void onSocketDisConnect(SocketSession* session);

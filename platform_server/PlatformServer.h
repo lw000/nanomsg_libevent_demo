@@ -3,16 +3,16 @@
 
 #include "socket_server.h"
 #include "UserServer.h"
-#include "RoomServer.h"
+#include "RoomServerMgr.h"
 #include "lock.h"
 
-class PlatformServerHandler
+class PlatformServerHandler : public SocketServer
 {
 private:
 	UserServer _userserver;
 
 public:
-	RoomServer _roomserver;
+	RoomServerMgr _roomserver;
 
 public:
 	int _base_client_id;
@@ -27,6 +27,7 @@ public:
 
 public:
 	SocketSession* onSocketListener(SocketProcessor* processor, evutil_socket_t fd);
+	void onSocketListenerError(void * userdata, int er);
 
 public:
 	void onSocketDisConnect(SocketSession* session);

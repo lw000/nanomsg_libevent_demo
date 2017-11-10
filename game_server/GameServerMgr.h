@@ -6,24 +6,22 @@
 
 #include "common_type.h"
 #include "common_struct.h"
-#include "socket_client.h"
-#include "GameHandler.h"
+#include "socket_server.h"
 
 class SocketProcessor;
 class SocketSession;
-class SocketClient;
+class AbstractGameServerHandler;
 
-class GameServer
+class GameServerMgr
 {
-private:
-	AbstractGameServerHandler* _gameHandler;
+	std::vector<AbstractGameServerHandler*> _games;
 
 public:
-	GameServer(AbstractGameServerHandler* handler);
-	virtual ~GameServer();
+	GameServerMgr();
+	virtual ~GameServerMgr();
 
 public:
-	bool create();
+	bool create(const RoomInfo& r);
 	void destroy();
 
 public:
@@ -44,6 +42,7 @@ protected:
 protected:
 	int frameMessage(int cmd, void* data, int datasize);
 	int onGameMessage(int cmd, void* data, int datasize);
+
 };
 
 #endif	//__GameServer_H__

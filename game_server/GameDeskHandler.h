@@ -7,6 +7,8 @@
 #include "common_type.h"
 #include "common_struct.h"
 
+class UserSession;
+
 class AbstractGameServerHandler
 {
 public:
@@ -22,14 +24,14 @@ public:
 	virtual int onGameMessage(int cmd, void* data, int datasize) = 0;
 };
 
-class GameHandler : public AbstractGameServerHandler
+class GameDeskHandler : public AbstractGameServerHandler
 {
-	std::vector<UserInfo> users;
+	std::vector<UserSession*> users;
 	DeskInfo _desk_info;
 
 public:
-	GameHandler(const DeskInfo& info);
-	virtual ~GameHandler();
+	GameDeskHandler(const DeskInfo& info);
+	virtual ~GameDeskHandler();
 
 public:
 	virtual void onGameStartReponse(void* data, int datasize) override;

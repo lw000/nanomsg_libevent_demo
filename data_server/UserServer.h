@@ -16,30 +16,27 @@ public:
 	virtual ~AbstractUserManager() {}
 
 public:
-	virtual int add(UserSession* session) = 0;
+	virtual int onAdd(UserSession* session) = 0;
 
 public:
-	virtual void remove(int uid) = 0;
-	virtual void remove(const UserInfo* user) = 0;
-	virtual void remove(const UserSession* session) = 0;
+	virtual void onRemove(int uid) = 0;
+	virtual void onRemove(const UserInfo* user) = 0;
+	virtual void onRemove(const UserSession* session) = 0;
 
 public:
-	virtual const UserSession* find(int uid) = 0;
-	virtual const UserSession* find(const UserInfo* user) = 0;
-	virtual const UserSession* find(const UserSession* session) = 0;
-
-public:
-	virtual void modify(UserInfo* user) = 0;
-
+	virtual void onUpdate(UserInfo* user) = 0;
 };
 
-class UserServer : public AbstractUserManager
+class UserServer
 {
-	typedef std::list<UserSession*> LIST_USER;
-	typedef LIST_USER::iterator iterator;
-	typedef LIST_USER::const_iterator const_iterator;
-	typedef LIST_USER::reverse_iterator reverse_iterator;
-	typedef LIST_USER::const_reverse_iterator const_reverse_iterator;
+	typedef std::list<UserSession*> OPT_USER;
+	typedef OPT_USER::iterator iterator;
+	typedef OPT_USER::const_iterator const_iterator;
+	typedef OPT_USER::reverse_iterator reverse_iterator;
+	typedef OPT_USER::const_reverse_iterator const_reverse_iterator;
+
+public:
+	std::vector<AbstractUserManager*> _ob;
 
 public:
 	UserServer();
@@ -49,20 +46,20 @@ public:
 	UserSession* operator[](int i);
 
 public:
-	virtual int add(UserSession* session) override;
+	int add(UserSession* session);
 
 public:
-	virtual void remove(const UserSession* session) override;
-	virtual void remove(int uid) override;
-	virtual void remove(const UserInfo* user) override;
+	void remove(const UserSession* session);
+	void remove(int uid);
+	void remove(const UserInfo* user);
 
 public:
-	virtual const UserSession* find(int uid) override;
-	virtual const UserSession* find(const UserInfo* user) override;
-	virtual const UserSession* find(const UserSession* session) override;
+	const UserSession* find(int uid);
+	const UserSession* find(const UserInfo* user);
+	const UserSession* find(const UserSession* session);
 
 public:
-	virtual void modify(UserInfo* user) override;
+	void modify(UserInfo* user);
 
 public:
 	void removeUserTest();
@@ -71,7 +68,7 @@ public:
 	int size() const;
 
 private:
-	LIST_USER _alive;	//
+	OPT_USER _users;
 	lw_fast_mutex _lock;
 };
 

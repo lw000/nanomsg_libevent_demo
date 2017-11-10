@@ -1,4 +1,4 @@
-#include "GameHandler.h"
+#include "GameDeskHandler.h"
 
 #include <string>
 #include <vector>
@@ -7,47 +7,49 @@
 #include "game.pb.h"
 #include "platform.pb.h"
 
+#include "UserSession.h"
+
 #include "log4z.h"
 
-GameHandler::GameHandler(const DeskInfo& info)
+GameDeskHandler::GameDeskHandler(const DeskInfo& info)
 {
 	this->_desk_info = info;
 }
 
-GameHandler::~GameHandler()
+GameDeskHandler::~GameDeskHandler()
 {
 
 }
 
-void GameHandler::onGameStartReponse(void* data, int datasize)
+void GameDeskHandler::onGameStartReponse(void* data, int datasize)
 {
 	platform::msg_game_start_reponse gstart;
 	gstart.ParseFromArray(data, datasize);
 	LOGFMTD("game_msg_start_reponse: state: %d\n", gstart.state());
 }
 
-void GameHandler::onGameEndReponse(void* data, int datasize)
+void GameDeskHandler::onGameEndReponse(void* data, int datasize)
 {
 	platform::msg_game_end_reponse gend;
 	gend.ParseFromArray(data, datasize);
 	LOGFMTD("game_msg_end_reponse: state: %d\n", gend.state());
 }
 
-void GameHandler::onGameUserSitupReponse(void* data, int datasize)
+void GameDeskHandler::onGameUserSitupReponse(void* data, int datasize)
 {
 	platform::msg_situp_reponse situp;
 	situp.ParseFromArray(data, datasize);
 	LOGFMTD("game_msg_situp_reponse uid: %d seat:%d lookup:%d\n", situp.uid(), situp.seat(), situp.lookup());
 }
 
-void GameHandler::onGameUserSitdownReponse(void* data, int datasize)
+void GameDeskHandler::onGameUserSitdownReponse(void* data, int datasize)
 {
 	platform::msg_sitdown_reponse sitdown;
 	sitdown.ParseFromArray(data, datasize);
 	LOGFMTD("game_msg_sitdown_reponse uid: %d seat:%d lookup: %d\n", sitdown.uid(), sitdown.seat(), sitdown.lookup());
 }
 
-int GameHandler::onGameMessage(int cmd, void* data, int datasize)
+int GameDeskHandler::onGameMessage(int cmd, void* data, int datasize)
 {
 	switch (cmd)
 	{

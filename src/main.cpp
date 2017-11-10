@@ -13,22 +13,17 @@
 
 #include <time.h>
 
-#ifdef __cplusplus 
-extern "C" {
-#endif
-#include "queue.h"
-#ifdef __cplusplus
-}
-#endif
-
 #include "socket_processor.h"
 
 #include "net.h"
 #include "log4z.h"
 #include "utils.h"
 #include "Threadable.h"
+#include "cache_queue.h"
 
 using namespace zsummer::log4z;
+
+#define TEST_CACHE_BUF_SIZE 512
 
 struct ss {
 	int x;
@@ -62,8 +57,6 @@ int main(int argc, char** argv) {
 		{ "http_client", main_http_client },
 	};
 
-	
-
 	SocketInit sinit;
 
 	ILog4zManager::getInstance()->start();
@@ -74,18 +67,16 @@ int main(int argc, char** argv) {
 
 	ThreadableC11 t;
 	t.start([](){
-		queue_t * __g_queue = queue_init(1024);
-
-		for (int i = 0; i < 100; i++) {
-			queue_add(__g_queue, new ss(i, i + 1));
-		}
-
-		for (int i = 0; i < 1024; i++) {
-			ss* p = (ss*)queue_remove(__g_queue);
-			delete p;
-		}
-
-		queue_dispose(__g_queue);
+		NewCacheQueue q(64*1024);
+		std::string s("1234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM");
+		q.push(s.c_str(), s.size());
+		char*c = q.front();
+		char buf[TEST_CACHE_BUF_SIZE + 1];
+		buf[TEST_CACHE_BUF_SIZE] = '\0';
+		q.copyto(buf, TEST_CACHE_BUF_SIZE);
+		q.pop();
+		q.pop(5);
+		q.clear();
 	});
 
 	srand(time(NULL));

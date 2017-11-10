@@ -84,9 +84,6 @@
     <ClCompile Include="..\chat\chat_server.cpp">
       <Filter>chat</Filter>
     </ClCompile>
-    <ClCompile Include="..\game_server\GameServer.cpp">
-      <Filter>game_server</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\timer_server_main.cpp">
       <Filter>src</Filter>
     </ClCompile>
@@ -95,12 +92,6 @@
     </ClCompile>
     <ClCompile Include="..\src\http_client_main.cpp">
       <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\game_server\GameHandler.cpp">
-      <Filter>game_server</Filter>
-    </ClCompile>
-    <ClCompile Include="..\platform_server\RoomServer.cpp">
-      <Filter>platform_server</Filter>
     </ClCompile>
     <ClCompile Include="..\data_server\UserServer.cpp">
       <Filter>data_server</Filter>
@@ -113,6 +104,15 @@
     </ClCompile>
     <ClCompile Include="..\game_client\GameClientHandler.cpp">
       <Filter>game_client</Filter>
+    </ClCompile>
+    <ClCompile Include="..\game_server\GameServerMgr.cpp">
+      <Filter>game_server</Filter>
+    </ClCompile>
+    <ClCompile Include="..\game_server\GameDeskHandler.cpp">
+      <Filter>game_server</Filter>
+    </ClCompile>
+    <ClCompile Include="..\platform_server\RoomServerMgr.cpp">
+      <Filter>platform_server</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -152,17 +152,8 @@
     <ClInclude Include="..\data_server\common_struct.h">
       <Filter>data_server</Filter>
     </ClInclude>
-    <ClInclude Include="..\game_server\GameServer.h">
-      <Filter>game_server</Filter>
-    </ClInclude>
     <ClInclude Include="..\data_server\UserSession.h">
       <Filter>data_server</Filter>
-    </ClInclude>
-    <ClInclude Include="..\game_server\GameHandler.h">
-      <Filter>game_server</Filter>
-    </ClInclude>
-    <ClInclude Include="..\platform_server\RoomServer.h">
-      <Filter>platform_server</Filter>
     </ClInclude>
     <ClInclude Include="..\data_server\UserServer.h">
       <Filter>data_server</Filter>
@@ -172,6 +163,15 @@
     </ClInclude>
     <ClInclude Include="..\game_client\GameClientHandler.h">
       <Filter>game_client</Filter>
+    </ClInclude>
+    <ClInclude Include="..\game_server\GameServerMgr.h">
+      <Filter>game_server</Filter>
+    </ClInclude>
+    <ClInclude Include="..\game_server\GameDeskHandler.h">
+      <Filter>game_server</Filter>
+    </ClInclude>
+    <ClInclude Include="..\platform_server\RoomServerMgr.h">
+      <Filter>platform_server</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

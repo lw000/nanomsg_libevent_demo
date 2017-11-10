@@ -22,6 +22,9 @@ using namespace LW;
 ChatServerHandler::ChatServerHandler()
 {
 	this->_client_id = 0;
+
+	this->listenHandler = SOCKET_LISTENER_SELECTOR_2(ChatServerHandler::onSocketListener, this);
+	this->listenErrorHandler = SOCKET_LISTENER_SELECTOR_2(ChatServerHandler::onSocketListenerError, this);
 }
 
 ChatServerHandler::~ChatServerHandler()
@@ -51,7 +54,7 @@ SocketSession* ChatServerHandler::onSocketListener(SocketProcessor* processor, e
 		int new_client_id = 0;
 
 		{
-			lw_fast_lock_guard l(&_lock);
+			lw_fast_lock_guard l(_lock);
 			new_client_id = _client_id++;
 		}
 
@@ -78,6 +81,11 @@ SocketSession* ChatServerHandler::onSocketListener(SocketProcessor* processor, e
 	}
 
 	return pSession;
+}
+
+void ChatServerHandler::onSocketListenerError(void * userdata, int er) {
+	LOGFMTD("got an error %d (%s) on the listener. shutting down.\n", er, evutil_socket_error_to_string(er));
+	this->close();
 }
 
 void ChatServerHandler::onSocketDisConnect(SocketSession* session)

@@ -42,7 +42,9 @@ bool GameClient::create(SocketConfig* conf)
 			break;
 		}
 
-		_cli->setAutoHeartBeat(5000);
+		_cli->startAutoPing(5000);
+
+		_cli->start();
 
 		ret = true;
 

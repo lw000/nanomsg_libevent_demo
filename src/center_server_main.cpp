@@ -19,17 +19,7 @@
 int main_center_server(int argc, char** argv) {
 	lw_int32 port = 19800;
 
-	SocketServer serv;
-
-	CenterServerHandler *servHandler = new CenterServerHandler();
-	serv.listenHandler = SOCKET_LISTENER_SELECTOR_2(CenterServerHandler::onSocketListener, servHandler);
-
-// 	serv.disConnectHandler = SOCKET_EVENT_SELECTOR(CenterServerHandler::onSocketDisConnect, servHandler);
-// 	serv.timeoutHandler = SOCKET_EVENT_SELECTOR(CenterServerHandler::onSocketTimeout, servHandler);
-// 	serv.errorHandler = SOCKET_EVENT_SELECTOR(CenterServerHandler::onSocketError, servHandler);
-// 
-// 	serv.parseHandler = SOCKET_PARSE_SELECTOR_4(CenterServerHandler::onSocketParse, servHandler);
-
+	CenterServerHandler serv;
 	if (serv.create(new SocketConfig("0.0.0.0", port))) {
 		serv.serv([port](lw_int32 what) {
 			LOGFMTD("center server running. [port:%d]", port);

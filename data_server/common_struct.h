@@ -70,8 +70,7 @@ public:
 		state = -1;		// 桌子状态
 		max_usercount = -1;	// 最大用户个数
 	}
-
-} ;
+};
 
 class RoomInfo
 {
@@ -81,6 +80,7 @@ public:
 	int deskcount;	// 桌子个数
 	int usercount;	// 用户个数
 	int max_usercount;	// 最大用户个数
+	int game_type;		// 游戏类型
 	std::string name;	// 桌子名称
 	std::string ext;	// 房间扩展信息
 
@@ -93,6 +93,7 @@ public:
 
 		usercount = -1;	// 用户个数
 		max_usercount = -1;	// 最大用户个数
+		game_type = -1;	// 游戏类型
 	}
 };
 

@@ -14,7 +14,8 @@ using namespace LW;
 
 CenterServerHandler::CenterServerHandler()
 {
-
+	this->listenHandler = SOCKET_LISTENER_SELECTOR_2(CenterServerHandler::onSocketListener, this);
+	this->listenErrorHandler = SOCKET_LISTENER_SELECTOR_2(CenterServerHandler::onSocketListenerError, this);
 }
 
 CenterServerHandler::~CenterServerHandler()
@@ -38,13 +39,15 @@ SocketSession* CenterServerHandler::onSocketListener(SocketProcessor* processor,
 		msg.set_time(time(NULL));
 		int len = msg.ByteSize();
 		{
-			char *s = new char[len];
-			bool ret = msg.SerializeToArray(s, len);
+			//char *s = new char[len];
+			//bool ret = msg.SerializeToArray(s, len);
+			std::string s;
+			bool ret = msg.SerializeToString(&s);
 			if (ret)
 			{
-				pSession->sendData(cmd_connected, s, len);
+				pSession->sendData(cmd_connected, (void*)s.c_str(), s.size());
 			}
-			delete[] s;
+			//delete[] s;
 		}
 	}
 	else
@@ -54,6 +57,11 @@ SocketSession* CenterServerHandler::onSocketListener(SocketProcessor* processor,
 	}
 
 	return pSession;
+}
+
+void CenterServerHandler::onSocketListenerError(void * userdata, int er) {
+	LOGFMTD("got an error %d (%s) on the listener. shutting down.\n", er, evutil_socket_error_to_string(er));
+	this->close();
 }
 
 void CenterServerHandler::onSocketDisConnect(SocketSession* session)

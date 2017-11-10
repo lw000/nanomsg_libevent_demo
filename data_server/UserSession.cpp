@@ -1,10 +1,8 @@
 #include "UserSession.h"
-
 #include "socket_processor.h"
 #include "socket_config.h"
 
 #include "log4z.h"
-
 
 UserSession::UserSession()
 {
@@ -13,6 +11,7 @@ UserSession::UserSession()
 
 void UserSession::reset()
 {
+
 }
 
 UserSession::~UserSession() {

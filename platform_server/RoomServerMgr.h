@@ -3,40 +3,36 @@
 
 #include <string>
 #include <vector>
+#include <unordered_map>
 
 #include "common_struct.h"
 
 #include "common_type.h"
 #include "common_struct.h"
-#include "GameHandler.h"
+#include "GameDeskHandler.h"
 #include "UserServer.h"
 #include "lock.h"
 
-class GameServer;
+class GameServerMgr;
 
-class RoomServer
+class RoomServerMgr
 {
+	std::vector<RoomInfo> rooms;
+
 private:
 	UserServer _userserver;
 
 public:
-	RoomServer();
-	virtual ~RoomServer();
+	RoomServerMgr();
+	virtual ~RoomServerMgr();
 
 public:
-	bool create(const RoomInfo& info);
+	bool create(const std::vector<RoomInfo>& infos);
 	void destroy();
-
-public:
-	void addGameHandler(GameServer* desk);
-	void removeGameHandler(GameServer* desk);
-
-private:
-	RoomInfo _room_info;
 
 private:
 	lw_fast_mutex _lock;
-	std::vector<GameServer*> iGames;
+	std::unordered_map<int, GameServerMgr*> _game_mgr;
 };
 
 #endif

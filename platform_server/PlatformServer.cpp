@@ -19,6 +19,8 @@ using namespace LW;
 
 PlatformServerHandler::PlatformServerHandler()
 {
+	this->listenHandler = SOCKET_LISTENER_SELECTOR_2(PlatformServerHandler::onSocketListener, this);
+	this->listenErrorHandler = SOCKET_LISTENER_SELECTOR_2(PlatformServerHandler::onSocketListenerError, this);
 }
 
 PlatformServerHandler::~PlatformServerHandler()
@@ -27,12 +29,16 @@ PlatformServerHandler::~PlatformServerHandler()
 }
 
 void PlatformServerHandler::loadConfig() {
-	RoomInfo room_info;
-	room_info.rid = 0;	// 房间编号
-	room_info.deskcount = 1;// 桌子个数
-	room_info.max_usercount = 10000;// 最大用户个数
-	room_info.name = std::string("测试01房");	// 房间名称
-	this->_roomserver.create(room_info);
+	std::vector<RoomInfo> rooms;
+	for (int i = 0; i < 1; i++) {
+		RoomInfo room_info;
+		room_info.rid = 0;	// 房间编号
+		room_info.deskcount = 1;// 桌子个数
+		room_info.max_usercount = 10000;// 最大用户个数
+		room_info.name = std::string("测试01房");	// 房间名称
+		rooms.push_back(room_info);
+	}
+	this->_roomserver.create(rooms);
 }
 
 SocketSession* PlatformServerHandler::onSocketListener(SocketProcessor* processor, evutil_socket_t fd)
@@ -49,7 +55,7 @@ SocketSession* PlatformServerHandler::onSocketListener(SocketProcessor* processo
 		{
 			int new_client_id = 0;
 			{
-				lw_fast_lock_guard l(&_lock);
+				lw_fast_lock_guard l(_lock);
 				new_client_id = this->_base_client_id++;
 			}
 
@@ -60,13 +66,12 @@ SocketSession* PlatformServerHandler::onSocketListener(SocketProcessor* processo
 			msg.set_time(time(NULL));
 			int len = msg.ByteSize();
 			{
-				char *s = new char[len];
-				bool ret = msg.SerializeToArray(s, len);
+				std::string s;
+				bool ret = msg.SerializeToString(&s);
 				if (ret)
 				{
-					pSession->sendData(cmd_connected, s, len);
+					pSession->sendData(cmd_connected, (void*)s.c_str(), s.size());
 				}
-				delete[] s;
 			}
 		}
 		else
@@ -77,6 +82,11 @@ SocketSession* PlatformServerHandler::onSocketListener(SocketProcessor* processo
 	}
 	
 	return pSession;
+}
+
+void PlatformServerHandler::onSocketListenerError(void * userdata, int er) {
+	LOGFMTD("got an error %d (%s) on the listener. shutting down.\n", er, evutil_socket_error_to_string(er));
+	this->close();
 }
 
 void PlatformServerHandler::onSocketDisConnect(SocketSession* session)
@@ -96,45 +106,24 @@ void PlatformServerHandler::onSocketError(SocketSession* session)
 
 int PlatformServerHandler::onSocketParse(SocketSession* session, lw_int32 cmd, lw_char8* buf, lw_int32 bufsize)
 {
+	UserSession* pUserSession = (UserSession*)session;
+
 	switch (cmd)
 	{
-	case cmd_connected:
-	{
-	} break;
-	case cmd_heart_beat:
-	{
-		platform::msg_heartbeat msg;
-		lw_llong64 t = time(NULL);
-		msg.set_time(t);
-		int c = msg.ByteSize();
-		{
-			std::unique_ptr<char[]> s(new char[c + 1]);
-			bool ret = msg.SerializeToArray(s.get(), c);
-			if (ret)
-			{
-				session->sendData(cmd_heart_beat, s.get(), c);
-			}
-		}
+	case p_cs_login_request: {
 
 		break;
 	}
-	case cs_chat_request:
-	{
-		chat::msg_chat_request recv_msg;
-		bool r = recv_msg.ParseFromArray(buf, bufsize);
-		if (r) {
-			chat::msg_chat_reply msg_reply;
-			msg_reply.set_from_uid(recv_msg.from_uid());
-			msg_reply.set_to_uid(recv_msg.to_uid());
-			msg_reply.set_msg(recv_msg.msg());
-			int c = msg_reply.ByteSizeLong();
-			std::unique_ptr<char[]> s(new char[c]());
-			bool ret = msg_reply.SerializeToArray(s.get(), c);
-			if (ret)
-			{
-				session->sendData(sc_chat_reply, s.get(), c);
-			}
-		}	
+	case p_cs_logout_request: {
+		
+		break;
+	}
+	case p_frame_join_room_request: {
+
+		break;
+	}
+	case p_frame_leave_room_request: {
+
 		break;
 	}
 	default: {

@@ -62,7 +62,7 @@ public:
 				this->_session->onDataParseHandler = SOCKET_DATAPARSE_SELECTOR_4(GameAIHandler::onSocketParse, this);
 				int c = this->_session->create(SESSION_TYPE::client, this->_aimgr->_processor, new SocketConfig("127.0.0.1", 19801));
 				if (c == 0) {
-					//_session->setAutoHeartBeat(5000);
+					_session->startAutoPing(5000);
 					return true;
 				}
 				else {
@@ -166,14 +166,14 @@ GameAI::~GameAI() {
 
 void GameAI::addClient(GameAIHandler* cli) {
 	{
-		lw_fast_lock_guard l(&_cli_lock);
+		lw_fast_lock_guard l(_cli_lock);
 		this->_clis.push_back(cli);
 	}
 }
 
 void GameAI::removeClient(GameAIHandler* cli) {
 	{
-		lw_fast_lock_guard l(&_cli_lock);
+		lw_fast_lock_guard l(_cli_lock);
 		std::vector<GameAIHandler*>::iterator iter = this->_clis.end();
 		iter = std::find_if(this->_clis.begin(), this->_clis.end(), [cli](GameAIHandler* c) -> bool {
 			return (c == cli);
@@ -235,14 +235,14 @@ void GameAIMgr::removeTimer(int tid) {
 
 void GameAIMgr::addClient(GameAIHandler* cli) {
 	{
-		lw_fast_lock_guard l(&_cliAiLock);
+		lw_fast_lock_guard l(_cliAiLock);
 		this->_cliAis.push_back(cli);
 	}
 }
 
 void GameAIMgr::removeClient(GameAIHandler* cli) {
 	{
-		lw_fast_lock_guard l(&_cliAiLock);
+		lw_fast_lock_guard l(_cliAiLock);
 		std::vector<GameAIHandler*>::iterator iter = this->_cliAis.end();
 		iter = std::find_if(this->_cliAis.begin(), this->_cliAis.end(), [cli](GameAIHandler* c) -> bool {
 			return (c == cli);
