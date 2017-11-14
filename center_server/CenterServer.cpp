@@ -15,7 +15,7 @@ using namespace LW;
 CenterServerHandler::CenterServerHandler()
 {
 	this->listenHandler = SOCKET_LISTENER_SELECTOR_2(CenterServerHandler::onSocketListener, this);
-	this->listenErrorHandler = SOCKET_LISTENER_SELECTOR_2(CenterServerHandler::onSocketListenerError, this);
+	this->listenErrorHandler = SOCKET_LISTENER_ERROR_SELECTOR_2(CenterServerHandler::onSocketListenerError, this);
 }
 
 CenterServerHandler::~CenterServerHandler()

@@ -24,7 +24,7 @@ ChatServerHandler::ChatServerHandler()
 	this->_client_id = 0;
 
 	this->listenHandler = SOCKET_LISTENER_SELECTOR_2(ChatServerHandler::onSocketListener, this);
-	this->listenErrorHandler = SOCKET_LISTENER_SELECTOR_2(ChatServerHandler::onSocketListenerError, this);
+	this->listenErrorHandler = SOCKET_LISTENER_ERROR_SELECTOR_2(ChatServerHandler::onSocketListenerError, this);
 }
 
 ChatServerHandler::~ChatServerHandler()
@@ -39,6 +39,7 @@ bool ChatServerHandler::create(SocketConfig* conf)
 
 void ChatServerHandler::destroy()
 {
+
 }
 
 SocketSession* ChatServerHandler::onSocketListener(SocketProcessor* processor, evutil_socket_t fd) {

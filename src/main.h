@@ -10,13 +10,7 @@
 
 #include <string>
 
-typedef int(*ENTER_FUN)(int, char**);
-
-typedef struct tagSTART_ENTER_METHOD
-{
-	std::string name;
-	ENTER_FUN call;
-} START_ENTER_METHOD;
+typedef int(*MAIN_FUNC)(int, char**);
 
 int main_center_server(int argc, char** argv);
 int main_platform_server(int argc, char** argv);

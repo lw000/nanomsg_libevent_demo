@@ -14,9 +14,11 @@
 #include "lock.h"
 
 class GameServerMgr;
+class UserSession;
 
 class RoomServerMgr
 {
+private:
 	std::vector<RoomInfo> rooms;
 
 private:
@@ -30,9 +32,13 @@ public:
 	bool create(const std::vector<RoomInfo>& infos);
 	void destroy();
 
+public:
+	void join(UserSession* pSession);
+	void leave(UserSession* pSession);
+
 private:
 	lw_fast_mutex _lock;
-	std::unordered_map<int, GameServerMgr*> _game_mgr;
+	std::unordered_map<int, GameServerMgr*> _games;
 };
 
 #endif

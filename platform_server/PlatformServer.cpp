@@ -20,7 +20,7 @@ using namespace LW;
 PlatformServerHandler::PlatformServerHandler()
 {
 	this->listenHandler = SOCKET_LISTENER_SELECTOR_2(PlatformServerHandler::onSocketListener, this);
-	this->listenErrorHandler = SOCKET_LISTENER_SELECTOR_2(PlatformServerHandler::onSocketListenerError, this);
+	this->listenErrorHandler = SOCKET_LISTENER_ERROR_SELECTOR_2(PlatformServerHandler::onSocketListenerError, this);
 }
 
 PlatformServerHandler::~PlatformServerHandler()
@@ -32,10 +32,10 @@ void PlatformServerHandler::loadConfig() {
 	std::vector<RoomInfo> rooms;
 	for (int i = 0; i < 1; i++) {
 		RoomInfo room_info;
-		room_info.rid = 0;	// ·¿¼ä±àºÅ
-		room_info.deskcount = 1;// ×À×Ó¸öÊý
-		room_info.max_usercount = 10000;// ×î´óÓÃ»§¸öÊý
-		room_info.name = std::string("²âÊÔ01·¿");	// ·¿¼äÃû³Æ
+		room_info.rid = 0;	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		room_info.deskcount = 1;// ï¿½ï¿½ï¿½Ó¸ï¿½ï¿½ï¿½
+		room_info.max_usercount = 10000;// ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½
+		room_info.name = std::string("ï¿½ï¿½ï¿½ï¿½01ï¿½ï¿½");	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		rooms.push_back(room_info);
 	}
 	this->_roomserver.create(rooms);
@@ -60,7 +60,8 @@ SocketSession* PlatformServerHandler::onSocketListener(SocketProcessor* processo
 			}
 
 			pSession->userinfo.uid = new_client_id;
-			this->_userserver.add(pSession);
+
+			this->_roomserver.join(pSession);
 
 			platform::msg_connected msg;
 			msg.set_time(time(NULL));
@@ -91,17 +92,17 @@ void PlatformServerHandler::onSocketListenerError(void * userdata, int er) {
 
 void PlatformServerHandler::onSocketDisConnect(SocketSession* session)
 {
-	this->_userserver.remove((UserSession*)session);
+	this->_roomserver.leave((UserSession*)session);
 }
 
 void PlatformServerHandler::onSocketTimeout(SocketSession* session)
 {
-	this->_userserver.remove((UserSession*)session);
+	this->_roomserver.leave((UserSession*)session);
 }
 
 void PlatformServerHandler::onSocketError(SocketSession* session)
 {
-	this->_userserver.remove((UserSession*)session);
+	this->_roomserver.leave((UserSession*)session);
 }
 
 int PlatformServerHandler::onSocketParse(SocketSession* session, lw_int32 cmd, lw_char8* buf, lw_int32 bufsize)
@@ -118,11 +119,11 @@ int PlatformServerHandler::onSocketParse(SocketSession* session, lw_int32 cmd, l
 		
 		break;
 	}
-	case p_frame_join_room_request: {
+	case p_cs_frame_join_room_request: {
 
 		break;
 	}
-	case p_frame_leave_room_request: {
+	case p_cs_frame_leave_room_request: {
 
 		break;
 	}

@@ -5,7 +5,7 @@
 			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="cdt.managedbuild.config.gnu.exe.debug.915303626" moduleId="org.eclipse.cdt.core.settings" name="Debug">
 				<externalSettings/>
 				<extensions>
-					<extension id="org.eclipse.cdt.core.ELF" point="org.eclipse.cdt.core.BinaryParser"/>
+					<extension id="org.eclipse.cdt.core.GNU_ELF" point="org.eclipse.cdt.core.BinaryParser"/>
 					<extension id="org.eclipse.cdt.core.GASErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
 					<extension id="org.eclipse.cdt.core.GmakeErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
 					<extension id="org.eclipse.cdt.core.GLDErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
@@ -64,13 +64,13 @@
 							<tool id="cdt.managedbuild.tool.gnu.c.linker.exe.debug.1321714201" name="GCC C Linker" superClass="cdt.managedbuild.tool.gnu.c.linker.exe.debug"/>
 							<tool id="cdt.managedbuild.tool.gnu.cpp.linker.exe.debug.1704468558" name="GCC C++ Linker" superClass="cdt.managedbuild.tool.gnu.cpp.linker.exe.debug">
 								<option id="gnu.cpp.link.option.userobjs.1886072678" name="Other objects" superClass="gnu.cpp.link.option.userobjs" useByScannerDiscovery="false" valueType="userObjs">
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/lw_common/Debug/liblw_common.a}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/libnanorpc/Debug/liblibnanorpc.a}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/libcityhash/Debug/liblibcityhash.a}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/lw_common/Debug/liblw_common.a}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/lw_net/Debug/liblw_net.a}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/lw_core/Debug/liblw_core.a}&quot;"/>
-									<listOptionValue builtIn="false" value="/usr/lib64/libuuid.so"/>
 									<listOptionValue builtIn="false" value="/usr/local/lib/libprotobuf.a"/>
+									<listOptionValue builtIn="false" value="/usr/lib64/libuuid.so"/>
 									<listOptionValue builtIn="false" value="/usr/local/lib/libevent_pthreads.a"/>
 									<listOptionValue builtIn="false" value="/usr/local/lib64/libnanomsg.so"/>
 									<listOptionValue builtIn="false" value="/usr/local/lib/libevent.a"/>
@@ -121,7 +121,7 @@
 			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="cdt.managedbuild.config.gnu.exe.release.974370891" moduleId="org.eclipse.cdt.core.settings" name="Release">
 				<externalSettings/>
 				<extensions>
-					<extension id="org.eclipse.cdt.core.ELF" point="org.eclipse.cdt.core.BinaryParser"/>
+					<extension id="org.eclipse.cdt.core.GNU_ELF" point="org.eclipse.cdt.core.BinaryParser"/>
 					<extension id="org.eclipse.cdt.core.GASErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
 					<extension id="org.eclipse.cdt.core.GmakeErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
 					<extension id="org.eclipse.cdt.core.GLDErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
@@ -184,9 +184,6 @@
 	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets"/>
 	<storageModule moduleId="scannerConfiguration">
 		<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
-		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.exe.debug.915303626;cdt.managedbuild.config.gnu.exe.debug.915303626.;cdt.managedbuild.tool.gnu.cpp.compiler.exe.debug.391535423;cdt.managedbuild.tool.gnu.cpp.compiler.input.100397341">
-			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
-		</scannerConfigBuildInfo>
 		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.exe.debug.915303626;cdt.managedbuild.config.gnu.exe.debug.915303626.;cdt.managedbuild.tool.gnu.c.compiler.exe.debug.810756007;cdt.managedbuild.tool.gnu.c.compiler.input.1389625625">
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
 		</scannerConfigBuildInfo>
@@ -194,6 +191,9 @@
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
 		</scannerConfigBuildInfo>
 		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.exe.release.974370891;cdt.managedbuild.config.gnu.exe.release.974370891.;cdt.managedbuild.tool.gnu.c.compiler.exe.release.49554953;cdt.managedbuild.tool.gnu.c.compiler.input.1151267538">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.exe.debug.915303626;cdt.managedbuild.config.gnu.exe.debug.915303626.;cdt.managedbuild.tool.gnu.cpp.compiler.exe.debug.391535423;cdt.managedbuild.tool.gnu.cpp.compiler.input.100397341">
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
 		</scannerConfigBuildInfo>
 	</storageModule>

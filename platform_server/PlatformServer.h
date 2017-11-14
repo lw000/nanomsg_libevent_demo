@@ -8,9 +8,6 @@
 
 class PlatformServerHandler : public SocketServer
 {
-private:
-	UserServer _userserver;
-
 public:
 	RoomServerMgr _roomserver;
 
