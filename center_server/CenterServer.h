@@ -16,14 +16,6 @@ public:
 public:
 	SocketSession* onSocketListener(SocketProcessor* processor, evutil_socket_t fd);
 	void onSocketListenerError(void * userdata, int er);
-
-public:
-	void onSocketDisConnect(SocketSession* session);
-	void onSocketTimeout(SocketSession* session);
-	void onSocketError(SocketSession* session);
-
-public:
-	int onSocketParse(SocketSession* session, lw_int32 cmd, lw_char8* buf, lw_int32 bufsize) /*override*/;
 };
 
 #endif	// !__CenterServer_ServerHandler_h__
