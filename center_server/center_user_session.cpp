@@ -56,18 +56,15 @@ int CenterUserSession::onSocketParse(SocketSession* session, lw_int32 cmd, lw_ch
 	{
 		platform::msg_heartbeat msg;
 		msg.set_time(time(NULL));
-		lw_int32 c = (lw_int32)msg.ByteSize();
-		std::unique_ptr<char[]> s(new char[c + 1]);
-		lw_bool ret = msg.SerializeToArray(s.get(), c);
+		std::string buf;
+		lw_bool ret = msg.SerializeToString(&buf);
 		if (ret)
 		{
-			session->sendData(cmd_heart_beat, s.get(), c);
+			session->sendData(cmd_heart_beat, buf.c_str(), buf.size());
 		}
-
 		break;
 	}
 	default: {
-
 		break;
 	}
 	}
