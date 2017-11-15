@@ -36,9 +36,6 @@ class UserServer
 	typedef OPT_USER::const_reverse_iterator const_reverse_iterator;
 
 public:
-	std::vector<AbstractUserManager*> _ob;
-
-public:
 	UserServer();
 	virtual ~UserServer();
 

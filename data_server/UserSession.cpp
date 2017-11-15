@@ -20,7 +20,6 @@ UserSession::~UserSession() {
 
 int UserSession::create(SocketProcessor* processor, SocketConfig* conf, evutil_socket_t fd) {
 	int c = SocketSession::create(SESSION_TYPE::server, processor, conf, fd);
-	
 	return c;
 }
 
