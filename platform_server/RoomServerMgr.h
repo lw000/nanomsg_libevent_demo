@@ -35,6 +35,15 @@ public:
 public:
 	void join(UserSession* pSession);
 	void leave(UserSession* pSession);
+	void find(UserSession* pSession);
+
+public:
+	void onSocketDisConnect(UserSession* session);
+	void onSocketTimeout(UserSession* session);
+	void onSocketError(UserSession* session);
+
+public:
+	int onSocketParse(UserSession* session, lw_int32 cmd, lw_char8* buf, lw_int32 bufsize);
 
 private:
 	lw_fast_mutex _lock;

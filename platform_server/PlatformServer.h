@@ -35,6 +35,4 @@ public:
 	int onSocketParse(SocketSession* session, lw_int32 cmd, lw_char8* buf, lw_int32 bufsize);
 };
 
-
-
 #endif	// !__PlatformServer_ServerHandler_h__

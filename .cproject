@@ -37,6 +37,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/lw_common/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/lw_common/json}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/lw_core/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/mysqlwarpper/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/libnanorpc}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nanomsg_libevent_demo/game_ai}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nanomsg_libevent_demo/data_server}&quot;"/>
@@ -44,6 +45,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nanomsg_libevent_demo/game_server}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nanomsg_libevent_demo/http_client}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nanomsg_libevent_demo/game_client}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nanomsg_libevent_demo/db_server}&quot;"/>
 								</option>
 								<option id="gnu.cpp.compiler.option.preprocessor.def.366959710" name="Defined symbols (-D)" superClass="gnu.cpp.compiler.option.preprocessor.def" useByScannerDiscovery="false"/>
 								<option id="gnu.cpp.compiler.option.dialect.std.575288051" name="Language standard" superClass="gnu.cpp.compiler.option.dialect.std" useByScannerDiscovery="true" value="gnu.cpp.compiler.dialect.default" valueType="enumerated"/>
@@ -62,13 +64,16 @@
 								<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.1389625625" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
 							</tool>
 							<tool id="cdt.managedbuild.tool.gnu.c.linker.exe.debug.1321714201" name="GCC C Linker" superClass="cdt.managedbuild.tool.gnu.c.linker.exe.debug"/>
-							<tool id="cdt.managedbuild.tool.gnu.cpp.linker.exe.debug.1704468558" name="GCC C++ Linker" superClass="cdt.managedbuild.tool.gnu.cpp.linker.exe.debug">
+							<tool command="g++  -std=c++0x -lpthread `mysql_config --cflags --libs`" id="cdt.managedbuild.tool.gnu.cpp.linker.exe.debug.1704468558" name="GCC C++ Linker" superClass="cdt.managedbuild.tool.gnu.cpp.linker.exe.debug">
 								<option id="gnu.cpp.link.option.userobjs.1886072678" name="Other objects" superClass="gnu.cpp.link.option.userobjs" useByScannerDiscovery="false" valueType="userObjs">
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/lw_common/Debug/liblw_common.a}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/mysqlwarpper/Debug/libmysqlwarpper.a}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/libnanorpc/Debug/liblibnanorpc.a}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/libcityhash/Debug/liblibcityhash.a}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/lw_net/Debug/liblw_net.a}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/lw_core/Debug/liblw_core.a}&quot;"/>
+									<listOptionValue builtIn="false" value="/usr/local/lib64/libmysqlcppconn-static.a"/>
+									<listOptionValue builtIn="false" value="/usr/local/mysql/lib/libmysqld.a"/>
 									<listOptionValue builtIn="false" value="/usr/local/lib/libprotobuf.a"/>
 									<listOptionValue builtIn="false" value="/usr/lib64/libuuid.so"/>
 									<listOptionValue builtIn="false" value="/usr/local/lib/libevent_pthreads.a"/>
@@ -102,6 +107,7 @@
 								<listOptionValue builtIn="false" value="&quot;${workspace_loc:/lw_common/include}&quot;"/>
 								<listOptionValue builtIn="false" value="&quot;${workspace_loc:/lw_common/json}&quot;"/>
 								<listOptionValue builtIn="false" value="&quot;${workspace_loc:/lw_core/include}&quot;"/>
+								<listOptionValue builtIn="false" value="&quot;${workspace_loc:/mysqlwarpper/include}&quot;"/>
 								<listOptionValue builtIn="false" value="&quot;${workspace_loc:/libnanorpc}&quot;"/>
 								<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nanomsg_libevent_demo/game_ai}&quot;"/>
 								<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nanomsg_libevent_demo/data_server}&quot;"/>
@@ -109,10 +115,15 @@
 								<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nanomsg_libevent_demo/game_server}&quot;"/>
 								<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nanomsg_libevent_demo/http_client}&quot;"/>
 								<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nanomsg_libevent_demo/game_client}&quot;"/>
+								<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nanomsg_libevent_demo/db_server}&quot;"/>
 							</option>
 							<inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.1002370243" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
 						</tool>
 					</fileInfo>
+					<sourceEntries>
+						<entry excluding="db_server" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="db_server"/>
+					</sourceEntries>
 				</configuration>
 			</storageModule>
 			<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
@@ -163,6 +174,10 @@
 							</tool>
 						</toolChain>
 					</folderInfo>
+					<sourceEntries>
+						<entry excluding="db_server" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="db_server"/>
+					</sourceEntries>
 				</configuration>
 			</storageModule>
 			<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>

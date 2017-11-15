@@ -3,18 +3,22 @@
 #include <algorithm>
 
 #include "socket_config.h"
+#include "socket_session.h"
 #include "common_marco.h"
 #include "GameServerMgr.h"
 
 #include "UserSession.h"
 
-RoomServerMgr::RoomServerMgr()
-{
+#include "command.h"
+#include "platform.pb.h"
+
+using namespace LW;
+
+RoomServerMgr::RoomServerMgr() {
 
 }
 
-RoomServerMgr::~RoomServerMgr()
-{
+RoomServerMgr::~RoomServerMgr() {
 
 }
 
@@ -27,9 +31,10 @@ bool RoomServerMgr::create(const std::vector<RoomInfo>& infos) {
 			auto g = this->_games.find(r.game_type);
 			if (g == this->_games.end()) {
 				pDeskMgr = new GameServerMgr();
-				if (pDeskMgr->create(r))
-				{
-					this->_games.insert(std::pair<int, GameServerMgr*>(r.game_type, pDeskMgr));
+				if (pDeskMgr->create(r)) {
+					this->_games.insert(
+							std::pair<int, GameServerMgr*>(r.game_type,
+									pDeskMgr));
 				}
 			}
 			else {
@@ -41,19 +46,15 @@ bool RoomServerMgr::create(const std::vector<RoomInfo>& infos) {
 	return true;
 }
 
-void RoomServerMgr::destroy()
-{
-	{
-		lw_fast_lock_guard l(_lock);
-		auto iter = this->_games.begin();
-		for (; iter != this->_games.end(); ++iter)
-		{
-			GameServerMgr* pDesk = iter->second;
-			delete pDesk;
-		}
-
-		std::unordered_map<int, GameServerMgr*>().swap(this->_games);
+void RoomServerMgr::destroy() {
+	lw_fast_lock_guard l(_lock);
+	auto iter = this->_games.begin();
+	for (; iter != this->_games.end(); ++iter) {
+		GameServerMgr* pDesk = iter->second;
+		delete pDesk;
 	}
+
+	std::unordered_map<int, GameServerMgr*>().swap(this->_games);
 }
 
 void RoomServerMgr::join(UserSession* pSession) {
@@ -62,4 +63,43 @@ void RoomServerMgr::join(UserSession* pSession) {
 
 void RoomServerMgr::leave(UserSession* pSession) {
 	this->_userserver.remove(pSession);
+}
+
+void RoomServerMgr::onSocketDisConnect(UserSession* session) {
+
+}
+
+void RoomServerMgr::onSocketTimeout(UserSession* session) {
+
+}
+
+void RoomServerMgr::onSocketError(UserSession* session) {
+
+}
+
+int RoomServerMgr::onSocketParse(UserSession* session, lw_int32 cmd,
+		lw_char8* buf, lw_int32 bufsize) {
+	switch (cmd) {
+		case p_cs_login_request: {
+
+			break;
+		}
+		case p_cs_logout_request: {
+
+			break;
+		}
+		case p_cs_frame_join_room_request: {
+
+			break;
+		}
+		case p_cs_frame_leave_room_request: {
+
+			break;
+		}
+		default: {
+			break;
+		}
+	}
+
+	return 0;
 }

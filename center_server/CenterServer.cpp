@@ -3,9 +3,8 @@
 #include "command.h"
 #include "platform.pb.h"
 
-#include "socket_session.h"
-
 #include "log4z.h"
+#include "socket_session.h"
 #include "socket_config.h"
 #include "server_session.h"
 #include "common_marco.h"

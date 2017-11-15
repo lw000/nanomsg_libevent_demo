@@ -83,6 +83,7 @@ int main(int argc, char** argv) {
 				{ "ai", main_ai_server },
 				{ "timer", main_timer_server },
 				{"http_client", main_http_client },
+				{"db", main_db_server },
 		};
 
 	//	methods["center"] = main_center_server;
