@@ -14,21 +14,21 @@
 class SocketProcessor;
 class SocketConfig;
 
-class UserSession : public SocketSession
-{
-public:
-	UserInfo userinfo;
+class UserSession: public SocketSession {
+	public:
+		UserInfo userinfo;
 
-public:
-	UserSession();
-	virtual ~UserSession();
+	public:
+		UserSession();
+		virtual ~UserSession();
 
-public:
-	int create(SocketProcessor* processor, SocketConfig* conf, evutil_socket_t fd);
-	void destroy();
+	public:
+		int create(SocketProcessor* processor, SocketConfig* conf,
+		evutil_socket_t fd);
+		void destroy();
 
-public:
-	void reset();
+	public:
+		void reset();
 };
 
 #endif	// !__UserSession_h__

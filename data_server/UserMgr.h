@@ -10,63 +10,62 @@
 class SocketSession;
 class UserSession;
 
-class AbstractUserManager
-{
-public:
-	virtual ~AbstractUserManager() {}
+class AbstractUserManager {
+	public:
+		virtual ~AbstractUserManager() {
+		}
 
-public:
-	virtual int onAdd(UserSession* session) = 0;
+	public:
+		virtual int onAdd(UserSession* session) = 0;
 
-public:
-	virtual void onRemove(int uid) = 0;
-	virtual void onRemove(const UserInfo* user) = 0;
-	virtual void onRemove(const UserSession* session) = 0;
+	public:
+		virtual void onRemove(int uid) = 0;
+		virtual void onRemove(const UserInfo* user) = 0;
+		virtual void onRemove(const UserSession* session) = 0;
 
-public:
-	virtual void onUpdate(UserInfo* user) = 0;
+	public:
+		virtual void onUpdate(UserInfo* user) = 0;
 };
 
-class UserServer
-{
-	typedef std::list<UserSession*> OPT_USER;
-	typedef OPT_USER::iterator iterator;
-	typedef OPT_USER::const_iterator const_iterator;
-	typedef OPT_USER::reverse_iterator reverse_iterator;
-	typedef OPT_USER::const_reverse_iterator const_reverse_iterator;
+class UserMgr {
+		typedef std::list<UserSession*> OPT_USER;
+		typedef OPT_USER::iterator iterator;
+		typedef OPT_USER::const_iterator const_iterator;
+		typedef OPT_USER::reverse_iterator reverse_iterator;
+		typedef OPT_USER::const_reverse_iterator const_reverse_iterator;
 
-public:
-	UserServer();
-	virtual ~UserServer();
+	public:
+		UserMgr();
+		virtual ~UserMgr();
 
-public:
-	UserSession* operator[](int i);
+	public:
+		UserSession* operator[](int i);
 
-public:
-	int add(UserSession* session);
+	public:
+		int add(UserSession* session);
 
-public:
-	void remove(const UserSession* session);
-	void remove(int uid);
-	void remove(const UserInfo* user);
+	public:
+		void remove(const UserSession* session);
+		void remove(int uid);
+		void remove(const UserInfo* user);
 
-public:
-	const UserSession* find(int uid);
-	const UserSession* find(const UserInfo* user);
-	const UserSession* find(const UserSession* session);
+	public:
+		const UserSession* find(int uid);
+		const UserSession* find(const UserInfo* user);
+		const UserSession* find(const UserSession* session);
 
-public:
-	void modify(UserInfo* user);
+	public:
+		void modify(UserInfo* user);
 
-public:
-	void removeUserTest();
+	public:
+		void removeUserTest();
 
-public:
-	int size() const;
+	public:
+		int size() const;
 
-private:
-	OPT_USER _users;
-	lw_fast_mutex _lock;
+	private:
+		OPT_USER _users;
+		lw_fast_mutex _lock;
 };
 
 //

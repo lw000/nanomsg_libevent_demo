@@ -60,7 +60,7 @@ int CenterUserSession::onSocketParse(SocketSession* session, lw_int32 cmd, lw_ch
 		lw_bool ret = msg.SerializeToString(&buf);
 		if (ret)
 		{
-			session->sendData(cmd_heart_beat, buf.c_str(), buf.size());
+			session->sendData(cmd_heart_beat, (void*)buf.c_str(), buf.size());
 		}
 		break;
 	}

@@ -1,38 +1,32 @@
-#include "UserServer.h"
 #include <algorithm>
 #include <time.h>
+#include <UserMgr.h>
 
 #include "socket_session.h"
 #include "UserSession.h"
 
 #include "log4z.h"
 
-
-UserServer::UserServer()
-{
+UserMgr::UserMgr() {
 }
 
-UserServer::~UserServer()
-{
+UserMgr::~UserMgr() {
 
 }
 
-const UserSession* UserServer::find(int uid)
-{
+const UserSession* UserMgr::find(int uid) {
 	if (uid <= 0) {
 		return nullptr;
 	}
 
-/*	clock_t t = clock();*/
+	/*	clock_t t = clock();*/
 
 	UserSession* pUsession = nullptr;
 	{
 		lw_fast_lock_guard l(_lock);
 		iterator iter = this->_users.begin();
-		for (; iter != this->_users.end(); ++iter)
-		{
-			if (uid == (*iter)->userinfo.uid)
-			{
+		for (; iter != this->_users.end(); ++iter) {
+			if (uid == (*iter)->userinfo.uid) {
 				pUsession = *iter;
 				break;
 			}
@@ -45,27 +39,22 @@ const UserSession* UserServer::find(int uid)
 	return pUsession;
 }
 
-const UserSession* UserServer::find(const UserInfo* user)
-{
-	if (user == nullptr)
-	{
+const UserSession* UserMgr::find(const UserInfo* user) {
+	if (user == nullptr) {
 		return nullptr;
 	}
 
 	return this->find(user->uid);
 }
 
-const UserSession* UserServer::find(const UserSession* session)
-{
+const UserSession* UserMgr::find(const UserSession* session) {
 	UserSession* pUsession = nullptr;
 
 	{
 		lw_fast_lock_guard l(_lock);
 		iterator iter = this->_users.begin();
-		for (; iter != this->_users.end(); ++iter)
-		{
-			if (session == (*iter))
-			{
+		for (; iter != this->_users.end(); ++iter) {
+			if (session == (*iter)) {
 				pUsession = *iter;
 				break;
 			}
@@ -75,33 +64,30 @@ const UserSession* UserServer::find(const UserSession* session)
 	return pUsession;
 }
 
-void UserServer::modify(UserInfo* user) {
+void UserMgr::modify(UserInfo* user) {
 
 }
 
-int UserServer::add(UserSession* session)
-{
+int UserMgr::add(UserSession* session) {
 	UserSession* pUsession = nullptr;
 
 	{
 		lw_fast_lock_guard l(_lock);
 
 		{
-/*			clock_t t = clock();*/
+			/*			clock_t t = clock();*/
 			iterator iter = this->_users.begin();
-			for (; iter != this->_users.end(); ++iter)
-			{
-				if (session->userinfo.uid == (*iter)->userinfo.uid)
-				{
-					pUsession = *iter; break;
+			for (; iter != this->_users.end(); ++iter) {
+				if (session->userinfo.uid == (*iter)->userinfo.uid) {
+					pUsession = *iter;
+					break;
 				}
 			}
 // 			clock_t t1 = clock();
 // 			LOGFMTD("add -> find time[%f]", ((double)t1 - t) / CLOCKS_PER_SEC);
 		}
 
-		if (pUsession == nullptr)
-		{
+		if (pUsession == nullptr) {
 			this->_users.push_back(session);
 		}
 	}
@@ -109,16 +95,13 @@ int UserServer::add(UserSession* session)
 	return 0;
 }
 
-void UserServer::remove(const UserSession* session)
-{
+void UserMgr::remove(const UserSession* session) {
 	{
 		lw_fast_lock_guard l(_lock);
 		UserSession* pUsession = nullptr;
 		iterator iter = this->_users.begin();
-		for (; iter != this->_users.end(); ++iter)
-		{
-			if (session == (*iter))
-			{
+		for (; iter != this->_users.end(); ++iter) {
+			if (session == (*iter)) {
 				pUsession = *iter;
 				this->_users.erase(iter);
 
@@ -128,17 +111,14 @@ void UserServer::remove(const UserSession* session)
 	}
 }
 
-void UserServer::remove(int uid)
-{
+void UserMgr::remove(int uid) {
 	clock_t t = clock();
 	{
 		lw_fast_lock_guard l(_lock);
 		UserSession* pUsession = nullptr;
 		iterator iter = this->_users.begin();
-		for (; iter != this->_users.end(); ++iter)
-		{
-			if (uid == (*iter)->userinfo.uid)
-			{
+		for (; iter != this->_users.end(); ++iter) {
+			if (uid == (*iter)->userinfo.uid) {
 				pUsession = *iter;
 				this->_users.erase(iter);
 				break;
@@ -146,35 +126,31 @@ void UserServer::remove(int uid)
 		}
 	}
 	clock_t t1 = clock();
-	LOGFMTD("remove uid = [%d], time [%f]", uid, ((double)t1 - t) / CLOCKS_PER_SEC);
+	LOGFMTD("remove uid = [%d], time [%f]", uid,
+			((double)t1 - t) / CLOCKS_PER_SEC);
 }
 
-void UserServer::remove(const UserInfo* user)
-{
-	if (user == nullptr) return;
-		
+void UserMgr::remove(const UserInfo* user) {
+	if (user == nullptr)
+		return;
+
 	this->remove(user->uid);
 }
 
-UserSession* UserServer::operator[](int i)
-{
-	if (i < 0)
-	{
+UserSession* UserMgr::operator[](int i) {
+	if (i < 0) {
 		return nullptr;
 	}
 
-	if (i > this->_users.size())
-	{
+	if (i > this->_users.size()) {
 		return nullptr;
 	}
 
 	UserSession* pUsession = nullptr;
 	int j = 0;
 	iterator iter = this->_users.begin();
-	while (iter != this->_users.end())
-	{
-		if (j == i)
-		{
+	while (iter != this->_users.end()) {
+		if (j == i) {
 			pUsession = *iter;
 			break;
 		}
@@ -184,8 +160,7 @@ UserSession* UserServer::operator[](int i)
 	return pUsession;
 }
 
-void UserServer::removeUserTest()
-{
+void UserMgr::removeUserTest() {
 	clock_t t = clock();
 	int uid = 0;
 	{
@@ -193,17 +168,17 @@ void UserServer::removeUserTest()
 
 		UserSession* pUsession = nullptr;
 
-		if (!this->_users.empty())
-		{
+		if (!this->_users.empty()) {
 			pUsession = this->_users.front();
 			this->_users.pop_front();
 		}
 	}
 	clock_t t1 = clock();
-	LOGFMTD("remove uid = [%d], time [%f]", uid, ((double)t1 - t) / CLOCKS_PER_SEC);
+	LOGFMTD("remove uid = [%d], time [%f]", uid,
+			((double)t1 - t) / CLOCKS_PER_SEC);
 }
 
-int UserServer::size() const {
+int UserMgr::size() const {
 	return this->_users.size();
 }
 

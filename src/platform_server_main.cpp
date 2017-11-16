@@ -16,18 +16,17 @@
 #include "PlatformServer.h"
 
 #include "utils.h"
-#include "UserServer.h"
-
 #include "socket_config.h"
 #include "socket_processor.h"
 
 #include <log4z.h>
+#include <UserMgr.h>
 #include "socket_hanlder.h"
 #include "UserSession.h"
 
 using namespace LW;
 
-static UserServer __g_umgr;
+static UserMgr __g_umgr;
 
 #define USER_COUNT	10000
 

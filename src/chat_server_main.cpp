@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <iostream>
 #include <signal.h>
+#include <UserMgr.h>
 #include <thread>
 #include <vector>
 #include <algorithm>
@@ -16,8 +17,6 @@
 #include "PlatformServer.h"
 
 #include "utils.h"
-#include "UserServer.h"
-
 #include "socket_config.h"
 #include "socket_processor.h"
 #include "socket_hanlder.h"

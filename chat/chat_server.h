@@ -1,6 +1,7 @@
 #ifndef __ChatServer_H__
 #define __ChatServer_H__
 
+#include <UserMgr.h>
 #include <string>
 #include <vector>
 
@@ -8,7 +9,6 @@
 #include "common_struct.h"
 #include "socket_client.h"
 #include "GameDeskHandler.h"
-#include "UserServer.h"
 #include "lock.h"
 #include "socket_server.h"
 
@@ -18,7 +18,7 @@ class SocketSession;
 class ChatServerHandler : public SocketServer
 {
 private:
-	UserServer _users;
+	UserMgr _users;
 	int _client_id;
 	lw_fast_mutex _lock;
 

@@ -1,5 +1,4 @@
-#include "GameServerMgr.h"
-
+#include <GameMgr.h>
 #include "common_marco.h"
 
 #include "socket_processor.h"
@@ -17,18 +16,18 @@ using namespace LW;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-GameServerMgr::GameServerMgr()
+GameMgr::GameMgr()
 {
 	
 }
 
-GameServerMgr::~GameServerMgr()
+GameMgr::~GameMgr()
 {
 	this->destroy();
 
 }
 
-bool GameServerMgr::create(const RoomInfo& r)
+bool GameMgr::create(const RoomInfo& r)
 {
 	for (int i = 0; i < r.deskcount; i++)
 	{
@@ -36,7 +35,7 @@ bool GameServerMgr::create(const RoomInfo& r)
 		desk.did = i;
 		desk.max_usercount = 2;
 		char buf[64];
-		sprintf(buf, "²âÊÔ[%d]", i);
+		sprintf(buf, "game[%d]", i);
 		desk.name = std::string(buf);
 		desk.rid = r.rid;
 		desk.state = DESK_STATE_Empty;
@@ -47,42 +46,42 @@ bool GameServerMgr::create(const RoomInfo& r)
 	return true;
 }
 
-void GameServerMgr::destroy()
+void GameMgr::destroy()
 {
 
 }
 
-void GameServerMgr::sendData(lw_int32 cmd, void* object, lw_int32 objectSize)
+void GameMgr::sendData(lw_int32 cmd, void* object, lw_int32 objectSize)
 {
 	
 }
 
-lw_int32 GameServerMgr::sendData(lw_int32 cmd, void* object, lw_int32 objectSize, const SendDataCallback& cb) {
+lw_int32 GameMgr::sendData(lw_int32 cmd, void* object, lw_int32 objectSize, const SendDataCallback& cb) {
 	
 	return 0;
 }
 
-void GameServerMgr::onSocketConnected(SocketSession* session)
+void GameMgr::onSocketConnected(SocketSession* session)
 {
 
 }
 
-void GameServerMgr::onSocketDisConnect(SocketSession* session)
+void GameMgr::onSocketDisConnect(SocketSession* session)
 {
 
 }
 
-void GameServerMgr::onSocketTimeout(SocketSession* session)
+void GameMgr::onSocketTimeout(SocketSession* session)
 {
 
 }
 
-void GameServerMgr::onSocketError(SocketSession* session)
+void GameMgr::onSocketError(SocketSession* session)
 {
 
 }
 
-int GameServerMgr::onSocketParse(SocketSession* session, lw_int32 cmd, lw_char8* buf, lw_int32 bufsize)
+int GameMgr::onSocketParse(SocketSession* session, lw_int32 cmd, lw_char8* buf, lw_int32 bufsize)
 {
 	switch (cmd)
 	{
@@ -106,7 +105,7 @@ int GameServerMgr::onSocketParse(SocketSession* session, lw_int32 cmd, lw_char8*
 	return 0;
 }
 
-int GameServerMgr::frameMessage(int cmd, void* data, int datasize)
+int GameMgr::frameMessage(int cmd, void* data, int datasize)
 {
 // 	switch (cmd)
 // 	{
@@ -133,17 +132,17 @@ int GameServerMgr::frameMessage(int cmd, void* data, int datasize)
 	return 0;
 }
 
-int GameServerMgr::onGameMessage(int cmd, void* data, int datasize)
+int GameMgr::onGameMessage(int cmd, void* data, int datasize)
 {
 	return 0;
 }
 
-void GameServerMgr::sendSitup(int uid)
+void GameMgr::sendSitup(int uid)
 {
 
 }
 
-void GameServerMgr::sendSitdown(int uid)
+void GameMgr::sendSitdown(int uid)
 {
 
 }
