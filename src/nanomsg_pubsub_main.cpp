@@ -83,7 +83,6 @@ class PushServer: public NanomsgcppSocket, public Threadable {
 					std::this_thread::sleep_for(std::chrono::milliseconds(10));
 				}
 			}
-
 			this->shutdown();
 			return 0;
 		}
@@ -165,7 +164,7 @@ class SubClient: public NanomsgcppSocket, public Threadable {
 		}
 };
 
-static void *pthread_push_msgdata(void *args) {
+static void *push_thread_worker(void *args) {
 	struct pthread_args *pargs = (struct pthread_args *) args;
 
 	//* waiting for connection with server done.*/
@@ -199,10 +198,12 @@ int main_pubsub_servr(int argc, char** argv) {
 	pargs.destroy_flag = 0;
 
 	{
-		std::thread a(pthread_push_msgdata, &pargs);
+		std::thread a(push_thread_worker, &pargs);
 		a.detach();
 	}
-
+	// inproc://test
+	// ipc:///tmp/test.ipc
+	// tcp://*:5555
 	struct common_pthread_args args;
 	args.pargs = &pargs;
 	args.url = (argv[3] != NULL) ? argv[3] : "tcp://127.0.0.1:5555";
