@@ -61,7 +61,6 @@ int main(int argc, char** argv) {
 					q.clear();
 				});
 
-
 	SocketInit sinit;
 
 	ILog4zManager::getInstance()->start();
@@ -77,7 +76,7 @@ int main(int argc, char** argv) {
 				{ "platform", main_platform_server },
 				{"game", main_game_server },
 				{ "http_server", main_http_server },
-				{ "pubsub", main_pubsub_servr },	//pubsub tcp://127.0.0.1:5555 -s
+				{ "pubsub", main_pubsub_servr },	//pubsub -s tcp://127.0.0.1:5555
 				{ "survey", main_nanomsg_survey },
 				{ "nanorpc", main_nonamsg_rpc },
 				{ "ai", main_ai_server },

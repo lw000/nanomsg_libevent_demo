@@ -1,5 +1,5 @@
 #include "PlatformServer.h"
-
+#include <stdio.h>
 #include <iostream>
 #include <memory>
 #include <sstream>
@@ -40,11 +40,12 @@ class Delegate {
 		}
 
 		Delegate& operator -(const T& h) {
-					std::remove_if(vhandler.begin(), vhandler.end(), [&h](const T& v) -> bool {
+			std::remove_if(vhandler.begin(), vhandler.end(),
+					[&h](const T& v) -> bool {
 						return h == v;
 					});
-					return *this;
-				}
+			return *this;
+		}
 
 	private:
 		std::vector<T> vhandler;
@@ -67,6 +68,17 @@ class FmtString {
 			std::string r;
 			ss >> r;
 			return r;
+		}
+
+		std::string& fmt(const char* format, ...) {
+			va_list args;
+			va_start(args, format);
+			char buf[10240] = {0};
+			int c = vsnprintf(buf, 10240 - 3, format, args);
+			strcat(buf, "\n");
+			va_end(args);
+			this->s.append(buf);
+			return this->s;
 		}
 
 	private:
@@ -123,6 +135,9 @@ SocketSession* PlatformServerHandler::onSocketListener(
 		delegate = delegate
 				+ SOCKET_EVENT_SELECTOR(PlatformServerHandler::onSocketError,
 						this);
+
+		FmtString sss("abcdefghijklmnopqrstuvwxyz");
+		sss.fmt("%d-%s", 10, "11111");
 
 		int r = pSession->create(processor, new SocketConfig, fd);
 		if (r == 0) {
