@@ -2,18 +2,76 @@
 
 #include <iostream>
 #include <memory>
-
-#include "socket_session.h"
+#include <sstream>
+#include <vector>
+#include <algorithm>
 
 #include "log4z.h"
 #include "UserSession.h"
 #include "socket_config.h"
+#include "socket_session.h"
 #include "common_marco.h"
 
 #include "command.h"
 #include "platform.pb.h"
 
 using namespace LW;
+
+template<class T>
+class Delegate {
+	public:
+		Delegate() {
+
+		}
+
+		~Delegate() {
+
+		}
+
+	public:
+		void execute() {
+
+		}
+
+	public:
+		Delegate& operator +(const T& h) {
+			vhandler.push_back(h);
+			return *this;
+		}
+
+		Delegate& operator -(const T& h) {
+					std::remove_if(vhandler.begin(), vhandler.end(), [&h](const T& v) -> bool {
+						return h == v;
+					});
+					return *this;
+				}
+
+	private:
+		std::vector<T> vhandler;
+};
+
+class FmtString {
+	public:
+		FmtString(const std::string& s) {
+			this->s = s;
+		}
+
+		~FmtString() {
+
+		}
+
+	public:
+		std::string fmt(const std::string& s, int v) {
+			std::stringstream ss;
+			ss << v;
+			std::string r;
+			ss >> r;
+			return r;
+		}
+
+	private:
+		std::string s;
+};
 
 PlatformServerHandler::PlatformServerHandler() {
 	this->_base_client_id = 0;
@@ -52,6 +110,20 @@ SocketSession* PlatformServerHandler::onSocketListener(
 				PlatformServerHandler::onSocketError, this);
 		pSession->onDataParseHandler = SOCKET_DATAPARSE_SELECTOR_4(
 				PlatformServerHandler::onSocketParse, this);
+
+		Delegate<SocketEventHandler> delegate;
+		delegate = delegate
+				+ SOCKET_EVENT_SELECTOR(PlatformServerHandler::onSocketTimeout,
+						this);
+
+		delegate = delegate
+				+ SOCKET_EVENT_SELECTOR(
+						PlatformServerHandler::onSocketDisConnect, this);
+
+		delegate = delegate
+				+ SOCKET_EVENT_SELECTOR(PlatformServerHandler::onSocketError,
+						this);
+
 		int r = pSession->create(processor, new SocketConfig, fd);
 		if (r == 0) {
 			int new_client_id = 0;
@@ -59,7 +131,10 @@ SocketSession* PlatformServerHandler::onSocketListener(
 				lw_fast_lock_guard l(_lock);
 				new_client_id = this->_base_client_id++;
 			}
+
 			pSession->userinfo.uid = new_client_id;
+			pSession->userinfo.age = 20;
+			pSession->userinfo.name = std::string("test");
 
 			this->_roomserver.join(pSession);
 
